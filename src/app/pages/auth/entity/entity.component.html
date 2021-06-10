@@ -1,0 +1,175 @@
+<h3 class="popup_title">Entity Creation
+    <!-- <button mat-button class="modal_close_icon" [mat-dialog-close]="false" cdkFocusInitial>
+    <i class="material-icons">close</i>
+  </button> -->
+</h3>
+<mat-dialog-content class="mat-typography md-dialog">
+    <div class="content-pageXXX container-fluid">
+        <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit(saveForm.value)">
+
+            <h4 class="page-title" style="font-weight: bold;padding:0px !important"> Entity Add</h4>
+            <!-- <div class="card" style="margin: 15px;">
+        <div class="card-body"> -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Entity Name" formControlName="entityName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="User Login Id" formControlName="userLoginId">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Location" formControlName="location">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Sublocation" formControlName="subLocation">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Plan Name" formControlName="planName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Mobile Number" type="text" pattern="^[0-9]*$" formControlName="mobile" minlength="8" maxlength="15">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <!-- <input matInput placeholder="Email Id" pattern="^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$" formControlName="email"> -->
+                            <textarea matInput placeholder="Email Id" formControlName="email"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <!-- <input matInput placeholder="Address" formControlName="entityAddress"> -->
+                            <textarea matInput placeholder="Address" formControlName="entityAddress"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-md-2" style="pointer-events: none;">
+                        <mat-checkbox formControlName="status">Active</mat-checkbox>
+                    </div> -->
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Application Language" formControlName="entityLang">
+                                <input type="text" placeholder="Search"
+                                    class="advanceddropSearchTextbox" [(ngModel)]="languageFilter"
+                                    [ngModelOptions]="{standalone: true}">
+                                <mat-option class="select-span">Select Here</mat-option>
+                                <mat-option
+                                    *ngFor="let language of languageList  | dropdownFilter : {language: languageFilter}"
+                                    [value]="language.languageCode">{{language.language}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> 
+                </div>
+            </div>
+            <!-- </div>
+      </div> -->
+
+            <h4 class="page-title" style="font-weight: bold;padding:0px !important"> Password Details</h4>
+            <!-- <div class="card" style="margin: 15px;">
+        <div class="card-body"> -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password Length"  type="text" pattern="^[0-9]*$" formControlName="passwordLength"
+                            (change)="pwdCheck($event)" [minlength]="1" [maxlength]="2">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password Special Character"  type="text" pattern="^[0-9]*$" formControlName="passwordSpecialChar" [minlength]="1" [maxlength]="2">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password Numeric Character"  type="text" pattern="^[0-9]*$" [minlength]="1" [maxlength]="2" formControlName="passwordNumeric">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password Alphabetic Character"  type="text" pattern="^[0-9]*$" [minlength]="1" [maxlength]="2" formControlName="passwordAlphanumericCaps">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Expiry Days" type="text"  [minlength]="1" [maxlength]="2" formControlName="expiryDays">
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password Check Count" type="text" pattern="\d*" formControlName="passwordCheckCount">
+                        </mat-form-field>
+                    </div> -->
+                </div>
+            </div>
+            <!-- </div>
+      </div> -->
+
+            <h4 class="page-title" style="font-weight: bold;padding:0px !important"> Entity Details</h4>
+            <!-- <div class="card" style="margin: 15px;">
+         <div class="card-body"> -->
+            <div class="row" *ngIf="saveForm">
+                <div class="col-md-12" formArrayName="entityLicenseDetailsVoList" *ngFor="let item of saveForm.get('entityLicenseDetailsVoList')['controls']; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}">
+                            <mat-form-field>
+                                <input matInput placeholder="From Date" [min]="today" [matDatepicker]="picker1" formControlName="fromDate" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1 color="warn"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="To Date" [min]="saveForm.value.entityLicenseDetailsVoList[0].fromDate" [matDatepicker]="picker2" formControlName="toDate" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2 color="warn"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3"  [ngClass]="{'readOnly' : enable == true}" >
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="User Count" type="text" pattern= "^([0-9])+$" formControlName="userCount">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Transaction Count" type="text" pattern= "^([0-9])+$" formControlName="transactionCount">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center mt-20 mb-20">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" [disabled]="saveForm.invalid" type="submit">Save</button>
+
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" type="button" (click)="clear()">Clear</button>
+
+                    <button mat-raised-button color="warn" class="btn-orange" (click)="closeForm()" type="button">Back</button>
+                </div>
+            </div>
+            <!-- </div>
+      </div> -->
+
+        </form>
+    </div>
+</mat-dialog-content>

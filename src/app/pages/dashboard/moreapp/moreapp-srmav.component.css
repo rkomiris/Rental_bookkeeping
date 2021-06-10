@@ -1,0 +1,118 @@
+.row{
+    padding:3rem 0;
+}
+footer{
+    text-align: center;
+}
+.panel-body{
+  padding:10rem 15px;
+    position: relative;
+}
+.barg,.pieg{
+    padding: 0;
+}
+.caroitem{
+    min-width:100px;
+    /* min-height: 90px; */
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 10px;
+    /* background-color: rgb(59, 224, 224); */
+    /* border: 50px solid #d9a249; */
+    /* border: 50px solid #eaac46; */
+    /* padding: 5px; */
+    text-emphasis: center;
+    z-index: 9;
+    box-shadow: inset 0px 0px 10px 3px #CCC;
+}
+.caroitem:hover {
+    min-width:100px;
+    /* border: 1px solid #c58a2b; */
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+    color: #000;
+    /* border-radius: 5px; */
+    /* box-shadow: inset 0px 0px 10px 3px #c58a2b; */
+}
+
+.caroitem:hover:nth-child(odd) {
+    border: 1px solid #c58a2b;
+    box-shadow: inset 0px 0px 10px 3px #c58a2b;
+}
+
+.caroitem:hover:nth-child(even) {
+    border: 1px solid #8f8837;
+    box-shadow: inset 0px 0px 10px 3px #8f8837;
+}
+
+
+
+.caroitems{
+  width: 100%;
+    display: flex;
+
+    position: relative;
+}
+#caroitems,#caroitems2{
+    width: 100%;
+      display: flex;
+     left: 0;
+      position: relative;
+      transition: 1s;
+  }
+  
+.caroconatiner{
+   /* width: 95%; */
+    width: 92%;
+    overflow: hidden;
+    position: relative;
+    margin: 0% 4%;
+    
+}
+.arrows{
+    position: absolute;
+    /* width: 100%;  */
+    width: 96%; 
+    display: flex;
+    top:60%;
+    /* margin-top: -8px; */
+    /* margin-top: -22px; */
+   left: 0;
+   padding: 0 0px;
+    justify-content: space-between;
+    margin: -22px 12px 0 12px;
+    
+}
+.caro{
+    /* padding:0 20px; */
+}
+.arrows div{
+    cursor: pointer; 
+   
+}
+
+text{
+    color:white;
+    font-weight: bold;
+    fill:gainsboro;
+}
+
+
+/* d3 styles */
+:root { --var-color-grey: #898989; }
+text {
+    font-family: Helvetica;
+    color: var(--var-color-grey);
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: var(--var-color-grey);
+    shape-rendering: crispEdges;
+}
+.x.axis {font-size: 15px;  }
+.y.axis {font-size: 12px; }

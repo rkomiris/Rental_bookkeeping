@@ -1,0 +1,305 @@
+<div class="content-pageXXX container-fluid">
+  <div class="contentXXX main-content">
+
+    <app-left-nav></app-left-nav>
+    <app-tasks></app-tasks>
+
+    <article class="right-panel">
+
+      <h4 class="page-title">{{labels.request  | i18n}}</h4>
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <mat-accordion class="advance_search_sec">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{labels.search}}</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="row advance_search_divBox">
+                <div class="col-md-7">
+                  <form #searchListForm [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm.value)">
+                    <div class="row" id="style-8">
+
+                      <div class="col-md-12">
+                        <mat-radio-group formControlName="flag">
+                          <div class = "col-md-3">
+                            <mat-radio-button [value]="1">{{labels.current30}}</mat-radio-button>
+                          </div>
+  
+                          <div class = "col-md-3">
+                            <mat-radio-button [value]="2">{{labels.days3045}}</mat-radio-button>
+  
+                          </div>
+                          <div class = "col-md-3">
+                            <mat-radio-button [value]="3">{{labels.days4590}}</mat-radio-button>
+  
+                          </div>
+                          <div class = "col-md-3">
+                            <mat-radio-button [value]="4">{{labels.more90}}</mat-radio-button>
+  
+                          </div>                      
+  
+  
+                        </mat-radio-group>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="row" *ngIf="searchForm">
+                          <div class="col-md-12" formArrayName="searchDatas"
+                            *ngFor="let item of searchForm.controls['searchDatas'].controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                              <div class="col-md-6">
+                                <mat-form-field style="margin-top: 10px;">
+                                  <mat-select [(ngModel)]="qtd[i]" formControlName="dropDownVal"
+                                    placeholder="{{labels.choosethefield}}" required>
+                                    <mat-option [disabled]="searchCombo.dis" *ngFor="let searchCombo of searchCombo"
+                                      (click)="changefield(searchCombo,i,searchForm)" [value]="searchCombo.value">
+                                      {{searchCombo.name}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-6" *ngIf="qtd[i]!=='descisionType' && qtd[i]!=='requestDate'">
+                                <mat-form-field style="margin-top: 10px;">
+                                  <input matInput placeholder="{{labels.value}}" [(ngModel)]="qtm[i]" formControlName="textVal"
+                                    (keyup)="removeFilter($event.target.value)" required>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6" *ngIf="qtd[i]==='requestDate'">
+                                <mat-form-field style="margin-top: 10px;">
+                                  <input matInput [matDatepicker]="picker3" [(ngModel)]="qtm[i]"
+                                    formControlName="textVal" placeholder="{{labels.date}}" readonly required
+                                    (keyup)="removeFilter($event.target.value)" (click)="dateFormat($event)">
+                                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker3></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6" *ngIf="qtd[i]==='descisionType'">
+                                <mat-form-field style="margin-top: 10px;">
+                                  <mat-select [(ngModel)]="qtm[i]" formControlName="textVal" placeholder="{{labels.decision}}"
+                                    (keyup)="removeFilter($event.target.value)" required>
+                                    <mat-option *ngFor="let desi of desicionarr" [value]="desi.id">{{desi.name}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 text-right">
+                        <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);"
+                          (click)="addSequence(searchForm)">
+                          <i _ngcontent-c19="" class="material-icons">add</i>
+                        </a>
+                        <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);"
+                          (click)="deleteSequence()">
+                          <i _ngcontent-c19="" class="material-icons">remove</i>
+                        </a>
+                      </div>
+
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 text-left">
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"
+                          >{{labels.search}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="button"
+                          (click)="searchClear()">{{labels.reset}}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <mat-grid-list cols="1" align="end">
+            <mat-form-field style="width:inherit;">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{labels.filter}}" autocomplete="off">
+            </mat-form-field>
+
+            <button *ngIf="add" mat-icon-button routerLink="/request/request-add">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.add}}">note_add</mat-icon>
+            </button>
+
+            <button *ngIf="modify" mat-icon-button (click)="requestModify()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.modify}}">edit</mat-icon>
+            </button>
+
+            <button *ngIf="view" mat-icon-button (click)="requestView()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.view}}">visibility</mat-icon>
+            </button>
+
+            <button *ngIf="reopen" mat-icon-button (click)="requestreopen()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.reopen}}">settings_backup_restore
+              </mat-icon>
+            </button>
+            <button *ngIf="close" mat-icon-button (click)="requestclose()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.close}}">close</mat-icon>
+            </button>
+            <button *ngIf="cancel" mat-icon-button (click)="removeSelectedRows()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.cancel}}">remove_circle_outline
+              </mat-icon>
+            </button>
+            <button mat-icon-button (click)="exportAsXLSX()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Download">cloud_download</mat-icon>
+            </button>
+          </mat-grid-list>
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="dTable">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'" style="width:50px;">
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row" [ngClass]="'text-center'">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="requestCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.requestCode}} </th>
+              <td mat-cell *matCellDef="let row">
+                <span style="background-color: #d4418b; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.forwardRequestId != null">{{row.requestCode}}</span>
+                <span style="background-color: #bb40d2; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.redirectRequestId != null">{{row.requestCode}}</span>
+                <span  *ngIf="row.redirectRequestId == null && row.forwardRequestId == null">{{row.requestCode}}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="requestDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.requestDate}} </th>
+              <td mat-cell *matCellDef="let row"> {{row.requestDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="requestTypeName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.reqType}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.requestTypeName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="requestSubTypeName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.reqSubType}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.requestSubTypeName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="locationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.location}} </th>
+              <td mat-cell *matCellDef="let row"> {{row.locationName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="sublocationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.sublocation}} </th>
+              <td mat-cell *matCellDef="let row"> {{row.sublocationName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="userDepartmentName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.department}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.userDepartmentName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="reqSublocationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.requestSubLocation}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.reqSublocationName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="forwardRedirectRemarks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.forwardRedirectRemarks}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.forwardRedirectRemarks}}</td>
+            </ng-container>
+            <ng-container matColumnDef="resolverRemarks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.resolverRemarks}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.resolverRemarks}}</td>
+            </ng-container>
+            <ng-container matColumnDef="reqLocationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.requestLocation}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.reqLocationName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="currentStatusName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-right: 0px;"> {{labels.currentStatus}} </th>
+              <td mat-cell *matCellDef="let row" style="font-size: 12px;padding-right: 0px;">
+                <span
+                  style="background-color: #a69a9a; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='APP'">{{labels.approved}}</span>
+                <span
+                  style="background-color: #ff9c02; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='PEN'">{{labels.pending}}</span>
+                <span
+                  style="background-color: #ff4a36; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='RO'">{{labels.reopen}}</span>
+                <span
+                  style="background-color: #f44336; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='CAN'">{{labels.cancelled}}</span>
+                <span
+                  style="background-color: #398235; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='COM'">{{labels.completed}}</span>
+                <span
+                  style="background-color: rgb(214, 22, 173); padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='RS'">{{labels.resubmit}}</span>
+                <span
+                  style="background-color: #d9534f; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='REJ'">{{labels.rejected}}</span>
+                <span
+                  style="background-color: #5bc0de; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='IP'">{{labels.inprogress}}</span>
+                <span
+                  style="background-color: rgb(136, 28, 207); padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='RA'">{{labels.reassign}}</span>
+                <span
+                  style="background-color: #a9bf00; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='CLO'">{{labels.closed}}</span>
+                <span
+                  style="background-color: #de5400; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='ESC'">{{labels.escalated}}</span>
+                <span
+                  style="background-color: #f3afaf; padding: .2em .6em .3em;color: #fff;text-align: center;border-radius: .25em; "
+                  *ngIf="row.currentStatusCode==='HOLD'">{{labels.hold}}</span>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="userRoleFieldName"></tr>
+            <tr mat-row *matRowDef="let row;  columns:userRoleFieldName"
+              (click)="selection.toggle(row)" (click)="recordview(row)"
+              (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+              [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"></tr>
+
+            <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.highlighted = !row.highlighted" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+            </tr>-->
+          </table>
+
+          <div [hidden]="displayNoRecords" class="p-10">
+            <h3 class="noRecordGrid">{{labels.noRecords}}</h3>
+          </div>
+
+
+        </div>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </article>
+
+
+  </div>
+</div>

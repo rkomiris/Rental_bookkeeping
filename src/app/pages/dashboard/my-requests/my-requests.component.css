@@ -1,0 +1,117 @@
+.myRequest_sec ul {margin: 0; padding: 0;}
+.myRequest_sec ul li {
+    margin: 0 10px 10px 0px;
+    padding: 0;
+    width: 47%;
+    float: left;
+    background: #e7e7e7;
+    color: #555;
+    list-style-type: none;
+    border: 0px solid #CCC;
+    border-radius: 5px;
+    border: 1px solid #cecece;
+}
+.myRequest_sec ul li:hover {background: #DDD; border: 1px solid #ccc;}
+
+.myRequest_sec ul li a {text-decoration: none; padding: 0;}
+.myRequest_sec ul li .app_iconSec {
+    width: 20%;
+    float: left;
+    /* padding: 5px 5px; */
+    padding: 6px 3px 7px;
+    color: #a2a2a2;
+    text-align: center;
+    /* border-radius: 5px 0px 0px 5px;
+    background: #e05c62; */
+}
+.myRequest_sec ul li .app_iconSec .material-icons {line-height: inherit;}
+.myRequest_sec ul li .app_detailText {
+    width: 55%;
+    float: left;
+    padding: 13px 5px;
+    color: #272727;
+    line-height: 16px;
+    font-size: 12px;
+}
+
+.myRequest_sec ul li .app_reqCountBox_sec {width: 25%; float: right; text-align: center;}
+.myRequest_sec ul li .app_reqCountBox {
+    width: 35px;
+    height: 35px;
+    /* float: left; */
+    padding: 10px 0px;
+    color: #fff;
+    line-height: 16px;
+    font-size: 15px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 4px 0px;
+    display: inline-block;
+    background-image: linear-gradient(to right bottom, #fc745a, #fd6c5f, #fe6365, #fe5a6b, #fd5272);
+}
+
+
+/* .myRequest_sec ul li .app_reqCountBox.escalated_bgColor {
+    background: #de5400;
+}
+
+.myRequest_sec ul li .app_reqCountBox.approved_bgColor {
+    background: #a9bf00;
+}
+
+.myRequest_sec ul li .app_reqCountBox.completed_bgColor {
+    background: #398235;
+}
+
+.myRequest_sec ul li .app_reqCountBox.close_bgColor {
+    background: #8e7e7db3;
+}
+
+.myRequest_sec ul li .app_reqCountBox.reopen_bgColor {
+    background: #ff4a36;
+}
+
+.myRequest_sec ul li .app_reqCountBox.pending_bgColor {
+    background: #ff9c02;
+} */
+
+
+.myRequest_sec ul li:nth-of-type(1) .app_reqCountBox {
+    background: #de5400;
+}
+
+.myRequest_sec ul li:nth-of-type(2) .app_reqCountBox {
+    background: #a9bf00;
+}
+
+.myRequest_sec ul li:nth-of-type(3) .app_reqCountBox {
+    background: #398235;
+}
+
+.myRequest_sec ul li:nth-of-type(4) .app_reqCountBox {
+    background: #8e7e7db3;
+}
+
+.myRequest_sec ul li:nth-of-type(5) .app_reqCountBox {
+    background: #ff4a36;
+}
+
+.myRequest_sec ul li:nth-of-type(6) .app_reqCountBox {
+    background: #ff9c02;
+}
+
+
+
+
+@media (min-width:360px) and (max-width:1024px) {
+    .myRequest_sec ul li {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (min-width:361px) and (max-width:768px) {
+    .myRequest_sec ul li {
+        width: 47%;
+    }
+}

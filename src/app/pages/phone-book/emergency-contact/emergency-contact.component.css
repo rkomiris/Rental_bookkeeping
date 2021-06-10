@@ -1,0 +1,74 @@
+.md-dialog{
+    width:600px;
+    padding-top: 30px;
+    margin: 0;
+  }
+  .btnCenter .dialogBtn.mat-raised-button.mat-primary{
+    margin-left: 0px !important;
+  }
+  .custom-dialog-container .mat-dialog-container {
+      padding: 0;
+    }
+  .custom-dialog-container .mat-dialog-container {
+      padding: 0;
+    }
+  
+    .modal_close_icon{
+      float: right;
+      margin-top: -8px;
+      min-width: auto;
+      padding: 0;
+      position: inherit;
+  }
+   
+   .mat-dialog-actions{
+    margin-bottom: 15px;
+   }
+
+   .dialogBtn.mat-raised-button.mat-basic{
+    background-color: #888888; color: #FFF;
+   }
+   .dialogBtn.mat-raised-button.mat-basic:hover{
+    background: #ababab; 
+    border-radius: 20px 20px 20px 20px; 
+    transition:  0.2s ease-out;
+    transform: translateY(0);
+    /* box-shadow: 0 .3rem 0 #b5b5b5; */
+   }
+
+
+
+
+   textarea{
+     resize:none;
+     min-height: 48px;
+   }
+   .radio-row{
+    text-align: center;
+    float: none;
+    width: 30%;
+    margin: auto;
+    margin-top: -40px;
+    margin-bottom: 60px;
+   }
+   .cdk-global-overlay-wrapper{
+    z-index: 888888 !important;
+  }
+  #topnav{
+    z-index: 777 !important;
+  }
+  .cdk-overlay-pane{
+    z-index: 999999 !important;
+  }
+
+  .table-custom{
+    color: #fff;
+    background: linear-gradient(-45deg, #00679a, #f67872, #00679a, #23D5AB);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease infinite;
+    -moz-animation: Gradient 15s ease infinite;
+    animation: Gradient 15s ease infinite;
+  }
+  .table-custom>tbody>tr>th, .table-custom>tbody>tr>td{
+  border: 5px solid white;
+  }

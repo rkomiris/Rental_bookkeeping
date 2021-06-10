@@ -1,0 +1,39 @@
+<div class="content-pageXXX container-fluid">
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+
+      <article class="right-panel">
+
+        <h4 class="page-title">Amenity Add</h4>
+
+        <div class="row">
+          <!-- <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Code" formControlName="amenityCode">
+            </mat-form-field>
+          </div> -->
+          <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'amenityName' ">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Amenity Name" formControlName="amenityName">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 mt-15 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'amenityActive' ">
+            <mat-checkbox formControlName="amenityActive">Active</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Save</button>
+             <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="clearForm()">Clear</button>
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/amenity">Back</button>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+  </form>
+</div>

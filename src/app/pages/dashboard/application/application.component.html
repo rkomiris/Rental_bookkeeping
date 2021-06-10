@@ -1,0 +1,39 @@
+<div class="caro">
+  <div class="caroconatinerCCC">
+      <!-- <div style="display: table;">
+      <div style="display: table-cell"> -->
+      <!-- <div  id="caroitemsapp">
+          <div *ngFor="let app of applicaitonData;index as i">
+              <div class="caroitem">
+                    <img src="assets/img/monitor.png" width="32px" height="32px" alt="">
+                {{app.requestTypeName}}
+              </div>
+          </div>
+      </div> -->
+      <!-- </div>
+      </div> -->
+
+      <!-- <ng-scrollbar></ng-scrollbar> -->
+
+
+      <div class="application_sec">
+        <ul>
+            <li *ngFor="let tt of applicaitonData">
+                <a href="javascript:;"  (click)="gotoURL(tt)">
+                    <!-- <span class="app_iconSec"><mat-icon matListIcon>folder</mat-icon></span> -->
+                    <span class="app_iconSec"><img src="assets/img/monitor.png"></span>
+                    <span class="app_iconSec_srmav"></span>
+                    <span class="app_detailText">{{tt.requestTypeName}}</span>
+                </a>
+            </li>
+        </ul>
+      </div>
+
+  </div>
+
+  <!-- <div class="arrows">
+    <div (click)="goLeft()" ><mat-icon>chevron_left</mat-icon></div>
+    <div (click)="goRight()"><mat-icon>chevron_right</mat-icon></div>
+  </div> -->
+</div>
+

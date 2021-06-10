@@ -1,0 +1,54 @@
+<div class="content-pageXXX container-fluid">
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit(saveForm)">
+        <div class="contentXXX main-content">
+
+            <article class="right-panel">
+                <app-left-nav></app-left-nav>
+                <h4 class="page-title">{{labels.contactDetailsModify  | i18n}}</h4>
+
+                <div class="col-md-12">
+                    <mat-card>
+                        <div class="row">
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'emergencyContactName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.emergencyContactName}}" [maxlength]="50"
+                                    formControlName="emergencyContactName">
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'emergencyContactPath' ">
+                   <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Emergency Contact Path" formControlName="emergencyContactPath">
+                  </mat-form-field>
+                </div> -->
+                            <div class="col-md-6 download_attachment" *ngIf="userBaseFieldName | arrayFilter : 'emergencyContactPath' ">
+                                <div class="row">
+                                    <div class="col-md-1 pr-0 mt-15">
+                                        <mat-icon style="color:#000; cursor:pointer" class="icons-color-white" (click)="download()" matTooltip="{{labels.download}}">vertical_align_bottom</mat-icon>
+
+                                    </div>
+                                    <div class="col-md-11 download_attachment">
+                                        <mat-form-field class="example-full-width hover" matTooltip="Attachment">
+                                            <span *ngIf="formField.emergencyContactPath">{{formField.emergencyContactPath}}</span>
+                                            <ngx-mat-file-input matInput formControlName="emergencyContactPath" name="emergencyContactPath" (click)=get()></ngx-mat-file-input>
+                                            <!-- <input  type="file" placeholder="Icon" #fileInput  id="file" [(ngModel)]="seqmodel.requestAttachment" name="requestAttachment"
+                              formControlName="requestAttachment">  -->
+                                            <mat-icon matSuffix>folder</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit" [disabled]="!saveForm.valid">{{labels.modify}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="button" (click)="loadData()">{{labels.clear}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange" type="button" routerLink="/contact-details">{{labels.back}}</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </form>
+</div>

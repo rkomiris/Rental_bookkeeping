@@ -1,0 +1,162 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 bodySection">
+
+
+      <!-- *********** Request Details ************ -->
+      <div class="col-md-9 viewSection" [@expandPanel]="dashboard">
+        <div class="row scrollbar">
+          <div class="col-md-3 " *ngFor="let count of countList">
+            <mat-card class="mt-10 matCard">
+              <mat-card-title class="matCardTitle matCardClass" matTooltip="{{count.requestSubtypeName}}" 
+              matTooltipClass="tooltipClass">{{count.requestSubtypeName}}
+              </mat-card-title>
+              <mat-card-body>
+                <div class="matCardBody ">
+                  <a>
+                    <span style="font-size: 37px;color: white;cursor: default;">
+                      {{count.subtypeCount}}
+                    </span>
+                  </a></div>
+              </mat-card-body>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- *********** View Details *********** -->
+      <div class="col-md-9 viewSection viewSection_details" [@expandPanel]="viewboard">
+        <div *ngFor="let request of requestAllList">
+          <app-request-view></app-request-view>
+          <div class="row">
+            <div class="col-md-12 text-center mt-10">
+              <button type="button" mat-raised-button color="warn" class="btn-orange" (click)="refresh()">Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ********* Request List ************ -->
+
+      <div class="col-md-3 searchColumn">        
+          <div class="row">
+            <div class="col-md-12">
+
+              <!-- ********** POP UP *********** -->
+              <div class="text-left pr-10 mb-10">
+                <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="dialogOpen()"
+                  type="button">{{labels.search}}</button>
+                <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="refresh()"
+                  type="button">{{labels.refresh}}</button>
+              </div>
+              <!-- <button type="button" (click)="opendialog()"> Search</button> -->
+
+              <!-- ******** LOCAL SEARCH ********** -->
+              <mat-form-field class="pr-15" style="width:inherit;">
+                <input matInput [(ngModel)]="term" name="term" placeholder="{{labels.filter}}">
+                <mat-icon matSuffix class="mr-1">search</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="scrollbar" id="style-8">
+            <div class="row"  *ngIf="RecordEnable">
+              <div class="col-md-12" *ngIf = " this.requestList1 !== null">
+                <mat-card *ngFor="let request of requestList1 | filter:term" class="mb-5 reqMatcard" (click)="getAllList(request)">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="row mb-5">
+                        <div class="col-md-6">
+                          <span class="list-priority" *ngIf="request.requestPriority===1"
+                            style="background-color: #f77772;">{{labels.low}}</span>
+                          <span class="list-priority" *ngIf="request.requestPriority===2"
+                            style="background-color: #f7be19;">{{labels.medium}}</span>
+                          <span class="list-priority" *ngIf="request.requestPriority===3"
+                            style="background-color: #28c128;">{{labels.high}}</span>
+                        </div>
+                        <div class="col-md-6 lightfont">
+                          <mat-icon class="error">date_range</mat-icon>
+                          <p class="lightfont dayleft">
+                            {{request.requestDate | date:'dd-MMM-yyyy'}}
+                          </p>
+                        </div>
+                      </div> <!-- ROW ONE -->
+                      <!-- <div class="row mb-5 col-md-12 list-user">
+                        <span class="">{{request.userName | uppercase}}</span>                      
+                      </div> -->
+                      <div class="row mb-5 col-md-12">
+                          <span class="list-subTypeReq">  {{labels.userName}} : {{request.userName}} </span>
+                          <br/>
+                        <span class="list-subTypeReq">{{request.requestSubTypeName}}</span>
+                                            
+                      </div> <!-- ROW TWO -->
+
+                      <div class="row mb-5">
+                        <div class="col-md-6">
+                          <span class="list-reqCode" style="background-color: #9c9c21;">{{request.requestCode}}</span>
+                        </div>
+                        <div class="col-md-6">
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===1"
+                            style="background-color: #398235;color:white">{{labels.completed}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===2"
+                            style="background-color: #ff9c02;">{{labels.pending}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===3"
+                            style="background-color: #de5400;">{{labels.escalated}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===4"
+                            style="background-color: #f7be19;">{{labels.new}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===5"
+                            style="background-color: #a69a9a;">{{labels.approved}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===6"
+                            style="background-color: #d9534f;color:white">{{labels.rejected}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===7"
+                            style="background-color: rgb(214, 22, 173);">{{labels.resubmit}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===8"
+                            style="background-color: #5bc0de;">{{labels.inprogress}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===9"
+                            style="background-color: rgb(136, 28, 207);">{{labels.reassign}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===10"
+                            style="background-color: #ff4a36;">{{labels.reopen}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===11"
+                            style="background-color: #a9bf00;">{{labels.closed}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===12"
+                            style="background-color: #f44336;">{{labels.notworking}}</span>
+                          <span class="list-reqCode" *ngIf="request.currentStatusId===13"
+                            style="background-color: #f3afaf;">{{labels.cancelled}}</span>
+                            <span class="list-reqCode" *ngIf="request.currentStatusId===14"
+                              style="background-color: #9e29b3;color:white">{{labels.hold}}</span>
+                        </div>
+                      </div>
+                      <!--ROW THREE -->
+                      
+
+                      <div class="row mb-5 col-md-12">
+                        <span> {{request.requestSubject}}</span>
+                      </div> <!-- ROW FOUR -->
+
+                    </div>
+                  </div>
+                </mat-card>
+                <mat-paginator [length]="requestList.length"
+              [pageSize]="size"
+              [pageIndex]="page"
+              [pageSizeOptions]="[4, 8, 12]"
+            (page)="getData($event)">
+            </mat-paginator>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="RecordEnable2">
+              <div class=" col-md-12" style="text-align: center ">
+                <span class="mt-5 mb-5">
+                  <a style="cursor:default;font-size:13px; color:black">{{labels.noRecords}}</a>
+                </span>
+              </div>                   
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>

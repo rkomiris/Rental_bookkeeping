@@ -1,0 +1,79 @@
+.parent{
+    width: 90%;
+    padding: 3rem 0;
+    text-align: justify;
+
+}
+.parent h1{
+    font-family: 'Montserrat-SemiBold';
+
+}
+.parent p{
+    font-family: 'Montserrat-Light';
+}
+img {
+    margin-left: 20px;
+}
+.custom-row{
+    width: 400px;
+    height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+hr {
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+h1.mt-0.head-text {
+    font-size: 18px;
+    color: #005181
+}
+.vertical-layout{
+    height: 60vh;
+}
+.inner-vertical-layout{
+    height: 52vh;
+    overflow-y: scroll;
+}
+.multiple-media-body{
+    padding: 0 10px;display: block;width: 100%;    margin-bottom: 10px;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(0, 81, 129)), color-stop(100%, rgb(147, 195, 57)));
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(0, 81, 129)), color-stop(100%, rgb(147, 195, 57)));
+
+  }
+
+.imagePreview {
+  width: 120px;
+  height: 120px;
+  background-position: center center;
+/*background:url(https://images.vexels.com/media/users/3/147102/isolated/preview/082213cb0f9eabb7e6715f59ef7d322a-instagram-profile-icon-by-vexels.png);*/
+background:url('/assets/img/profile1.png');
+background-color:#fff;
+  background-size: cover;
+background-repeat:no-repeat;
+  display: inline-block;
+box-shadow:0px -3px 6px 2px rgba(0,0,0,0.2);
+}
+.modal_close_icon{
+  margin-top: -3px;
+}
+
+.mat-menu-item .mat-icon-no-color, .mat-menu-item{
+  color: rgb(1, 82, 129);
+
+  
+}

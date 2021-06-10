@@ -1,0 +1,33 @@
+<div class="content-pageXXX container-fluid">
+  <form #viewListForm [formGroup]="viewForm">
+    <div class="contentXXX main-content">
+      <app-left-nav></app-left-nav>
+      <article class="right-panel">
+      <h4 class="page-title">Amenity View</h4>
+      <div class="row">
+        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'amenityCode' ">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Code" formControlName="amenityCode" readonly>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'amenityName' ">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Amenity Name" formControlName="amenityName" readonly>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 readonly" *ngIf="userBaseFieldName | arrayFilter : 'amenityActive' ">
+            <mat-checkbox formControlName="amenityActive">Active</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <button mat-raised-button color="warn" class="btn-orange" routerLink="/amenity">Back</button>
+          </div>
+      </div>
+
+    </article>
+
+  </div>
+</form>
+</div>
+

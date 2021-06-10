@@ -1,0 +1,15 @@
+
+<div *ngIf="widgetItem">
+<div class="container parent">
+    <div class="media">
+      <img class="mr-3" src="assets/img/news3.png"  alt="Generic placeholder image">
+      <div class="media-body">
+        <h1 class="mt-0">{{widgetItem.widgetDetailHeading}}</h1>
+        <hr>
+        <ng-scrollbar class="my-scrollbar">
+        {{widgetItem.widgetDetailDescription}}
+      </ng-scrollbar>
+      </div>
+    </div>
+  </div>
+  </div>

@@ -1,0 +1,32 @@
+.parent{
+    width: 90%;
+    padding: 3rem 0;
+    text-align: justify;
+
+}
+.parent h1{
+    font-family: 'Montserrat-SemiBold';
+
+}
+.parent p{
+    font-family: 'Montserrat-Light';
+}
+img {
+   width: 30%;
+  margin-left: calc(50% - 15%);
+   padding-bottom: 20px;
+
+}
+.morecontent{
+    height:35vh;
+    padding: 10px;
+
+    overflow-y:auto;
+}
+.my-scrollbar{
+    height:42vh;
+    font-family: 'Montserrat-Light';
+    text-align: justify;
+    overflow-y:auto;
+}
+

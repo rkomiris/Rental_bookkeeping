@@ -1,0 +1,76 @@
+<div class="content-pageXXX container-fluid">
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.RequestSubTypeAdd  | i18n}}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeName' ">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-select placeholder="{{labels.reqType}}" formControlName="requestTypeId"
+                                            (openedChange)="requestFilter = ''">
+                                            <input type="text" placeholder="{{labels.search}}"
+                                                class="advanceddropSearchTextbox" [(ngModel)]="requestFilter"
+                                                [ngModelOptions]="{standalone: true}">
+                                            <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                            <mat-option
+                                                *ngFor="let requestType of RST_selectFormGetDate | dropdownFilter : {requestTypeName: requestFilter}"
+                                                [value]="requestType.requestTypeId">{{requestType.requestTypeName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestSubTypeName' ">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="{{labels.reqSubType}}" [maxlength]="50"
+                                            formControlName="requestSubTypeName">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-3"
+                                    *ngIf="userBaseFieldName | arrayFilter : 'requestSubtypePriorty' ">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-select placeholder="{{labels.reqSubTypePriority}}"
+                                            formControlName="requestSubtypePriorty">
+                                            <mat-option *ngFor="let priorityArr of priorityArr"
+                                                [value]="priorityArr.value">{{priorityArr.name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-1 mt-15 read-only"
+                                    *ngIf="userBaseFieldName | arrayFilter : 'status' ">
+                                    <mat-checkbox formControlName="requestSubTypeIsActive">{{labels.active}}
+                                    </mat-checkbox>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" [disabled]="saveForm.invalid"
+                            type="submit">{{labels.save}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10"
+                            (click)="clearForm()">{{labels.clear}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange"
+                            routerLink="/request-subtype">{{labels.back}}</button>
+                    </div>
+                </div>
+
+
+            </article>
+
+
+        </div>
+    </form>
+</div>

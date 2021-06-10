@@ -1,0 +1,179 @@
+<div class="container-fluid">
+  <div class="contentXXX main-content">
+
+    <form #viewListForm [formGroup]="viewForm">
+      <app-left-nav></app-left-nav>
+      <article class="right-panel">
+
+        <h4 class="page-title">{{labels.entityView  | i18n}}</h4>
+        <div class="card">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityName' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.entityName}}" formControlName="entityName" maxlength="250"
+                      readonly>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'email' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.emailId}}" formControlName="email" maxlength="250" readonly>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'location' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.location}}" formControlName="location" maxlength="250"
+                      readonly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'subLocation' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.sublocation}}" formControlName="subLocation" maxlength="250"
+                      readonly>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'planName' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.planName}}" formControlName="planName" maxlength="250"
+                      readonly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityAddress' ">
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="{{labels.entityAddress}}" formControlName="entityAddress"
+                      maxlength="250" readonly></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3 readonly" *ngIf="userBaseFieldName | arrayFilter : 'entityLang'">
+                  <mat-form-field>
+                  <mat-select placeholder="{{labels.applicationLanguage}}" formControlName="entityLang">
+                      <input type="text" placeholder="{{labels.search}}"
+                          class="advanceddropSearchTextbox" [(ngModel)]="languageFilter"
+                          [ngModelOptions]="{standalone: true}">
+                      <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                      <mat-option
+                          *ngFor="let language of languageList  | dropdownFilter : {language: languageFilter}"
+                          [value]="language.languageCode">{{language.language}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              </div>
+                <div class="col-md-3 readonly" *ngIf="userBaseFieldName | arrayFilter : 'statusValue' ">
+                  <mat-checkbox formControlName="status">{{labels.active}}</mat-checkbox>
+                </div>
+
+              </div>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+
+
+
+
+
+        <!-- <article class="right-panel"> -->
+
+        <!-- <div class="card">
+      <div class="card-body"> -->
+        <h4 class="page-title">{{labels.entityDetails}}</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <!-- <mat-accordion>
+              <mat-expansion-panel class="mb-15 no-border-radius">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Entity Details</mat-panel-title>
+              </mat-expansion-panel-header> -->
+            <div class="mat-elevation-z8">
+              <div class="table-responsive">
+                <div [ngClass]="dataSource.filteredData.length > 0 ? 'visible': 'hidden'">
+                  <table mat-table [dataSource]="dataSource" matSort class="dTable">
+
+                    <ng-container matColumnDef="fromDate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.fromDate}} </th>
+                      <td mat-cell *matCellDef="let row">
+                        <div *ngIf="row.fromDate != ''"> {{ row.fromDate | date: 'dd/MM/yyyy' }} </div>
+                        <div *ngIf="row.fromDate == ''"> N/A </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="toDate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.toDate}}</th>
+                      <td mat-cell *matCellDef="let row">
+                        <div *ngIf="row.toDate != ''"> {{ row.toDate | date: 'dd/MM/yyyy' }} </div>
+                        <div *ngIf="row.toDate == ''"> N/A </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="userLicense">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.licensedUserLimit}} </th>
+                      <td mat-cell *matCellDef="let row">
+                        <div *ngIf="row.userLicense != 0"> {{ row.userLicense }} </div>
+                        <div *ngIf="row.userLicense == 0"> N/A </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="transactionLicense">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.licensedTransactionLimit}} </th>
+                      <td mat-cell *matCellDef="let row">
+                        <div *ngIf="row.transactionLicense != 0"> {{ row.transactionLicense }} </div>
+                        <div *ngIf="row.transactionLicense == 0"> N/A</div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="licenseUserCount">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.userCount}}</th>
+                      <td mat-cell *matCellDef="let row"> {{row.userCount}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="licenseTransactionCount">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.transactionCount}} </th>
+                      <td mat-cell *matCellDef="let row"> {{ row.transactionCount }} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="userRoleFieldName"></tr>
+                    <tr mat-row *matRowDef="let row;  columns:userRoleFieldName"
+                      (click)="row.highlighted = !row.highlighted" (click)=" selection.toggle(row)"
+                      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+                      (mouseout)="row.hovered = false"></tr>
+                  </table>
+                </div>
+
+                <!--<div [hidden]="displayNoRecords" *ngIf="displayNoRecords" class="p-10"> -->
+                <div [ngClass]="dataSource.filteredData.length > 0 ? 'hidden': 'visible'">
+                  <h3 class="heading">{{labels.noRecords}}</h3>
+                </div>
+              </div>
+            </div>
+            <!-- </mat-expansion-panel>
+              </mat-accordion> -->
+          </div>
+        </div>
+
+        <!-- </div>
+    </div> -->
+
+        <!-- </article> -->
+
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br>
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/entity">{{labels.back}}</button>
+          </div>
+        </div>
+      </article>
+
+    </form>
+  </div>
+</div>

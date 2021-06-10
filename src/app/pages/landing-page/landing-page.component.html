@@ -1,0 +1,298 @@
+<div class="container-fluid">
+  <div class="main-content">
+
+    <div *ngIf="true">
+      <app-header></app-header>
+    </div>
+    <app-left-nav></app-left-nav>
+    <app-tasks></app-tasks>
+    <!-- ******** FLASH NEWS *********** -->
+    <div class="center-content" style=" float: initial !important;">
+      <div class="center-con">
+        <div class="center-des">
+          <h1 class="newsflash">{{labels.flashNews | i18n }}</h1>
+          <marquee direction="left" speed="slow" behavior="loop">
+            <span *ngFor="let tt of flasharr">
+              <span style="color: #000;"> {{tt.flashNewsDescription}} *
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+            </span>
+          </marquee>
+        </div>
+      </div>
+    </div><!-- ***** Flash news ends ******-->
+    <br>
+    <article class="right-panel">
+      <div class="row row-2">
+        <div class="col-md-9 left-content">
+          <div class="row">
+            <div class="col-xs-8 col-md-8 col-lg-8">
+              <div class="intro">
+                <div class="col-md-6 col-md-offset-6">
+                  <div class="intro-head">
+                    <h1>INTRODUCING</h1>
+                  </div>
+                  <div class="intro-des">
+                    <p>PARTY MODE - K 3298</p>
+                    <span>For Masculine</span>
+                    <figure>
+                      <img src="assets/img/nextpage.png" alt=" " />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+
+              <div class="intro_slide">
+                <div class="slide_1"></div>
+                <div class="slide_2"></div>
+                <div class="slide_3"></div>
+              </div>
+            </div>
+            <!-- Widget 5  -->
+            <div class="col-md-4 col-xs-12 right-content">
+              <div class="news" style="min-height: 218px !important;margin-bottom:5px;">
+                <ng-container *ngIf="landingWidgetData; else elseBlock4 ">
+                  <ng-container *ngIf="title5 != undefined; else elseBlock4">
+                    <div class="news-head">
+                      <figure *ngIf="widget5Title!==null">
+                        <!-- <img src="{{url + title5Data.widgetIcon}}" alt=" " /> -->
+                        <img [src]="widget5Title" alt="">
+                      </figure>
+                      <h1 class="widgetHeader" matTooltip="{{title5}}" matTooltipClass="widgetHeaderTooltip">{{title5}}</h1>
+                      <!-- <h1 class="widgetHeader" matTooltip="{{title5}}">{{ (title5.length>20)? (title5 | slice:0:20)+'..':(title5) }}</h1> -->
+                    </div>
+                    <div class="news-des" style="max-height: 135px !important;">
+                      <div *ngFor="let event of lastData; index as i">
+                        <div class="newsitem news-{{i+1}}">
+                          <div class="no-pad news-img">
+                            <figure *ngIf="widget5Picture!==null">
+                              <img [src]="widget5Picture" alt="">
+                              <!-- <slideshow [height]="height" [minHeight]="'100px'"
+                                [autoPlay]="event.widgetDetailPicPath?.length > 1" [showArrows]="false"
+                                [imageUrls]="event.widgetDetailPicPath"
+                                [lazyLoad]="event.widgetDetailPicPath?.length > 1" [autoPlayWaitForLazyLoad]="true">
+                              </slideshow> -->
+                            </figure>
+                          </div>
+                          <div class="news-content">
+                            <h2>{{event.widgetDetailHeading}}</h2>
+                            <h4>{{event.widgetDetailAnnouncementDate | date: 'dd-MMM-yyyy'}}</h4>
+                            <p>{{event.widgetDetailDescription}}</p>
+                            <span (click)="createDialogue(event)">{{labels.more}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="lastData.length >= 1" class="announcements-more">
+                        <p (click)="allEventsPopup(title5Data)">{{labels.readMore}}</p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <ng-template #elseBlock4>
+                  <p class="error">{{labels.noDate}}</p>
+                </ng-template>
+              </div>
+            </div><!-- widget 5 ends-->
+
+          </div>
+
+
+          <div class="equalHeight">
+            <div class="row row-3">
+
+              <!-- WIDGET 1 -->
+              <div class="col-md-4">
+                <div class="news">
+                  <ng-container *ngIf="landingWidgetData; else elseBlock1 ">
+                    <ng-container *ngIf="title1 != undefined; else elseBlock1">
+                      <div class="news-head">
+                        <figure *ngIf="widget1Title!==null">
+                          <!-- <img src="{{url + title1Data.widgetIcon}}" alt=" " /> -->
+                          <img [src]="widget1Title" alt="">
+                        </figure>
+                        <h1 class="widgetHeader" matTooltip="{{title1}}" matTooltipClass="widgetHeaderTooltip">{{title1}}</h1>
+                        <!-- <h1 class="widgetHeader" matTooltip="{{title1}}">
+                          {{ (title1.length>20)? (title1 | slice:0:20)+'..':(title1) }}</h1> -->
+                      </div>
+                      <div class="news-des">
+                        <div *ngFor="let news of newWidget;index as i">
+                          <div class="newsitem news-{{i+1}}">
+                            <div class="no-pad news-img">
+                              <figure *ngIf="widget1Picture !== null">
+                                <img [src]="widget1Picture" alt="">
+                                <!-- <slideshow [height]="height" [minHeight]="'100px'"
+                                  [autoPlay]="news.widget1Picture?.length > 1" [showArrows]="false"
+                                  [imageUrls]="news.widget1Picture"
+                                  [lazyLoad]="news.widget1Picture?.length > 1" [autoPlayWaitForLazyLoad]="true">
+                                </slideshow> -->
+                              </figure>
+                            </div>
+                            <div class="news-content">
+                              <h2>{{news.widgetDetailHeading}}</h2>
+                              <h4>{{news.widgetDetailAnnouncementDate | date: 'dd-MMM-yyyy'}}</h4>
+                              <p>{{news.widgetDetailDescription}} </p>
+                              <span (click)="createDialogue(news)">{{labels.more}}</span>
+                            </div>
+                            <div class="announcements-more" *ngIf="newWidget.length >= 3">
+                              <p (click)="allEventsPopup(title1Data)">{{labels.readMore}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #elseBlock1>
+                    <p class="error">{{labels.noDate}}</p>
+                  </ng-template>
+                </div>
+              </div><!-- WIDGET 1 ENDS -->
+
+              <!-- WIDGET 2 -->
+              <div class="col-md-4">
+                <div class="news">
+                  <ng-container *ngIf="landingWidgetData; else elseBlock2 ">
+                    <ng-container *ngIf="title2 != undefined; else elseBlock2">
+                      <div class="news-head">
+                        <figure *ngIf="widget2Title!==null">
+                          <!-- <img src="{{url + title2Data.widgetIcon}}" alt=" " /> -->
+                          <img [src]="widget2Title" alt="">
+                        </figure>
+                        <h1 class="widgetHeader" matTooltip="{{title2}}" matTooltipClass="widgetHeaderTooltip">{{title2}}</h1>
+                        <!-- <h1 class="widgetHeader" matTooltip="{{title2}}">
+                          {{ (title2.length>20)? (title2 | slice:0:20)+'..':(title2) }}</h1> -->
+                      </div>
+                      <div class="news-des">
+                        <div *ngFor="let item of AnounceMent;index as i">
+                          <div class="newsitem news-{{i+1}}">
+                            <div class="no-pad news-img">
+
+                              <figure *ngIf="widget2Picture!==null">
+                                <!-- <slideshow [height]="height" [minHeight]="'100px'"
+                                  [autoPlay]="item.widgetDetailPicPath?.length > 1" [showArrows]="false"
+                                  [imageUrls]="item.widgetDetailPicPath"
+                                  [lazyLoad]="item.widgetDetailPicPath?.length > 1" [autoPlayWaitForLazyLoad]="true">
+                                </slideshow> -->
+                                <img [src]="widget2Picture" alt="">
+                              </figure>
+                            </div>
+                            <div class="news-content">
+                              <h2>{{item.widgetDetailHeading}}</h2>
+                              <h4>{{item.widgetDetailAnnouncementDate | date: 'dd-MMM-yyyy'}}</h4>
+                              <p>{{item.widgetDetailDescription}}</p>
+                              <span (click)="createDialogue(item)">{{labels.more}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="announcements-more" *ngIf="AnounceMent.length >= 3">
+                          <p (click)="allEventsPopup(title2Data)">{{labels.readMore}}</p>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #elseBlock2>
+                    <p class="error">{{labels.noDate}}</p>
+                  </ng-template>
+                </div>
+              </div><!-- WIDGET 2 ENDS -->
+
+              <!-- WIDGET 3 -->
+              <div class="col-md-4">
+                <div class="news">
+                  <ng-container *ngIf="landingWidgetData; else elseBlock3 ">
+                    <ng-container *ngIf="title3 != undefined; else elseBlock3">
+                      <div class="news-head">
+                        <figure *ngIf="widget3Title!==null">
+                          <!-- <img src="{{url + title3Data.widgetIcon}}" alt=" " /> -->
+                          <img [src]="widget3Title" alt="">
+                        </figure>
+                        <h1 class="widgetHeader" matTooltip="{{title3}}" matTooltipClass="widgetHeaderTooltip">{{title3}}</h1>
+                        <!-- <h1 class="widgetHeader" matTooltip="{{title3}}">
+                          {{ (title3.length>20)? (title3 | slice:0:20)+'..':(title3) }}</h1> -->
+                      </div>
+                      <div class="news-des">
+                        <div *ngFor="let event of events; index as i">
+                          <div class="newsitem news-{{i+1}}">
+                            <div class="no-pad news-img">
+                              <!-- <img src="{{url + event.widgetDetailPicPath}}" alt=" " /> -->
+                              <figure *ngIf="widget3Picture!==null">
+                                <!-- <slideshow [height]="height" [minHeight]="'100px'"
+                                  [autoPlay]="event.widgetDetailPicPath?.length > 1" [showArrows]="false"
+                                  [imageUrls]="event.widgetDetailPicPath"
+                                  [lazyLoad]="event.widgetDetailPicPath?.length > 1" [autoPlayWaitForLazyLoad]="true">
+                                </slideshow> -->
+                                <img [src]="widget3Picture" alt="">
+                              </figure>
+                            </div>
+                            <div class="news-content">
+                              <h2>{{event.widgetDetailHeading}}</h2>
+                              <h4>{{event.widgetDetailAnnouncementDate | date: 'dd-MMM-yyyy'}}</h4>
+                              <p>{{event.widgetDetailDescription}}</p>
+                              <span (click)="createDialogue(event)">{{labels.more}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="events.length >= 3" class="announcements-more">
+                          <p (click)="allEventsPopup(title3Data)">{{labels.readMore}}</p>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #elseBlock3>
+                    <p class="error">{{labels.noDate}}</p>
+                  </ng-template>
+                </div>
+              </div><!-- WIDGET 3 ENDS -->
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="col-md-3 col-xs-12 right-content pl-0">
+          <!-- *** 4th Widget -->
+          <div class="new-keva">
+            <div class="well-head" *ngIf="title4Data != undefined">
+              <figure *ngIf="title4Data != undefined">
+                <img *ngIf="widget4Title" [src]="widget4Title" alt=" " />
+              </figure>
+              <h1 class="widgetHeader" matTooltip="{{title4}}" matTooltipClass="widgetHeaderTooltip">{{title4}}</h1>
+              <!-- <h1 class="widgetHeader" matTooltip="{{title4}}">
+                {{ (title4.length>20)? (title4 | slice:0:20)+'..':(title4) }}</h1> -->
+            </div>
+            <ng-container *ngIf="landingWidgetData; else elseBlock5">
+              <ng-container *ngIf="title4 != undefined; else elseBlock5">
+                <div class="well-des">
+                  <h2>{{title4Data?.widgetDetailVoList[0].widgetDetailHeading}}</h2>
+                  <p>{{title4Data?.widgetDetailVoList[0].widgetDetailDescription}}</p>
+                  <div class="whats_newKeva_more"><span class="more-link"
+                      (click)="createDialogue(title4Data.widgetDetailVoList[0])">{{labels.more}}</span></div>
+                </div>
+                <div class="announcements-more" style="bottom: 10px;">
+                  <p (click)="allEventsPopup(title4Data)">{{labels.readMore}}</p>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-template #elseBlock5>
+              <p class="errornew">{{labels.noDate}}</p>
+            </ng-template>
+          </div><!-- 4th Wideget -->
+
+          <!-- Calender Popup -->
+          <div class="calender-sec">
+            <button class="holiday-events" (click)="holidayEvent()">{{labels.holidayEvents}}</button>
+            <div *ngIf="options">
+              <ng-fullcalendar #fullcalendar (dateClick)="dateClick($event)" (clickButton)="clickButton($event)"
+                (select)="eventDragStop($event)" [eventsModel]="eventsModel" [options]="options"
+                (eventClick)="eventClick($event)">
+              </ng-fullcalendar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>

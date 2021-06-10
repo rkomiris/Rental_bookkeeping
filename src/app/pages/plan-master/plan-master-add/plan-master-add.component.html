@@ -1,0 +1,131 @@
+<div class="content-pageXXX container-fluid">
+
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+      <article class="right-panel">
+        <app-left-nav></app-left-nav>
+        <h4 class="page-title">{{labels.planMasterAdd | i18n}}</h4>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-3">
+              <mat-card>
+                <div class="invalidmsg" *ngIf="message!==''">{{message}}</div>
+                <br>
+                <div class="imgUp">
+                  <div class="imagePreview">
+                    <img [src]="imgURL" height="175" width="100%" *ngIf="!imgURLcal">
+                    <img src="{{imgURL}}" height="175" width="100%" *ngIf="imgURLcal">
+                  </div>
+                </div>
+                <label class="btn btn-primary">
+                  {{labels.upload}} <input style="display: none" class="uploadFile img" value="Upload Photo" #file
+                    type="file" accept='image/*' (change)="preview(file.files)" />
+                </label>
+              </mat-card>
+            </div>
+            <div class="col-md-9">
+              <mat-card>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'planName' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.planName}} formControlName="planName">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'userCount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.planUserCount}} formControlName="userCount">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'transactionCount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.planTransactionCount}} formControlName="transactionCount">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'amount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.amount}} formControlName="amount"
+                          (change)="currency($event)">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'offerAmount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.offerAmount}} formControlName="offerAmount">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'currencyId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder="{{labels.currencyName}}" formControlName="currencyId"
+                          (openedChange)="currencyFilter = ''" [required]="saveForm.value.amount != ''">
+                          <input type="text" placeholder="{{labels.search}}" class="advanceddropSearchTextbox"
+                            [(ngModel)]="currencyFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let currency of currencyList | dropdownFilter : {currencyName: currencyFilter}"
+                            [value]="currency.currencyId">{{currency.currencyName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'duration' ">
+                      <mat-form-field class="example-full-width"
+                        [ngClass]="{'readOnly' : saveForm.value.fromDate != ''}">
+                        <input matInput placeholder="{{labels.duration}}({{labels.inMonth}})" formControlName="duration"
+                          [required]="saveForm.value.fromDate == '' &&
+                          saveForm.value.toDate == '' ">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'fromDate' ">
+                      <mat-form-field [ngClass]="{'readOnly' : saveForm.value.duration != null, 
+                      'writeOnly' : saveForm.value.duration == ''}">
+                        <input matInput [min]="today" [matDatepicker]="fromDate" placeholder={{labels.fromDate}}
+                          formControlName="fromDate" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                        <mat-datepicker #fromDate color="warn"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'toDate' ">
+                      <mat-form-field [ngClass]="{'readOnly' : saveForm.value.duration != null,
+                      'writeOnly' : saveForm.value.duration == ''}">
+                        <input matInput [matDatepicker]="toDate" placeholder={{labels.toDate}} formControlName="toDate"
+                          [min]="saveForm.value.fromDate" readonly [required]="saveForm.value.fromDate != ''">
+                        <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                        <mat-datepicker #toDate color="warn"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'offerRemarks' ">
+                      <mat-form-field class="example-full-width">
+                        <textarea matInput placeholder="{{labels.offerRemarks}}"
+                          formControlName="offerRemarks"></textarea>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'activeFlag' ">
+                      <mat-checkbox formControlName="activeFlag">{{labels.active}}</mat-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 text-center" style="margin-bottom: 8px;">
+                    <br>
+                    <br>
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"
+                      [disabled]="saveForm.invalid">{{labels.save}}</button>
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="clearForm()"
+                      type="button">{{labels.clear}}</button>
+                    <button mat-raised-button color="warn" class="btn-orange"
+                      routerLink="/plan-master">{{labels.back}}</button>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </form>
+</div>

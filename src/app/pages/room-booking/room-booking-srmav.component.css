@@ -1,0 +1,164 @@
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.totalRoom_list_sec:after {
+    content:'';
+    display: block;
+    position: relative;
+    /* bottom: 0px;
+    left: 0px; */
+    width: 100%;
+    height: 10px;
+    /* margin:15px 15px 0 15px; */
+    /* margin-right: 15px; */
+    clear: both;
+    background: linear-gradient(110deg, #77a12d 33%, rgba(0, 0, 0, 0) 33%), linear-gradient(110deg, #005181 66%, #f77920 66%);
+}
+
+
+.roomBook_date_title {font-size: 14px; font-weight: bold;}
+
+.totalRoom_list_sec ul {float: left; margin: 0; padding: 0; width: 100%;}
+.totalRoom_list_sec ul li {float: left; margin: 0 5px 5px 0; padding: 0; list-style-type: none;}
+.totalRoom_list_sec ul li span {    float: left;
+    margin: 0;
+    padding: 3px 5px;
+    background: #fb5c6c;
+    text-align: center;
+    font-size: 11px;
+    color: #fff;
+    cursor: pointer;}
+
+
+.room_facility_list_sec ul {float: left; margin: 0; padding: 0;}
+.room_facility_list_sec ul li {float: left; margin: 0 10px 10px 0; padding: 0; list-style-type: none;}
+.room_facility_list_sec ul li span {float:left; margin: 0; padding: 5px 10px; background: #005181; /*min-width: 120px;*/ text-align: center; font-size: 12px;}
+
+.weekdays_recursive_sec .mat-checkbox {margin: 0 15px 5px 0;}
+.weekdays_recursive_sec .weekdays .mat-checkbox {float: left;}
+
+
+
+
+
+/* .ngx-material-timepicker-toggle {position: absolute; top: 3px; right: 0px; display: inline;} */
+
+:host /deep/ .timepicker__header {
+    /* background-color: #f44336 !important; */
+    background-color: #FF7043 !important;
+}
+
+:host /deep/ .clock-face__number > span.active {
+    background-color: #FF7043 !important;
+}
+
+:host /deep/ .clock-face__clock-hand {
+    background-color: #FF7043 !important;
+}
+
+:host /deep/ .clock-face__clock-hand_minute:before {
+    border: 4px solid #FF7043 !important;
+}
+
+:host /deep/ .timepicker-button {
+    color: #FF7043 !important;
+}
+
+
+
+
+
+.calender-sec:after {
+	content: ' ';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 10px;
+    /* background: linear-gradient(110deg, #77a12d 33%, rgba(0, 0, 0, 0) 33%), linear-gradient(110deg, #005181 66%, #f77920 66%); */
+    background: inherit;
+}
+
+
+/* .calender-sec .fc-highlight-skeleton .fc-highlight {
+    background: inherit !important;
+}
+
+.calender-sec .fc .fc-toolbar>*>* {
+    margin-left: .3em !important;
+} */
+
+
+
+/* .btnCenter .dialogBtn.mat-raised-button.mat-primary {margin-left: 0;} */
+.totalRooms{
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+.totalRooms::-webkit-scrollbar-track
+  {
+	  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	  background-color: #F5F5F5;
+	  border-radius: 10px;
+  }
+
+  .totalRooms::-webkit-scrollbar
+  {
+	  width: 5px;
+	  background-color: #F5F5F5;
+  }
+
+  .totalRooms::-webkit-scrollbar-thumb
+  {
+	  border-radius: 10px;
+	  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgba(253, 109, 94, 0.38)), color-stop(0.72, rgba(253, 106, 96, 0.71)), color-stop(0.86, rgb(253, 109, 94)));
+  }
+  .col-md-12.facilities {
+    background: #fb5c6c;
+    padding: 10px 15px;
+    margin: 5px 15px;
+    color: #fff;
+}
+.totalRooms li.active span{
+    background: #005181 !important;
+    padding: 5px !important;
+    font-size: 12px !important;
+    transition: .5s;
+}
+.fromToPicker{
+    width: 100%;
+    border: none;
+    color: #000;
+    border-bottom: 1px solid #949494;
+}
+.example-input-wrapper{
+    width: 100%;
+    color: #757575;
+}
+.owl-dt-inline-container .owl-dt-calendar, .owl-dt-popup-container .owl-dt-calendar{
+    height: auto !important;
+}
+.owl-dt-popup-container{
+    width: 25em !important;
+}
+.seats{
+    background-color: #4d4d2a;
+    border-color: #4d4d2a;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+}
+.btnCenter .dialogBtn.mat-raised-button.mat-primary{
+    margin-left: 0px;
+}
+.readOnly{
+    pointer-events: none;
+    opacity: 0.8;
+}

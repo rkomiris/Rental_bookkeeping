@@ -1,0 +1,48 @@
+<h3 class="popup_title"> {{labels.holidayDetails  | i18n}}
+    <button mat-button class="modal_close_icon"  [mat-dialog-close]="false" cdkFocusInitial>
+      <i class="material-icons">close</i>
+    </button>
+  </h3>
+
+  <!-- <mat-dialog-content class="mat-typography md-dialog" >
+      <div class="row">
+          <div class="col-md-12">
+            <div class="calender-sec">
+              <div *ngIf="calendarOptions">
+                <ng-fullcalendar #fullcalendar   [eventsModel]="eventsModel"
+                  [options]="calendarOptions" (eventClick)="eventClick($event)">
+                </ng-fullcalendar>
+              </div>
+            </div>
+          </div>
+        </div>
+    </mat-dialog-content> -->
+
+  <!-- <mat-dialog-actions class=" text-center">
+      <button mat-raised-button [mat-dialog-close]="true" class=" btn-cen" cdkFocusInitial
+        color="warn">Ok</button>
+    </mat-dialog-actions> -->
+
+
+  <mat-dialog-content class="mat-typography md-dialog">
+    <div class="row p-10">
+      <div class="col-md-12">
+        <div class="calender-sec">
+          <div *ngIf="calendarOptions">
+            <ng-fullcalendar #fullcalendar [eventsModel]="eventsModel"
+              [options]="calendarOptions" (eventClick)="eventClick($event)">
+            </ng-fullcalendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+
+
+    <div class="row">
+      <div class="col-md-12 text-center mt-10 mb-10">
+          <button mat-raised-button [mat-dialog-close]="true" class=" btn-cen" cdkFocusInitial
+          color="warn">{{labels.ok}}</button>
+      </div>
+    </div>

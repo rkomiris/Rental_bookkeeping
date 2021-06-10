@@ -1,0 +1,252 @@
+<div class="content-pageXXX container-fluid">
+
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+      <div class="contentXXX main-content">
+
+        <app-left-nav></app-left-nav>
+
+        <article class="right-panel">
+
+          <h4 class="page-title">Room Booking Configuration Modify</h4>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowCode'">
+                  <mat-form-field>
+                    <input matInput readonly placeholder="Room Configuration Code" formControlName="roomWorkFlowCode">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3 read-only" *ngIf="userBaseFieldName | arrayFilter : 'roomConfigId'">
+                    <mat-form-field>
+                        <mat-select placeholder="Room Configuration Name" formControlName="roomConfigId">
+                          <!-- <mat-option *ngFor="let roomConfigIdList of roomConfigIdList" [value]="roomConfigIdList.roomConfigId">
+                            {{roomConfigIdList.roomConfigRoomName}}</mat-option> -->
+                            <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="roomConfigFilter" [ngModelOptions]="{standalone: true}">
+                            <mat-option class="select-span">Select Here</mat-option>
+                            <mat-option *ngFor="let roomConfigIdList of roomConfigIdList | dropdownFilter : {roomConfigRoomName: roomConfigFilter}" 
+                            [value]="roomConfigIdList.roomConfigId">{{roomConfigIdList.roomConfigRoomName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-3 read-only" *ngIf="userBaseFieldName | arrayFilter : 'workFlowLocationId'">
+                      <mat-form-field [ngClass]="{'my-class': saveForm.value.workFlowLocationId == '0'}">
+                        <mat-select placeholder="User Location" formControlName="workFlowLocationId" 
+                          (selectionChange)="get_subLocation($event.value)">
+                          <!-- <mat-option *ngFor="let userLocation of locationList" [value]="userLocation.id">
+                            {{userLocation.userLocationName}}</mat-option> -->
+                            <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="locationFilter" [ngModelOptions]="{standalone: true}">
+                            <mat-option class="select-span">Select Here</mat-option>
+                            <mat-option *ngFor="let  userLocation of locationList | dropdownFilter : {userLocationName: locationFilter}" 
+                            [value]="userLocation.id">{{userLocation.userLocationName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 read-only" *ngIf="userBaseFieldName | arrayFilter : 'workFlowSublocationId'">
+                        <mat-form-field [ngClass]="{'my-class': saveForm.value.workFlowSublocationId == '0'}">
+                          <mat-select placeholder="Sub Location" formControlName="workFlowSublocationId" >
+                            <!-- <mat-option *ngFor="let sublocation of subLocationList" [value]="sublocation.sublocationId">
+                              {{sublocation.subLocationName}}</mat-option> -->
+                              <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="sublocationFilter" [ngModelOptions]="{standalone: true}">
+                              <mat-option class="select-span">Select Here</mat-option>
+                              <mat-option *ngFor="let sublocation of subLocationList | dropdownFilter : {subLocationName: sublocationFilter}" 
+                              [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+    
+                  <div class="col-md-3 read-only" *ngIf="userBaseFieldName | arrayFilter : 'workFlowDepartmentId'">
+                      <mat-form-field [ngClass]="{'my-class': saveForm.value.workFlowDepartmentId == '0'}">
+                        <mat-select placeholder="Department" formControlName="workFlowDepartmentId" >
+                          <!-- <mat-option *ngFor="let userDepartment of userDepartmentList" [value]="userDepartment.id">
+                            {{userDepartment.userDepartmentName}}
+                          </mat-option> -->
+                          <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="departmentFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">Select Here</mat-option>
+                          <mat-option *ngFor="let userDepartment of userDepartmentList | dropdownFilter : {userDepartmentName: departmentFilter}" 
+                          [value]="userDepartment.id">{{userDepartment.userDepartmentName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                <div class="col-md-3 read-only" *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowDescription'">
+                    <mat-form-field>
+                      <input matInput placeholder="Room Configuration Description" formControlName="roomWorkFlowDescription">
+                    </mat-form-field>
+                  </div>
+
+
+
+                <div class="col-md-2 read-only">
+                  <mat-checkbox *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowIsActive'" formControlName="roomWorkFlowIsActive">Active?</mat-checkbox> <br/>
+                  <mat-checkbox *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowIsMailRequired'" formControlName="roomWorkFlowIsMailRequired">Mail?</mat-checkbox>
+                </div>
+
+                <div class="col-md-2 read-only">
+                    <mat-checkbox *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowIsNotificationRequired'" formControlName="roomWorkFlowIsNotificationRequired">Notification?</mat-checkbox>
+                    <mat-checkbox *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowIsMgtEscalationRequired'" formControlName="roomWorkFlowIsMgtEscalationRequired">Escalation? </mat-checkbox>
+                </div>
+                <div class="col-md-2 read-only">
+                    <mat-checkbox (change)="callflagall($event)"  *ngIf="userBaseFieldName | arrayFilter : 'allFlag'" formControlName="allFlag">All Flag?</mat-checkbox>
+               </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+          <div class="col-md-12">
+              <div class="card" style="margin-top: 0px;">
+                <div class="card-body p-0">
+                  <div class="row" *ngIf="saveForm">
+                      <div class="col-md-12" >
+                          <h3 class="box_title">Sequence</h3>
+                        </div>
+                    <div class="col-md-12" formArrayName="roomWorkFlowSeqVoList"
+                      *ngFor="let item of saveForm.get('roomWorkFlowSeqVoList')['controls']; let i = index">
+                      <div class="row" [formGroupName]="i">
+
+
+                        <div class="col-md-12">
+                            <div class="row p-10">
+                              <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'id'">
+                                <mat-form-field>
+                                  <mat-select placeholder="User Location" formControlName="id" required
+                                    (selectionChange)="selected_sequenceLocationType($event.value, i)">
+                                    <!-- <mat-option *ngFor="let userLocation of locationList" [value]="userLocation.id">
+                                      {{userLocation.userLocationName}}
+                                    </mat-option> -->
+                                    <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="userlocationFilter[i]" [ngModelOptions]="{standalone: true}">
+                                    <mat-option class="select-span">Select Here</mat-option>
+                                    <mat-option *ngFor="let userLocation of locationList | dropdownFilter : {userLocationName: userlocationFilter[i]}" 
+                                    [value]="userLocation.id">{{userLocation.userLocationName}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'sublocationId'">
+                                <mat-form-field>
+                                  <mat-select placeholder="Sub Location" formControlName="sublocationId" required>
+                                    <!-- <mat-option *ngFor="let sublocation of subLocationNameSeq_data[i]"
+                                      [value]="sublocation.sublocationId">
+                                      {{sublocation.subLocationName}}
+                                    </mat-option> -->
+                                    <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="usersublocationFilter[i]" [ngModelOptions]="{standalone: true}">
+                                    <mat-option class="select-span">Select Here</mat-option>
+                                    <mat-option *ngFor="let sublocation of subLocationNameSeq_data[i] | dropdownFilter : {subLocationName: usersublocationFilter[i]}" 
+                                    [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentId'">
+                                <mat-form-field>
+                                  <mat-select placeholder="Department" formControlName="userDepartmentId" required
+                                    (selectionChange)="dynamicGetUSerRole($event.value, i)">
+                                    <!-- <mat-option *ngFor="let userDepartment of userDepartmentList[i]"
+                                      [value]="userDepartment.id">
+                                      {{userDepartment.userDepartmentName}}
+                                    </mat-option> -->
+                                    <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="userdepartmentFilter[i]" [ngModelOptions]="{standalone: true}">
+                                    <mat-option class="select-span">Select Here</mat-option>
+                                    <mat-option *ngFor="let userDepartment of dynamicDeptList[i] | dropdownFilter : {userDepartmentName: userdepartmentFilter[i]}" 
+                                    [value]="userDepartment.id">{{userDepartment.userDepartmentName}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'userRoleId'">
+                                <mat-form-field>
+                                  <mat-select placeholder="Sequence User Role" formControlName="userRoleId" required
+                                    (selectionChange)="dynamicFieldsGetUSer($event.value, i)">
+                                    <!-- <mat-option *ngFor="let userRole of dynamicUserRoleList[i]" [value]="userRole.id">
+                                      {{userRole.userRoleName}}
+                                    </mat-option> -->
+                                    <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="userroleFilter[i]" [ngModelOptions]="{standalone: true}">
+                                    <mat-option class="select-span">Select Here</mat-option>
+                                    <mat-option *ngFor="let userRole of dynamicUserRoleList[i] | dropdownFilter : {userRoleName: userroleFilter[i]}" 
+                                    [value]="userRole.id">{{userRole.userRoleName}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'userId'">
+                                <div *ngIf="saveForm.value.roomWorkFlowSeqVoList[i] != undefined && saveForm.value.roomWorkFlowSeqVoList[i].userRoleId != ''">
+                                  <mat-form-field>
+                                    <mat-select placeholder="Sequence User" formControlName="userId" >
+                                      <!-- <mat-option *ngFor="let user of dynamicUserList[i]" [value]="user.id">
+                                        {{user.firstName}}
+                                      </mat-option> -->
+                                      <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="userFilter[i]" [ngModelOptions]="{standalone: true}">
+                                      <mat-option class="select-span">Select Here</mat-option>
+                                      <mat-option *ngFor="let user of dynamicUserList[i] | dropdownFilter : {firstName : userFilter[i]}" 
+                                      [value]="user.id">{{user.firstName}}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+
+                              <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowSeqIsActive'">
+                                  <mat-checkbox formControlName="roomWorkFlowSeqIsActive">Sequence Active?</mat-checkbox>
+                                </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12" formArrayName="roomWorkFlowSlaVo"
+                          *ngFor="let item of saveForm.get('roomWorkFlowSlaVo')['controls']; let j = index">
+                          <div [formGroupName]="j">
+                                    <div class="col-md-2">
+                                        <p class="text-low" *ngIf="j == '0'">Low</p>
+                                        <p class="text-medium" *ngIf="j == '1'">Medium</p>
+                                        <p class="text-high" *ngIf="j == '2'">High
+                                        </p>
+                                      </div>
+                                      <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowSla'">
+                                          <mat-form-field>
+                                            <input matInput placeholder="SLA" [(ngModel)]="qtd[i][j]"   type="text" (keyup)="validateFloatKeyPress(this,i,j)"
+                                              formControlName="roomWorkFlowSla">
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowSlaType'">
+                                          <mat-form-field>
+                                            <mat-select placeholder="SLA Type" formControlName="roomWorkFlowSlaType">
+                                                <input type="text" placeholder="Search.."   class="advanceddropSearchTextbox" [(ngModel)]="slaTypeFilter[i][j]" [ngModelOptions]="{standalone: true}">
+                                                <mat-option class="select-span">Select Here</mat-option>
+                                                <mat-option *ngFor="let slas of slaTypes   | dropdownFilter : {viewValue : slaTypeFilter[i][j]}" [value]="slas.value">
+                                                    {{slas.viewValue}}
+                                                  </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'roomWorkFlowSlaIsActive'">
+                                            <mat-checkbox formControlName="roomWorkFlowSlaIsActive">SLA Active?</mat-checkbox>
+                                          </div>
+                                  </div>
+                                  </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 text-right mb-10">
+                      <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence()">
+                        <i _ngcontent-c19="" class="material-icons">add</i>
+                      </a>
+                      <a _ngcontent-c19="" class="circle_iconbg mr-15" href="javascript:void(0);"
+                        (click)="deleteSequence()">
+                        <i _ngcontent-c19="" class="material-icons">remove</i>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div class="row">
+            <div class="col-md-12 text-center m-20">
+              <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Modify</button>
+              <button mat-raised-button color="warn" class="btn-orange" routerLink="/room-booking-configuration">Back</button>
+            </div>
+          </div>
+      </div>
+    </form>
+  </div>

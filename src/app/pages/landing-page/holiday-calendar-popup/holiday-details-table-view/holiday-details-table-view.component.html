@@ -1,0 +1,57 @@
+<h3 class="popup_title"> {{labels.holidaysDetailsView   | i18n}}
+    <button mat-button class="modal_close_icon"  [mat-dialog-close]="false" cdkFocusInitial>
+      <i class="material-icons">
+        close
+      </i>
+    </button>
+  </h3>
+
+  <mat-dialog-content class="mat-typography md-dialog" >
+      <div class="row">
+          <div class="col-md-12">
+              <table class="table table-bordered table-custom">
+                  <tbody>
+                    
+                    <tr>
+                      <th class="text-center">{{labels.holidayName}}</th>
+                      <td  class = "descriptionStyle">
+                       
+                        <p align="center" style="max-height: 45px;"> {{data.description}}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="text-center">{{labels.holidayDate}}</th>
+                      <td>
+                        <p align="center"> {{data.holidayDate | date:'dd/MM/yyyy'}}</p>
+                      </td>
+                    </tr>
+              
+                    <tr>
+                      <th class="text-center">{{labels.leaveType}} </th>
+                      <td>
+                        <p  align="center" *ngIf="data.leaveType == '1'">{{labels.local}}</p>
+                        <p  align="center" *ngIf="data.leaveType == '2'">{{labels.national}}</p>
+                      </td>
+                    </tr>
+                     <!-- <tr >
+                        <th class="text-center">Location - Sub Location</th>
+                        <td class="holidayList">
+                          <div class="holidaydetails">
+                            <p *ngFor = "let holiday of holidayList; index as i" align="center">
+                              {{holidayList[i].locationName}} - {{holidayList[i].sublocationName}} </p>
+                            </div>  
+                        </td>
+                      </tr> -->
+                    
+                  </tbody>
+                </table>
+          </div>
+        </div>
+    </mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12 text-center mt-10 mb-10">
+        <button mat-raised-button [mat-dialog-close]="true" class=" btn-cen" cdkFocusInitial
+        color="warn">{{labels.close}}</button>
+      </div>
+    </div>
+  

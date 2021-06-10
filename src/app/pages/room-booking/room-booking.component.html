@@ -1,0 +1,257 @@
+
+<div class="content-pageXXX container-fluid mt-20">
+  <div class="contentXXX main-content">
+
+    <app-left-nav></app-left-nav>
+    <app-tasks></app-tasks>
+
+
+
+    <article class="right-panel pt-15">
+      <div class="row">
+
+        <div class="col-md-9">
+          <div class="row">
+
+            <div class="col-md-3">
+              <p class="seats" >No of Seats Available <span *ngIf="saveForm.value.roomBookingNoOfSeats"> : {{ saveForm.value.roomBookingNoOfSeats }}</span> </p>
+              <!-- <mat-form-field>
+                <mat-select placeholder="Schedule" name="schedule" [(ngModel)]="newRoomGetData.schedule"
+                  (selectionChange)="selected_LocationType($event.value)">
+                  <mat-option *ngFor="let schedule of scheduleList" [value]="schedule.id">{{schedule.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> -->
+            </div>
+
+            <form #locationForms [formGroup]="locationForm" >
+            <div class="col-md-4">
+              <mat-form-field>
+                  <mat-select placeholder="Location" formControlName="id" [(ngModel)]="locationVal"
+                  (selectionChange)="selected_LocationType($event.value)">
+                  <!-- <mat-option *ngFor="let location of RB_location_selectFormGetData" [value]="location.id">
+                    {{location.userLocationName}}</mat-option> -->
+                    <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="locationFilter" [ngModelOptions]="{standalone: true}">
+                    <mat-option class="select-span">Select Here</mat-option>
+                    <mat-option *ngFor="let location of RB_location_selectFormGetData | dropdownFilter : {userLocationName: locationFilter}" 
+                    [value]="location.id">{{location.userLocationName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field>
+
+                    <mat-select  formControlName="sublocationId" placeholder="Sub Location" (selectionChange)="selected_SubLocationType($event.value, locationVal)" [(ngModel)]="subLocationId">
+                        <!-- <mat-option *ngFor="let sublocation of subLocationName_data" [value]="sublocation.sublocationId">
+                          {{sublocation.subLocationName}}</mat-option> -->
+                          <input type="text" placeholder="Search.." class="advanceddropSearchTextbox" [(ngModel)]="sublocationFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">Select Here</mat-option>
+                          <mat-option *ngFor="let sublocation of subLocationName_data | dropdownFilter : {subLocationName: sublocationFilter}" 
+                          [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+              </div>
+              </form>
+              <div class="col-md-1">
+                  <button mat-raised-button color="warn"  class="btn-orange mr-10 mb-10" (click)="clearLocations()">Clear</button>
+                </div>
+          </div>
+          <!-- (clickButton)="clickButton($event)" -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="calender-sec">
+                <div *ngIf="calendarOptions">
+                  <ng-fullcalendar #fullcalendar (clickButton)="clickButton($event, newRoomGetData.id)" (eventDragStop)="eventDragStop($event)" [eventsModel]="eventsModel"
+                    [options]="calendarOptions" (eventClick)="eventClick($event)">
+                  </ng-fullcalendar>
+                </div>
+                <!-- <div *ngIf="calendarOptions2">
+                    <ng-fullcalendar #fullcalendar (clickButton)="clickButton($event, newRoomGetData.id)" (eventDragStop)="eventDragStop($event)" [eventsModel]="eventsModel"
+                      [options]="calendarOptions2" (eventClick)="eventClick($event)">
+                    </ng-fullcalendar>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="col-md-3">
+
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pagte-title mb-10 roomBook_date_title totalRoom_list_sec mb-5">
+                <span>Book a Room</span>
+                <span class="pull-right">{{ today | date : 'EEEE, MMMM d, yyyy' }}</span>
+              </h3>
+              <div class="totalRoom_list_sec mb-5 mt-10">
+                <ul class="totalRooms">
+                  <li *ngFor="let totalRoom of totalRooms; index as i" [ngClass]="{'active': selectedItem == totalRoom}"
+                    (click)="onSelect(totalRoom.roomConfigId, totalRoom)">
+                    <span>{{totalRoom.name}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="roomFacilities.length > 0">
+            <div class="col-md-12 facilities">
+              <div class="room_facility_list_sec">
+                <p class="text-center">Facilities Available</p>
+                <ul>
+                  <li *ngFor="let roomFacilitie of roomFacilities; index as i">
+                    <span>{{roomFacilitie.amenityName}}</span>
+                    <span>{{roomFacilitie.roomDetailNumberOfAmenities}}</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+            <!-- <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field>
+                      <input matInput placeholder="Room Configuration Code" formControlName="roomBookingCode"  required>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="roomBook_date_sec mt-5">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="example-input-wrapper">
+                       From Date & Time:
+                        <input readonly placeholder="Date Time:" [min]="from_MinDate" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                          formControlName="roomBookingFromDate" class="fromToPicker mt-10">
+                        <owl-date-time #dt1></owl-date-time>
+
+                      </label>
+                      <!-- <mat-form-field>
+                        <input matInput placeholder="From Date" [min]="from_MinDate" [matDatepicker]="picker1" formControlName="roomBookingFromDate" readonly required>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1 color="warn"></mat-datepicker>
+                      </mat-form-field> -->
+                    </div>
+                    <div class="col-md-12">
+                        <label class="example-input-wrapper" [ngClass]="saveForm.value.roomBookingFromDate == ''?'readOnly':'class-2'">
+                         To Date & Time:
+                          <input  [min]="saveForm.value.roomBookingFromDate"  placeholder="Date Time:" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2"
+                            formControlName="roomBookingToDate" class="fromToPicker mt-10">
+                          <owl-date-time #dt2></owl-date-time>
+
+                        </label>
+                        <!-- <mat-form-field>
+                          <input matInput placeholder="From Date" [min]="from_MinDate" [matDatepicker]="picker1" formControlName="roomBookingFromDate" readonly required>
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1 color="warn"></mat-datepicker>
+                        </mat-form-field> -->
+                      </div>
+                      <div class="col-md-12">
+                          <mat-form-field>
+                              <mat-select name="roomBookingPriority" formControlName="roomBookingPriority" placeholder="Priority">
+                                <mat-option *ngFor="let priorityCombo of priorityCombo" [value]="priorityCombo.id">
+                                  {{priorityCombo.Value}}</mat-option>
+                              </mat-select>
+
+                            </mat-form-field>
+                        </div>
+
+                    <!-- <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput placeholder="To Date" [min]="saveForm.value.roomBookingFromDate"[matDatepicker]="picker2" formControlName="roomBookingToDate"  readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"  [disabled]="saveForm.value.roomBookingFromDate === null || saveForm.value.roomBookingFromDate == ''" ></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="warn"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput class="timepicker" placeholder="From" [ngxTimepicker]="toggleTimepicker1" formControlName="roomBookingFromTime"  [format]=24
+                          [disableClick]="true" readonly required>
+                        <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker1">
+                        </ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker #toggleTimepicker1></ngx-material-timepicker>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-6">
+                      <mat-form-field>
+                        <input matInput class="timepicker" placeholder="To" [ngxTimepicker]="toggleTimepicker2"
+                        formControlName="roomBookingToTime"  [format]=24
+                          [disableClick]="true" readonly required>
+                        <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker2">
+                        </ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker #toggleTimepicker2></ngx-material-timepicker>
+                      </mat-form-field>
+                    </div> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput placeholder="No of Seats" type="number"  formControlName="roomBookingNoOfSeats"  required>
+                </mat-form-field>
+              </div>
+            </div> -->
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <textarea matInput maxLength="25" placeholder="Subject" formControlName="roomBookingSubject"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <div class="rowXXX">
+              <div class="col-md-12XXX">
+                <div class="weekdays_recursive_sec mt-15">
+
+                  <div class="row">
+                    <div class="col-md-12" *ngIf="addUpdateFlag === true">
+                      <mat-checkbox formControlName="isRoomBookingRecursive">
+                        Recursive</mat-checkbox>
+                    </div>
+                    <div class="col-md-12" [hidden] = "saveForm.value.isRoomBookingRecursive !== true">
+                      <div class="weekdays" *ngFor="let topic of checklist; let i=index">
+                        <mat-checkbox formControlName="roomBookingRecursiveSeq"
+                          (ngModelChange)="onChange(topic, $event)" name="arrayOfDays{{i}}">
+                          {{topic.value}}
+                        </mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mt-15">
+              <div class="col-md-12">
+                <!-- <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Clear</button> -->
+                <button mat-raised-button color="warn" [disabled]="!saveForm.valid" class="btn-orange mr-10" type="submit">Book</button>
+                    <button mat-raised-button color="warn"  class="btn-orange mr-10" (click)="clearForm()" type="reset" >Clear</button>
+                <!-- <button mat-raised-button color="warn" class="btn-orange" [disabled]='checkEventDays' type="button"
+                  (click)="deleteEvent()">Cancel</button> -->
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </article>
+
+
+  </div>
+</div>

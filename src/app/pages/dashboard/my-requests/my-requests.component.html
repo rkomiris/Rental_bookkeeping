@@ -1,0 +1,88 @@
+
+<div class="myRequest_sec">
+    <ul>
+        <!-- <li *ngFor="let request of myrequest">
+            <a href="javascript:;" routerLink="/request">
+                <span class="app_iconSec"><img src="{{request.image}}"></span>
+                <span class="app_detailText">{{request.from}}</span>
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox escalated_bgColor">{{request.count}}</span>
+                </span>
+            </a>
+        </li> -->
+
+        <li *ngFor="let jj of applicaitonData" >
+            <a [style.pointer-events]="jj.count===0 ?'none':'auto'" href="javascript:;" (click)="requestNav(jj.currentStatusId)">
+
+                <!-- <span class="app_iconSec"><img src="{{jj.src}}"></span> -->
+                
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox escalated_bgColor">{{jj.count}}</span>
+                </span>
+
+                <span class="app_detailText">{{jj.status}}</span>
+
+                <span class="app_reqCountBox_progress_sec">
+                    <div class="circle-wrap">
+                        <div class="circle">
+                            <div class="mask full">
+                                <div class="fill_myReq"></div>
+                            </div>
+                            <div class="mask half">
+                                <div class="fill_myReq"></div>
+                            </div>
+                            <div class="inside-circle"><img src="{{jj.src}}"></div>
+                        </div>
+                    </div>
+                </span>
+            </a>
+        </li>
+
+        
+        <!--<li>
+            <a href="javascript:;" click="requestNav()">
+                <span class="app_iconSec"><img src="../../../../assets/img/approved.png"></span>
+                <span class="app_detailText">Approved</span>
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox approved_bgColor">1</span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" click="requestNav()">
+                <span class="app_iconSec"><img src="../../../../assets/img/completed.png"></span>
+                <span class="app_detailText">Completed</span>
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox completed_bgColor">1</span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" click="requestNav()">
+                <span class="app_iconSec"><img src="../../../../assets/img/cancel.png"></span>
+                <span class="app_detailText">Close</span>
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox close_bgColor">3</span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" click="requestNav()">
+                <span class="app_iconSec"><img src="../../../../assets/img/reopen.png"></span>
+                <span class="app_detailText">Re-Open</span>
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox reopen_bgColor">2</span>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" click="requestNav()">
+                <span class="app_iconSec"><img src="../../../../assets/img/pending.png"></span>
+                <span class="app_detailText">Pending</span>
+                <span class="app_reqCountBox_sec">
+                    <span class="app_reqCountBox pending_bgColor">10</span>
+                </span>
+            </a>
+        </li>-->
+    </ul>
+</div>

@@ -1,0 +1,13 @@
+
+.disabledclass {
+  pointer-events: none;
+}
+
+.col-clear .col-md-3:nth-child(5),.col-clear .col-md-3:nth-child(9), .col-clear .col-md-3:nth-child(13){
+  clear: both;
+  }
+
+
+  .mat-checkbox {margin-right: 15px;}
+.mat-radio-button {margin-right: 15px;}
+.custom_clear:nth-child(5) {clear: left;}

@@ -1,0 +1,65 @@
+.imagePreview {
+  width: 100%;
+  height: 250px;
+  background-position: center center;
+/*background:url(https://images.vexels.com/media/users/3/147102/isolated/preview/082213cb0f9eabb7e6715f59ef7d322a-instagram-profile-icon-by-vexels.png);
+*/
+background:url('/assets/img/profile1.png');
+background-color:#fff;
+  background-size: cover;
+background-repeat:no-repeat;
+  display: inline-block;
+box-shadow:0px -3px 6px 2px rgba(0,0,0,0.2);
+}
+.btn-primary,.btn-primary:hover
+{
+  background: #ff2b67;
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0px 4px 6px 2px rgba(0,0,0,0.2);
+  margin-top: -5px;
+
+  border: #ffc9c9 2px solid;
+}
+
+.imgUp
+{
+margin-bottom:15px;
+}
+.del
+{
+position:absolute;
+top:0px;
+right:15px;
+width:30px;
+height:30px;
+text-align:center;
+line-height:30px;
+background-color:rgba(255,255,255,0.6);
+cursor:pointer;
+}
+.imgAdd
+{
+width:30px;
+height:30px;
+border-radius:50%;
+background-color:#4bd7ef;
+color:#fff;
+box-shadow:0px 0px 2px 1px rgba(0,0,0,0.2);
+text-align:center;
+line-height:30px;
+margin-top:0px;
+cursor:pointer;
+font-size:15px;
+}
+.invalidmsg {
+  color: #ffffff;
+    font-size: 12px;
+    text-align: center !important;
+    text-transform: uppercase;
+    background-color: #12a59e;
+    border-radius: 12px;
+}
+.classdis {
+  pointer-events: none;
+}

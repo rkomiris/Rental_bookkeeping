@@ -1,0 +1,70 @@
+<div class="content-pageXXX container-fluid">
+    <form #modifyListForm [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
+        <div class="contentXXX main-content">
+
+            <app-left-nav></app-left-nav>
+
+            <article class="right-panel">
+
+                <h4 class="page-title">{{labels.ExternalLinkModify  | i18n}}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.name}}" formControlName="externalLinkName"
+                                     [maxlength]="50">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkLogo' ">
+                                <div class="row">
+                                    <div class="col-md-1" style="padding-right:0;">
+                                        <mat-icon style="margin-top:14px;cursor:pointer;" matTooltip="click here to download" (click)="pictureDownload()">vertical_align_bottom</mat-icon>
+
+                                    </div>
+                                    <div class="col-md-11 download_attachment">
+                                        <mat-form-field class="example-full-width">
+                                            <span *ngIf="exLinkModifyList_TableData.externalLinkLogo && attachment">{{exLinkModifyList_TableData.externalLinkLogo}}</span>
+                                       
+                                            <ngx-mat-file-input name="externalLinkLogo" matInput placeholder="" formControlName="externalLinkLogo" (change)="selection(modifyForm)">
+                                            </ngx-mat-file-input>
+                                            <mat-icon matSuffix>folder</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkUrl' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.Url}}" formControlName="externalLinkUrl"
+                                    [maxlength]="50">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkDisplaySeq' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.displaySequence}}" type="text"  
+                                    [maxlength]="4" onpaste="return false" formControlName="externalLinkDisplaySeq">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkIsActive' ">
+                            <div class="col-md-3 mt-15">
+                                <mat-checkbox formControlName="externalLinkIsActive">{{labels.active}}</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button color="warn" [disabled]="!modifyForm.valid" class="btn-orange mr-10" type="submit">{{labels.modify}}</button>
+                         <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">{{labels.clear}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange" routerLink="/external-link">{{labels.back}}</button>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </form>
+</div>

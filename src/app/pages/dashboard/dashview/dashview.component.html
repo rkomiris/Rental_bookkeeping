@@ -1,0 +1,228 @@
+<div class="container-fluid">
+    <div class="main-content">
+
+        <app-left-nav></app-left-nav>
+        <app-tasks></app-tasks>
+
+        <!-- <aside class="left-panel mobile-left-panel">
+        <div class="logo-sec">
+          <figure>
+            <img src="assets/img/login/logo.png" alt=" " class="logo" />
+          </figure>
+        </div>
+        <div class="side-nav ">
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <figure>
+                  <i class="icon-web-settings font-46"></i>
+                </figure>
+                
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <figure>
+                  <i class="icon-booking font-46"></i>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <figure>
+                  <i class="icon-agenda font-46"></i>
+                </figure>
+                <p> PHONE <br>BOOK </p>
+              </a>
+              <hr>
+            </li>
+          </ul>
+        </div>
+      </aside> -->
+
+
+        <article class="right-panel">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <!-- <section id="mainapp"> -->
+                    <div class="row" id="noreinfo">
+                        <br>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="panel panel-default" style=" border-radius: 6px;
+                          box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);">
+                                <div class="page-title_ven1">{{labels.application}}</div>
+                                <!--panel-heading-->
+                                <div class="panel-body">
+                                    <app-application></app-application>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6 col-sm-12">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">My-Requests</div>
+                            <div class="panel-body graphg">
+                              <div class="row myreq">
+                                <div class=" col-md-2 graph1">
+                                    <app-my-requests></app-my-requests>
+                                </div>
+                                <div class=" col-md-2 graph2"></div>
+                                <div class="col-md-2 graph3"></div>
+                                <div class="col-md-2 graph4"></div>
+                                <div class="col-md-2 graph5"></div>
+                                <div class="col-md-2 graph6"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+
+                        <div class="col-md-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="panel panel-default" style=" border-radius: 6px;
+                                    box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);">
+                                                <div class="page-title_ven4">{{labels.myReq}}</div>
+                                                <div class="panel-body graphg">
+                                                    <div class="row myreq">
+                                                        <div class=" col-md-12 graph1CCC">
+                                                            <app-my-requests></app-my-requests>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="panel panel-default" style=" border-radius: 6px;
+                                    box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);">
+                                                <div class="page-title_ven2">{{labels.awaitingApproval}}</div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <app-awaiting-approval></app-awaiting-approval>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="panel panel-default" style=" border-radius: 6px;
+                            box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);">
+                                                <div class="page-title_ven2">{{labels.myTasks}}</div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <app-awaiting-resolver></app-awaiting-resolver>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row" id="noreinfo">
+                        <br>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="panel panel-default" style=" border-radius: 6px;
+                          box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);">
+                                <div class="page-title_ven3">{{labels.externalLinks}}</div>
+                                <div class="panel-body">
+                                    <app-applinks></app-applinks>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <div class="panel panel-default" style=" border-radius: 6px;
+                          box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);">
+                                <div class="page-title_ven">{{labels.slaInsights}}</div>
+                                <div class="panel-body pieg">
+                                    <app-sla></app-sla>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+
+                    <div class="row m-0 mb-15" id="footsec">
+
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 title p-0">
+                                    <h3 class="page-title_ven4">{{labels.moreApplication}}</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1 col-sm-12">
+                                    <app-moreapp></app-moreapp>
+                                </div>
+                            </div>
+                            <!--<hr>-->
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 text-center">
+                                    <br>
+                                    <br>
+                                    <!--<p class="pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione dolor animi hic non consequuntur similique ex, ducimus eligendi explicabo aut quisquam quos repellat et nam amet quam numquam minus incidunt?</p>-->
+                                </div>
+                                <!-- <div class="col-md-3"></div>
+                          <div class="col-md-6 col-sm-12 bottomrtext">
+                              <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione dolor animi hic non consequuntur similique ex, ducimus eligendi explicabo aut quisquam quos repellat et nam amet quam numquam minus incidunt?</div>
+                          </div>
+                          <div class="col-md-3"></div> -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- <section id="footsec">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 title">
+                          <p>External Links</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <app-applinks></app-applinks>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 col-sm-12 bottomrtext">
+                            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione dolor animi hic non consequuntur similique ex, ducimus eligendi explicabo aut quisquam quos repellat et nam amet quam numquam minus incidunt?</div>
+                        </div>
+                        <div class="col-md-3"></div>
+                      </div>
+                    </section> -->
+
+
+
+                    <!-- </section> -->
+                </div>
+
+
+                <!-- <div class="col-md-4">
+              RIGHT
+            </div> -->
+
+            </div>
+        </article>
+
+    </div>
+</div>

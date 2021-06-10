@@ -1,0 +1,172 @@
+<div class="content-pageXXX container-fluid">
+    <form #saveListForm [formGroup]="saveForm">
+      <div class="contentXXX main-content">
+        <app-left-nav></app-left-nav>
+        <article class="right-panel">
+          <h4 class="page-title">Room Configuration View</h4>
+            <div class="card">
+              <div class="card-body p-0">
+
+          <div class="row mt-10 disabledDiv">
+              <div class="col-md-12">
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomConfigCode'">
+                  <mat-form-field>
+                    <input matInput placeholder="Code" formControlName="roomConfigCode">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'id'">
+                  <mat-form-field>
+                    <mat-select placeholder="Location" formControlName="id"
+                      (selectionChange)="subLocationDropDown($event.value)">
+                      <mat-option *ngFor="let location of RC_location_selectFormGetDate" [value]="location.id">
+                        {{location.userLocationName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'sublocationId'">
+                  <mat-form-field>
+                    <mat-select placeholder="Sub Location" formControlName="sublocationId">
+                      <mat-option *ngFor="let sublocation of RC_sublocation_selectFormGetDate"
+                        [value]="sublocation.sublocationId">
+                        {{sublocation.subLocationName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'buildingName'">
+                  <mat-form-field>
+                    <input matInput placeholder="Building Name" formControlName="buildingName">
+                  </mat-form-field>
+                </div>
+              </div>
+              </div>
+              <div class="row disabledDiv">
+                  <div class="col-md-12">
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomConfigRoomName'">
+                  <mat-form-field>
+                    <input matInput placeholder="Room Config Name" formControlName="roomConfigRoomName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomConfigNoOfSeats'">
+                  <mat-form-field>
+                    <input matInput placeholder="No of Seats" type="number" formControlName="roomConfigNoOfSeats">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomConfigPriorty' ">
+                  <mat-form-field>
+                    <!-- <input matInput placeholder="Room Priority" formControlName="roomConfigNoOfSeats"> -->
+                    <mat-select placeholder="Room Priority" formControlName="roomConfigPriorty">                   
+                      <input type="text" placeholder="Search.."  class="advanceddropSearchTextbox" [(ngModel)]="priorityFilter"  [ngModelOptions]="{standalone: true}">
+                      <mat-option class="select-span">Select Here</mat-option>
+                      <mat-option *ngFor="let priority of priorityList | dropdownFilter : {value: priorityFilter}" 
+                        [value]="priority.id">{{priority.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 mt-15 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'isRoomConfigActive'">
+                  <mat-checkbox formControlName="isRoomConfigActive">Active?</mat-checkbox>
+                </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          <div class="row disabledDiv">
+            <div class="col-md-12">
+              <h3 class="box_title">Room Detail Configuration</h3>
+            </div>
+
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="col-md-12 mt-10" formArrayName="rinRoomDetailConfigVoList"
+                    *ngFor="let item of saveForm.get('rinRoomDetailConfigVoList')['controls']; let i = index">
+                    <div class="row" [formGroupName]="i">
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'amenityId'">
+                        <mat-form-field>
+                          <mat-select placeholder="Amenity Name" formControlName="amenityId">
+                            <mat-option *ngFor="let amenity of RC_aminite_selectFormGetDate" [value]="amenity.amenityId">
+                              {{amenity.amenityName}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomDetailNumberOfAmenities'">
+                        <mat-form-field>
+                          <input matInput placeholder="No of Amenities" type="number"
+                            formControlName="roomDetailNumberOfAmenities">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 mt-15 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'isRoomDetailConfigActive'">
+                        <mat-checkbox formControlName="isRoomDetailConfigActive">Active?
+                        </mat-checkbox>
+                      </div>
+                      <div class="col-md-3"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 text-right">
+                    <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence()">
+                      <i _ngcontent-c19="" class="material-icons">add</i>
+                    </a>
+                    <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+                      <i _ngcontent-c19="" class="material-icons">remove</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row disabledDiv">
+            <div class="col-md-4 mt-15">
+              <div class="row">
+                <div class="col-md-6" *ngIf="userBaseFieldName | arrayFilter : 'isRoomConfigApprovalRequired'">
+                  <mat-checkbox formControlName="isRoomConfigApprovalRequired">Approval Required</mat-checkbox>
+                </div>
+                <div class="col-md-6" *ngIf="userBaseFieldName | arrayFilter : 'isRoomConfigUnderMaintenance'">
+                  <mat-checkbox formControlName="isRoomConfigUnderMaintenance">Under Maintenance</mat-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row" *ngIf="saveForm.value.isRoomConfigUnderMaintenance === true">
+                 <div class="col-md-6" *ngIf="userBaseFieldName | arrayFilter : 'fromDate'">
+                      From Date & Time:
+                    <label class="example-input-wrapper">
+
+                      <input class="fromToPicker mt-10" [min]="from_MinDate" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" formControlName="fromDate" placeholder="From Date">
+                      <owl-date-time #dt1></owl-date-time>
+                     </label>
+                  </div>
+                  <div class="col-md-6" *ngIf="userBaseFieldName | arrayFilter : 'toDate'" [ngClass]="saveForm.value.fromDate === null ?'readOnly':'class-2'">
+                      To Date & Time:
+                    <label class="example-input-wrapper" >
+                      <input  class="fromToPicker mt-10" [min]="saveForm.value.fromDate" formControlName="toDate" placeholder="To Date" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2">
+                      <owl-date-time  #dt2></owl-date-time>
+                     </label>
+                  </div>
+              <!-- <div class="col-md-6">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker" formControlName="fromDate" placeholder="From Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <input matInput [disabled]="saveForm.value.fromDate === null" [matDatepicker]="picker1"
+                      [min]="saveForm.value.fromDate" formControlName="toDate" placeholder="To Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>-->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center mt-20">
+              <button mat-raised-button color="warn" class="btn-orange" routerLink="/roomconfig">Back</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </form>
+  </div>

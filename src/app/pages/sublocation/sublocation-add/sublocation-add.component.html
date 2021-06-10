@@ -1,0 +1,51 @@
+<div class="content-pageXXX container-fluid">
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.SubLocationAdd  | i18n}}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder={{labels.code}} formControlName="Code">
+                </mat-form-field>
+              </div>  -->
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'id' ">
+                                <mat-form-field class="example-full-width">
+                                    <mat-select placeholder={{labels.locationName}} formControlName="id" (openedChange)="locationFilter = ''">
+                                        <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox" [(ngModel)]="locationFilter" [ngModelOptions]="{standalone: true}">
+                                        <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                        <mat-option *ngFor="let location of subLocate_selectFormGetDate | dropdownFilter : {locationName: locationFilter}" [value]="location.id">{{location.userLocationName}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'subLocationName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{labels.subLocationName}} 
+                                    formControlName="subLocationName" maxlength="50">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2 mt-15 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'subLocationIsActive' ">
+                                <mat-checkbox formControlName="subLocationIsActive">{{labels.active}}</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit" [disabled]="saveForm.invalid">{{labels.save}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="clearForm()">{{labels.clear}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange" routerLink="/sublocation">{{labels.back}}</button>
+                    </div>
+                </div>
+
+            </article>
+
+
+        </div>
+    </form>
+</div>

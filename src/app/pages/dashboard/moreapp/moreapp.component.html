@@ -1,0 +1,42 @@
+<div class="caro">
+  <div class="caroconatiner">
+      <div id="caroitems">
+          <div id="caroitem" *ngFor="let tt of applicaitonmoreData" 
+          (click)="callarg(tt.utl)" class="caroitem">{{tt.moreApplicationName}}</div>
+
+        <!--   <div class="caroitem">item2</div>
+          <div class="caroitem">item3</div>
+          <div class="caroitem">item4</div>
+          <div class="caroitem">item5</div>
+        <div class="caroitem">item6 </div>
+        <div class="caroitem">item7</div>
+          <div class="caroitem">lorem </div>
+          <div class="caroitem">item9</div>
+          <div class="caroitem">item10</div>
+          <div class="caroitem">item11</div>
+          <div class="caroitem">item12</div>
+          <div class="caroitem">item13</div>
+          <div class="caroitem">item14</div>
+          <div class="caroitem">item15</div>
+          <div class="caroitem">item16</div>
+          <div class="caroitem">item17</div>
+          <div class="caroitem">item18</div>
+          <div class="caroitem">item19</div>
+          <div class="caroitem">item20</div>
+          <div class="caroitem">item21</div>
+          <div class="caroitem">item22</div>
+          <div class="caroitem">item23</div>
+          <div class="caroitem">item24</div>
+          <div class="caroitem">item25</div> -->
+      </div>
+
+
+
+  </div>
+
+  <div class="arrows">
+    <div (click)="goLeft()" ><mat-icon>chevron_left</mat-icon></div>
+    <div (click)="goRight()"><mat-icon>chevron_right</mat-icon></div>
+  </div>
+
+</div>

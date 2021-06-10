@@ -1,0 +1,156 @@
+<div class="content-pageXXX container-fluid">
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+        <div class="contentXXX main-content">
+
+            <app-left-nav></app-left-nav>
+
+            <article class="right-panel readonly-wrapper">
+
+                <h4 class="page-title">{{labels.requestScreenConfigurationView  | i18n}}</h4>
+                <!-- {{saveListForm.value | json}} -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenConfigurationCode' ">
+                                <mat-form-field>
+                                    <input formControlName="requestScreenConfigurationCode" matInput placeholder="{{labels.configurationCode}}">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenConfigurationName' ">
+                                <mat-form-field>
+                                    <input formControlName="requestScreenConfigurationName" matInput placeholder="{{labels.configurationName}}">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4 mt-15" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenConfigurationIsActive' ">
+                                <mat-checkbox formControlName="requestScreenConfigurationIsActive">{{labels.activeConfiguration}}</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <mat-label>Request Type</mat-label> -->
+                                <h3 class="box_title">{{labels.reqType}}</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row p-10">
+                                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeId' ">
+                                        <mat-form-field>
+                                            <mat-select (selectionChange)="getSubTypeList($event)" formControlName="requestTypeId" placeholder="{{labels.reqType}}">
+                                                <mat-option *ngFor="let requestTypeList of requestTypeList" [value]="requestTypeList.requestTypeId">
+                                                    {{requestTypeList.requestTypeName}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestSubtypeId' ">
+                                        <mat-form-field>
+                                            <mat-select [disabled]="saveForm.value.requestType === ''" formControlName="requestSubtypeId" placeholder="{{labels.reqSubType}}">
+                                                <mat-option *ngFor="let requestSubTypeList of requestSubTypeList" [value]="requestSubTypeList.requestSubTypeId">{{requestSubTypeList.requestSubTypeName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-8"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-0">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <mat-label>Sequence Type</mat-label> -->
+                                <h3 class="box_title">{{labels.sequenceType}}</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <div *ngIf="saveForm">
+                                    <div formArrayName="requestScreenDetailConfigurationVoList" *ngFor="let item of saveForm.controls['requestScreenDetailConfigurationVoList'].controls; let i = index">
+                                        <div [formGroupName]="i" class="row p-10">
+                                            <div>
+                                                <div class="col-md-1" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenDetailConfigurationSequance' ">
+                                                    <mat-form-field>
+                                                        <input type="number" formControlName="requestScreenDetailConfigurationSequance" matInput placeholder="{{labels.sequence}}">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenDetailConfigurationFieldName' ">
+                                                    <mat-form-field>
+                                                        <input formControlName="requestScreenDetailConfigurationFieldName" matInput placeholder="{{labels.fieldName}}">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenDetailConfigurationFieldType' ">
+                                                    <mat-form-field>
+                                                        <mat-select formControlName="requestScreenDetailConfigurationFieldType" placeholder="{{labels.fieldType}}">
+                                                            <mat-option *ngFor="let staticFieldComobo of staticFieldComobo" [value]="staticFieldComobo.Value">
+                                                                {{staticFieldComobo.Type}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenDetailConfigurationFieldValue' ">
+                                                    <mat-form-field>
+                                                        <input formControlName="requestScreenDetailConfigurationFieldValue" matInput placeholder="{{labels.fieldValue}}">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenDetailConfigurationValidationIsRequired' ">
+                                                    <mat-form-field>
+                                                        <mat-select formControlName="requestScreenDetailConfigurationValidationIsRequired" placeholder="{{labels.fieldValidation}}">
+                                                            <mat-option *ngFor="let fieldValidationCombo of fieldValidationCombo" [value]="fieldValidationCombo.Value">
+                                                                {{fieldValidationCombo.Name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-2 mt-15" *ngIf="userBaseFieldName | arrayFilter : 'requestScreenDetailConfigurationIsActive' ">
+                                                    <mat-checkbox formControlName="requestScreenDetailConfigurationIsActive">{{labels.activeConfiguration}}
+                                                    </mat-checkbox>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 text-right mb-10">
+                                        <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence()">
+                                            <i _ngcontent-c19="" class="material-icons">add</i>
+                                        </a>
+                                        <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+                                            <i _ngcontent-c19="" class="material-icons">remove</i>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <!--<button mat-raised-button color="warn" class="btn-orange mr-10" disabled type="submit">Save</button>
+            <button mat-raised-button color="warn" class="btn-orange mr-10" disabled type="reset">Cancel</button>-->
+                        <!-- <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="reset()">Cancel</button> -->
+                        <button style="pointer-events: auto" mat-raised-button color="warn" class="btn-orange" routerLink="/request-scrconfig">{{labels.back}}</button>
+                    </div>
+                </div>
+
+
+            </article>
+
+        </div>
+    </form>
+</div>

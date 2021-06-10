@@ -1,0 +1,21 @@
+<div class="caro">
+    <div class="caroconatiner">
+        <div id="caroitemsapplinks">
+            <div *ngFor="let app of applicaitonDate;index as i">
+                <div  (click)="gotoURL(app.externalLinkUrl)" class="caroitem"> <!--[attr.data-before-content]="app.externalLinkName"-->
+                    <!-- <img src="../../../../assets/img/laptop.png" alt=""> -->
+                   <div style="margin: 10%;">
+                      <img *ngIf="app.externalLinkLogoImage===null " [src]="app.externalLinkLogoImage" alt="">
+                      <img *ngIf="app.externalLinkLogoImage!==null " [src]="app.externalLinkLogoImage" >
+                   </div> {{app.externalLinkName}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="arrows">
+        <div (click)="goLeft()" ><mat-icon>chevron_left</mat-icon></div>
+        <div (click)="goRight()"><mat-icon>chevron_right</mat-icon></div>
+    </div>
+  </div>
+

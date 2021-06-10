@@ -1,0 +1,76 @@
+<div class="content-pageXXX container-fluid">
+    <div class="contentXXX main-content">
+  
+      <article class="right-panel">
+          <app-left-nav></app-left-nav>
+        <h4 class="page-title">Completed Approval Requests</h4>
+ 
+  
+  
+  
+  <div class="row">
+    <div class="col-sm-12">
+        <mat-grid-list cols="1" align="end">
+            <mat-form-field style="width:inherit;">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+          </mat-grid-list>
+    
+          <div class="mat-elevation-z8">
+            <div class="table-responsive">
+              <table mat-table [dataSource]="dataSource" matSort class="dTable">
+                <ng-container matColumnDef="Request Code">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Code</th>
+                  <td mat-cell *matCellDef="let row"> {{row.requestCode}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                  <td mat-cell *matCellDef="let row"> {{row.currentStatusName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="requestTypeName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</th>
+                    <td mat-cell *matCellDef="let row">  {{row.requestTypeName}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="requestSubTypeName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Sub Type</th>
+                      <td mat-cell *matCellDef="let row"> {{row.requestSubTypeName}}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="userDepartmentName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>user Department</th>
+                        <td mat-cell *matCellDef="let row"> {{row.userDepartmentName}} 
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="locationName">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+                          <td mat-cell *matCellDef="let row"> {{row.locationName}} 
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="sublocationName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sublocation</th>
+                            <td mat-cell *matCellDef="let row"> 
+                               {{row.sublocationName}} 
+                            </td>
+                          </ng-container>
+                <tr mat-header-row *matHeaderRowDef="userRoleFieldName"></tr>
+                <tr mat-row *matRowDef="let row;  columns:userRoleFieldName" (click)="row.highlighted = !row.highlighted"
+                  (click)=" selection.toggle(row)" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+                  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+              </table>
+              <div [hidden]="displayNoRecords" class="p-10">
+                <h3 class="noRecordGrid">No Record Found...</h3>
+              </div>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5]" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+          </div>
+      </div>
+  </div>
+  <div class="row mt-15 mr-0">
+          <button mat-raised-button color="warn" class="btn-orange pull-right"  routerLink="/request-summary">Back</button>
+     
+  </div>
+      </article>
+  
+    </div>
+  </div>

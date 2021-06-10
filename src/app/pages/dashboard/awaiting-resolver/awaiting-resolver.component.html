@@ -1,0 +1,25 @@
+<div class="app_waiting_sec" (click)="reqResolver()">
+
+  <div [ngClass]="appobjlength===0 ?'app_waiting_count0':'app_waiting_count'">
+    <a style="color: #fff"> gsxsg {{appobjlength}}</a>
+  </div>
+</div>
+
+
+
+<div class="app_waiting_srmav_sec">
+  <div class="circle-wrap">
+    <div class="circle">
+      <div class="mask full">
+        <div class="fill"></div>
+      </div>
+      <div class="mask half">
+        <div class="fill"></div>
+      </div>
+      <div (click)="reqResolver()" class="inside-circle"
+        [ngClass]="appobjlength===0 ?'app_waiting_count0':'app_waiting_count'" routerLink="/request-resolver">
+        {{appobjlength}}
+      </div>
+    </div>
+  </div>
+</div>

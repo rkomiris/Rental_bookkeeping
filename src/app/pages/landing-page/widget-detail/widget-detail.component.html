@@ -1,0 +1,103 @@
+<h3 class="popup_title">{{labels.widgetDetails  | i18n}}
+  <button mat-button class="modal_close_icon" [mat-dialog-close]="false" cdkFocusInitial>
+    <i class="material-icons">
+      close
+    </i>
+  </button>
+</h3>
+<div class="container parent" [ngClass]="data.single != 'yes' && data.length > 1 ? 'vertical-layout' : ''">
+  <div class="media moreLayout_height" style=" border: 1px solid #c58a2b;
+  border-radius: 5px;" [ngClass]="data.single != 'yes' && data.length > 1 ? 'inner-vertical-layout' : ''">
+
+  <!-- **************** SINGLE DETAIL ******************* -->
+  <div *ngIf = "data.single === 'yes'" class="container parent">
+    <div class="media moreLayout_height">
+  <div class="media-body">
+      <br>
+      <h1 class="mt-0 head-text"> &nbsp;{{data.widgetDetailHeading}}</h1>
+      <hr>
+    </div>
+  <div class="caro">
+    <div class="caroconatiner">
+      <div id="caroitemsapplinks">
+        <div *ngFor="let app of attachPicture;index as i">
+          <div class="caroitem" (click)="preview(app, i)">
+            <div style="margin: 10%;">
+              <!-- <img *ngIf="app !== null" src="{{url + app}}"> -->
+              <img [src]="app">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="arrows">
+      <div (click)="goLeft()">
+        <mat-icon>chevron_left</mat-icon>
+      </div>
+      <div (click)="goRight()">
+        <mat-icon>chevron_right</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="caro">
+  
+    <div style="font-size: 14px;color: #716f6f;">
+      {{data.widgetDetailDescription}}<br>
+      <br>
+    </div>
+    <p>{{data.widgetDetailAnnouncementDate | date: 'dd-MMM-yyyy'}}</p>
+  
+    <div style="font-size: 12px;">
+      <a target="_blank" href="{{data.widgetDetailExternalUrl}}">{{data.widgetDetailExternalUrl}}</a>
+  
+    </div>
+    <br>
+    <div *ngIf="data.widgetDetailAttPath!==null">
+      <button style="width: 140px;border-radius: 23px;" mat-menu-item (click)="widgetDetailIdcall(data.widgetDetailId)">
+        <mat-icon>cloud_download</mat-icon>
+        <span>{{labels.download}}</span>
+      </button>
+    </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- *********** Read More ******************* -->
+  <div *ngIf="data.single != 'yes'">
+    <div class="media-body multiple-media-body" *ngFor="let data of data; index as i">
+      <br>
+      <h1 class="mt-0 head-text">{{data.widgetDetailHeading}}</h1>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-3" *ngIf="data.widgetDetailPicPath!==null">
+            <slideshow [height]="height" [minHeight]="'100px'" [autoPlay]="data.widgetDetailPicPath?.length > 1"
+              [showArrows]="false" [imageUrls]="data.widgetDetailPicPath"
+              [lazyLoad]="data.widgetDetailPicPath?.length > 1" [autoPlayWaitForLazyLoad]="true">
+            </slideshow>
+          </div>
+          <div class="col-sm-3" *ngIf="data.widgetDetailPicPath===null"></div>
+          <div class="col-sm-9">
+            <div style="font-size: 14px;color: #716f6f;">{{data.widgetDetailDescription}}<br><br>
+            </div>
+            <p>{{data.widgetDetailAnnouncementDate | date: 'dd-MMM-yyyy'}}</p>
+
+            <div style="font-size: 12px;">
+              <a target="_blank" href="{{data.widgetDetailExternalUrl}}">{{data.widgetDetailExternalUrl}}</a>
+            </div>
+            <br>
+            <div *ngIf="data.widgetDetailAttPath!==null">
+              <button style="width: 140px;border-radius: 23px;" mat-menu-item
+                (click)="widgetDetailIdcall(data.widgetDetailId)">
+                <mat-icon style="color:rgb(197, 138, 43);">cloud_download</mat-icon>
+                <span>Download</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>

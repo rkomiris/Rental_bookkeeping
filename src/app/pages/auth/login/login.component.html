@@ -1,0 +1,103 @@
+<div class="loginBg">
+  <div class="row m-0">
+    <!-- <div class="col-md-8 col-xs-8 pull-right">
+      <div class="login_left_sec">
+        <div class="login_left_sec_inner">
+          <div class="login_logo_sec">
+            <img src="assets/img/login/logo.png">
+            <img src="assets/img/login/logo_divider.png">
+            <h3>SELF SERVICING PORTAL</h3>
+          </div>
+          <h3 class="pb-20">Aenean viverra vulputate bibendum.
+              Sed luctus lacus ut porttitor consequat.
+              Nullam pharetra elit non tristique molestie.
+              Aliquam iaculis...</h3>
+          <p>Nunc cursus eu erat sit amet ultricies. Curabitur fermentum neque at ultrices gravida.
+              In neque velit, bibendum ac nisi sit amet, ullamcorper condimentum tortor. Aliquam at
+              pretium ante. Ut iaculis ultrices eros, id rhoncus mi eleifend et. Phasellus posuere
+              enim nec felis sollicitudin, eu accumsan nunc sodales. Aliquam condimentum
+              euismod magna, quis volutpat nisl sagittis nec.</p>
+          <div class="footer_login">
+            <div class="footer_text">
+              <span class="srm_footer">&copy; 2019 Keva - Terms of Service and Privacy Policy. All Rights Reserved.</span>
+              <span class="av_footer"> 2019 SRM RT Anywhere &copy; Copyright Reserved.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-md-4 col-xs-4 pull-left">
+      <div class="login_right_sec">
+        <div class="login_right_sec_inner">
+
+          <div class="srm_rt_title">
+            <h3 class=""><strong>SRM</strong>&nbsp;<strong class="rt_anywhere">RT Anywhere</strong></h3>
+          </div>
+
+          <div class="alertMessage">
+            <div class="alert-success" *ngIf="successMessage" type="success" (close)="successMessage = null">
+                {{ successMessage }}
+            </div>
+          </div>
+
+          <div class="myClass_login" [hidden]="!isHidden">
+          <form (submit)="login($event)">
+            <div class="login_form">
+              <h3 class="mb">USER <strong>LOGIN</strong></h3>
+              <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                      <input matInput placeholder="Username" (keyup)="userId($event)" [(ngModel)]="username" name="username" required>
+                      <mat-icon matSuffix class="mr-1">person</mat-icon>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" autocomplete="off" [(ngModel)]="password" name="password" required>
+                      <mat-icon class="eyeicon" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" color="warn" class="mr-10">LOGIN</button>
+              <!-- <button mat-raised-button color="primary" class="btn-orange">Cancel</button> -->
+              <!-- <p class="pt-10"><a href="#">Forgot password?</a></p> -->
+              <p class="pt-10"><a href="javascript:void(0);" (click)="forgotPasswordShowDiv('forgotpw')">Forgot password?</a></p>
+              <!-- <p class="pt-10"><a href="javascript:void(0);" (click)="entityCreation()">Entity Creation</a></p> -->
+              <p class="pt-10"><a href="javascript:void(0);" (click)="planSubscription()">Plan Subscription</a></p>
+            </div>
+          </form>
+          </div>
+
+
+
+          <div class="myClass_forgot" [hidden]="isHidden">
+            <div class="forgot_form">
+              <h3 class="mb">FORGOT <strong>PASSWORD</strong></h3>
+
+              <form (submit)="forgotpassword($event)">
+              <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                      <input matInput placeholder="Username" (keyup) = "userId($event)" [(ngModel)]="username" name="username" required>
+                      <mat-icon matSuffix class="mr-1">person</mat-icon>
+                    </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" color="warn" class="mr-10">SUBMIT</button>
+              <button mat-raised-button type="button" (click)="cancelShowDiv('cancelBtn',$event)">CANCEL</button>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+

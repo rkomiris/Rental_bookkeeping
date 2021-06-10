@@ -1,0 +1,77 @@
+<div id="myTasks" class="sidenav">
+  <ng-scrollbar>
+    <div class="row custom_sidenav pt-10 p-10">
+
+      <div class="col-md-12">
+
+        <h2 class="pb-5 border-bottom-lg feedtitle">Activity Feed</h2>
+        <div>
+          <p class="title">Pending Approval</p>
+          <div class="row activitycomponent">
+            <div class="col-md-12">
+
+              <div *ngFor="let tt of headerService.approvallist" [hidden]="tt.currentStatusId!==2"
+                class="row widgetcontent p-10" (click)="createDialogue(tt.requestId)">
+                <div class="col-md-10">
+                  <h4>{{tt.requestCode}}</h4>
+                  <p>{{tt.requestSubject}}</p>
+                  <div class="row">
+
+                    <div class="col-md-6 lightfont">
+
+                      <mat-icon class="error">date_range</mat-icon>
+                      <p class="lightfont dayleft">
+                        {{tt.requestDate | date:'dd-MMM-yyyy'}}
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+
+                      <mat-icon class="error yellow">person</mat-icon>
+                      <p class="lightfont dayleft">
+                        {{tt.userName}}
+                      </p>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </ng-scrollbar>
+</div>
+
+
+<div id="myTasks1" class="sidenav1">
+  <ng-scrollbar>
+    <div class="row custom_sidenav pt-10 p-10">
+
+      <div class="col-md-12">
+
+        <h2 class="pb-5 border-bottom-lg feedtitle">{{labels.mailNotification}}</h2>
+          <div class="row activitycomponent">
+              <mat-accordion class="advance_search_sec" *ngFor="let kk of headerService.mailDetails1">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title style="font-size: 13px;">
+                      {{kk.title}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      <mat-icon aria-label="Example icon-button with a heart icon"
+                        (click)="deletenotification(kk.emailMessageId)" style=" margin-right: 15px;"
+                       >delete</mat-icon>
+                    </mat-panel-description>
+                   </mat-expansion-panel-header>
+                  <pre>{{kk.messageContent}}</pre>
+                </mat-expansion-panel>
+              </mat-accordion>
+
+              
+          </div>
+      </div>
+    </div>
+  </ng-scrollbar>
+</div>

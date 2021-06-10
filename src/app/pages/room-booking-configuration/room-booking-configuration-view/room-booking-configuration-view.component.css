@@ -1,0 +1,23 @@
+
+
+.read-only{
+    pointer-events: none;
+    opacity: 0.8;
+  }
+  .text-low{
+    font-size: 14px;margin: 15px 0;color: #f77772;
+  }
+  .text-medium{
+    font-size: 14px; margin: 15px 0; color: #f7be19;
+  }
+  .text-high{
+    font-size: 14px;margin: 15px 0;color: #28c128;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.my-class{
+  pointer-events: none;
+}

@@ -1,0 +1,262 @@
+<div class="content-pageXXX container-fluid">
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit(saveForm.value)" novalidate>
+    <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+
+      <article class="right-panel">
+
+        <h4 class="page-title">{{labels.WidgetsModify  | i18n}}</h4>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetIndex' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="{{labels.index}}" formControlName="widgetIndex"
+                  (openedChange)="widgetsDropFilter = ''" required>
+                    <input type="text" placeholder="Search.." class="advanceddropSearchTextbox"
+                      [(ngModel)]="widgetsDropFilter" [ngModelOptions]="{standalone: true}">
+                    <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                    <mat-option *ngFor="let widgetsDrop of widgetsDropdown  | dropdownFilter : {id: widgetsDropFilter}"
+                      [value]="widgetsDrop.id">{{widgetsDrop.id}}</mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="submitted && f.widgetIndex.errors">
+                    <span *ngIf="f.widgetIndex.errors.required">
+                      Index is required.
+                    </span>
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetTitle' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.title}}" [maxlength]="50" 
+                  formControlName="widgetTitle" name="widgetsAddGetData.widgetTitle" required>
+                  <!-- <mat-error *ngIf="submitted && f.widgetTitle.errors">
+                    <span *ngIf="f.widgetTitle.errors.required">
+                      Title is required.
+                    </span>
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetIcon' ">
+                <div class="row">
+                  <div class="col-md-1 pr-0 mt-15">
+                    <mat-icon style="color:#000; cursor:pointer" *ngIf="widgetIconName !== undefined"
+                      class="icons-color-white" (click)="downloadWidgetIcon(widgetId )" matTooltip="{{labels.download}}">
+                      vertical_align_bottom</mat-icon>
+                  </div>
+                  <div class="col-md-11 download_attachment">
+                    <mat-form-field class="example-full-width">
+                      <span *ngIf="widgetIconName">{{widgetIconName}}</span>
+                      <ngx-mat-file-input name="widgetsAddGetData.widgetIcon" accept=".png, .jpg, .jpeg" placeholder=""
+                       formControlName="widgetIcon" (change)="form(saveForm.value)">
+                      </ngx-mat-file-input>
+                      <mat-icon matSuffix>folder</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 mt-15" *ngIf="userBaseFieldName | arrayFilter : 'widgetIsActive' ">
+                <mat-checkbox formControlName="widgetIsActive">{{labels.activeWidget}}</mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="box_title">{{labels.Details}}</h3>
+              </div>
+              <div class="col-md-12 mt-2"  *ngIf="saveForm">
+                <div class="row p-20 nth_child_control">
+                  <div formArrayName="widgetDetailVoList"
+                    *ngFor="let item of saveForm.controls['widgetDetailVoList'].controls; let i = index">
+                    <div class="" [formGroupName]="i">
+                      
+                    <div class="row p-10">
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailHeading' ">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="{{labels.heading}}" [maxlength]="50" 
+                          formControlName="widgetDetailHeading">
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3 download_attachment"
+                        *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailPicPath' ">
+                        <span *ngFor="let pic of picName; index as i">
+                          <mat-icon style="color:#000; cursor:pointer" class="icons-color-white"
+                            (click)="downloadindpic(widgetDetailId, pic)" matTooltip="{{labels.download}}">vertical_align_bottom</mat-icon>
+                          <span class="picpath" matTooltip={{pic}}>{{pic}}</span>
+                        </span>
+                        <span *ngIf="picName && picName.length > 1">
+                          <mat-icon style="color:#000; cursor:pointer" class="icons-color-white"
+                            (click)="downloadpic(widgetDetailId)" matTooltip="{{labels.download}}">vertical_align_bottom</mat-icon>
+                          <span class="picpath">{{labels.downLoadAll}}</span>
+                        </span>
+                        <mat-form-field class="example-full-width hover">
+                          <ngx-mat-file-input accept=".png, .jpg, .jpeg" placeholder="{{labels.picturePath}}" name="widgetDetailPicPath"
+                            formControlName="widgetDetailPicPath"  (change)="picForm(saveForm.value)">
+                          </ngx-mat-file-input>
+                          <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3 download_attachment"
+                        *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailAttPath' ">
+                        <span *ngFor="let att of attName; index as i">
+                          <mat-icon style="color:#000; cursor:pointer" class="icons-color-white"
+                            (click)="downloadindAttpic(widgetDetailId, att)" matTooltip="{{labels.download}}">vertical_align_bottom
+                          </mat-icon> <span class="picpath" matTooltip={{att}}>{{att}}</span>
+                        </span>
+                        <span *ngIf="attName  && attName.length > 1">
+                            <mat-icon style="color:#000; cursor:pointer" class="icons-color-white"
+                              (click)="downloadAttpic(widgetDetailId)" matTooltip="{{labels.download}}">vertical_align_bottom</mat-icon>
+                            <span class="picpath">{{labels.downLoadAll}}</span>
+                          </span>
+                        <mat-form-field class="example-full-width">
+                          <ngx-mat-file-input accept=".png, .jpg, .jpeg" placeholder="{{labels.attachmentPath}}" name="widgetDetailAttPath" multiple
+                          (change)="attForm(saveForm.value)"  formControlName="widgetDetailAttPath">
+                          </ngx-mat-file-input>
+                          <mat-icon matSuffix>folder</mat-icon>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailExternalUrl' ">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="{{labels.externalURL}}" maxlength="250" 
+                          formControlName="widgetDetailExternalUrl">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row p-10">
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailValidFrom' ">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [matDatepicker]="picker2" placeholder="{{labels.validFrom}}"
+                            (dateChange)="fromDateVal($event)" readonly formControlName="widgetDetailValidFrom">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailValidTo' ">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [matDatepicker]="picker3" readonly placeholder="{{labels.validTo}}"
+                            (dateChange)="toDateVal($event)" formControlName="widgetDetailValidTo" [min]="fromDate">
+                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                          <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailAnnouncementDate' ">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [matDatepicker]="picker1" placeholder="{{labels.announcementDate}}"
+                            formControlName="widgetDetailAnnouncementDate" [min]="fromDate" [max]="toDate" readonly>
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailDescription' ">
+                          <mat-form-field class="example-full-width">
+                              <textarea matInput placeholder="{{labels.description}}" [maxlength]="50"  
+                              formControlName="widgetDetailDescription">
+                              </textarea>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'widgetDetailIsActive' ">
+                        <mat-checkbox formControlName="widgetDetailIsActive">{{labels.activeWidgetDetail}}?</mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"
+              [disabled]="!saveForm.valid">{{labels.modify}}</button>
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="button"
+              (click)="ngOnInit()">{{labels.clear}}</button>
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/widgets">{{labels.back}}</button>
+          </div>
+        </div>
+
+
+
+
+
+        <div>
+          <div class="mat-elevation-z8 " style="margin-top:15px">
+            <div class="table-responsive">
+              <table mat-table [dataSource]="dataSource" matSort class="dTable">
+
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'" style="width:50px;">
+                    <!-- <mat-checkbox class="d-none" (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox> -->
+                  </th>
+                  <td mat-cell *matCellDef="let row" [ngClass]="'text-center'">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)" (change)="row.highlighted = !row.highlighted"
+                      (change)="editRecord($event,row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="heading">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.heading}} </th>
+                  <td mat-cell *matCellDef="let row"> {{row.widgetDetailHeading}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.status}} </th>
+                  <td mat-cell *matCellDef="let row"> {{(row.widgetDetailIsActive)? 'Active':'InActive'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.description}} </th>
+                  <td mat-cell *matCellDef="let row">{{row.widgetDetailDescription}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="announcementDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.announcementDate}} </th>
+                  <td mat-cell *matCellDef="let row">{{row.widgetDetailAnnouncementDate | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="validFrom">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.validFrom}} </th>
+                  <td mat-cell *matCellDef="let row">{{row.widgetDetailValidFrom | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="validTo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.validTo}} </th>
+                  <td mat-cell *matCellDef="let row">{{row.widgetDetailValidTo | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row;  columns:displayedColumns" (click)="row.highlighted = !row.highlighted"
+                  [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+
+              </table>
+
+              <!-- <div [hidden]="displayNoRecords" class="p-10">
+          <h3 class="noRecordGrid">No Record Found...</h3>
+        </div> -->
+            </div>
+            <mat-paginator [pageSizeOptions]="[5]" #paginator [hidePageSize]="true" showFirstLastButtons>
+            </mat-paginator>
+            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [hidePageSize]="false" showFirstLastButtons></mat-paginator> -->
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+  </form>
+
+
+
+</div>

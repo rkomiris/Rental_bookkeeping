@@ -1,0 +1,905 @@
+<div class="content-pageXXX container-fluid">
+
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.reqConfigAdd  | i18n}}</h4>
+                <!-- <p>  {{saveForm.value | json}}</p> -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeId' ">
+                                <mat-form-field>
+                                    <mat-select placeholder="{{labels.reqType}}" formControlName="requestTypeId"
+                                        (selectionChange)="selectedRequestType($event.value)" (openedChange)="requestTypeFilter = ''">
+                                        <input type="text" placeholder="{{labels.search}}"
+                                            class="advanceddropSearchTextbox" [(ngModel)]="requestTypeFilter"
+                                            [ngModelOptions]="{standalone: true}">
+                                        <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                        <mat-option
+                                            *ngFor="let requestType of reqTypeList | dropdownFilter : {requestTypeName : requestTypeFilter}"
+                                            [value]="requestType.requestTypeId">
+                                            {{requestType.requestTypeName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestSubTypeId' ">
+                                <mat-form-field>
+                                    <mat-select placeholder="{{labels.reqSubType}}" formControlName="requestSubTypeId" (openedChange)="requestSubTypeFilter = ''">
+                                        <input type="text" placeholder="{{labels.search}}"
+                                            class="advanceddropSearchTextbox" [(ngModel)]="requestSubTypeFilter"
+                                            [ngModelOptions]="{standalone: true}">
+                                        <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                        <mat-option
+                                            *ngFor="let subType of reqSubTypeList | dropdownFilter : {requestSubTypeName : requestSubTypeFilter}"
+                                            [value]="subType.requestSubTypeId">
+                                            {{subType.requestSubTypeName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6" *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowDescription' ">
+                                <mat-form-field class="example-full-width">
+                                    <textarea matInput placeholder="{{labels.requestFlowDescription}}" [maxlength]="50"
+                                        formControlName="reqWorkFlowDescription"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row mt-15">
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <mat-select #customworkFlowLocationIdInput [(ngModel)]="customworkFlowLocationId"
+                                        placeholder="{{labels.userLocation}}" (openedChange)="locationListFilter = ''"
+                                        (selectionChange)="get_subLocation($event.value)"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <input type="text" placeholder="{{labels.search}}"
+                                            class="advanceddropSearchTextbox" [(ngModel)]="locationListFilter"
+                                            [ngModelOptions]="{standalone: true}">
+                                        <mat-option [value]='0'>All</mat-option>
+                                        <mat-option
+                                            *ngFor="let userLocation of locationList  | dropdownFilter : {userLocationName : locationListFilter}"
+                                            [value]="userLocation.id">
+                                            {{userLocation.userLocationName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <mat-select #customworkFlowSublocationIdInput (openedChange)="subLocationFilter = ''"
+                                        [(ngModel)]="customworkFlowSublocationId" placeholder="{{labels.sublocation}}"
+                                        [ngModelOptions]="{standalone: true}"
+                                        (selectionChange)="get_Dept($event.value, customworkFlowLocationIdInput.value)">
+                                        <input type="text" placeholder="{{labels.search}}"
+                                            class="advanceddropSearchTextbox" [(ngModel)]="subLocationFilter"
+                                            [ngModelOptions]="{standalone: true}">
+                                        <mat-option [value]='0'>All</mat-option>
+                                        <mat-option
+                                            *ngFor="let sublocation of subLocationList  | dropdownFilter : {subLocationName : subLocationFilter}"
+                                            [value]="sublocation.sublocationId">
+                                            {{sublocation.subLocationName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <mat-select #customworkFlowDepartmentIdInput multiple (selectionChange)="ev($event)"
+                                        [(ngModel)]="customworkFlowDepartmentId" placeholder="{{labels.userDepartment}}"
+                                        [ngModelOptions]="{standalone: true}" (openedChange)="departmentFilter = ''">
+                                        <input type="text" placeholder="{{labels.search}}"
+                                            class="advanceddropSearchTextbox" [(ngModel)]="departmentFilter"
+                                            [ngModelOptions]="{standalone: true}">
+                                        <mat-option [value]='0'>All</mat-option>
+                                        <mat-option
+                                            *ngFor="let userDepartment of departmentlist  | dropdownFilter : {userDepartmentName : departmentFilter}"
+                                            [value]="userDepartment.id">
+                                            {{userDepartment.userDepartmentName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-checkbox #customActiveInput [checked]="true" style="pointer-events: none;"
+                                    [(ngModel)]="customActive">{{labels.active}}
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-sm-1">
+                                <a _ngcontent-c19="" matTooltip="Add New Row" class="circle_iconbg"
+                                    href="javascript:void(0);"
+                                    (click)="customrequestWorkFlowDetailsVoList(customworkFlowLocationIdInput.value, customworkFlowSublocationIdInput.value, customworkFlowDepartmentIdInput.value, customActiveInput, saveForm.value.requestWorkFlowDetailsVoList.length)">
+                                    <i _ngcontent-c19="" class="material-icons">add</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row dynamic-lists" *ngIf="saveForm.value.requestWorkFlowDetailsVoList.length > 0">
+                            <div formArrayName="requestWorkFlowDetailsVoList"
+                                *ngFor="let item of saveForm.get('requestWorkFlowDetailsVoList')['controls']; let i = index">
+                                <div [formGroupName]="i" class="col-md-12">
+                                    <div class="col-md-3 read-only">
+                                        <mat-form-field>
+                                            <mat-select placeholder="{{labels.userLocation}}"
+                                                formControlName="workFlowLocationId">
+                                                <mat-option [value]='0'>All</mat-option>
+                                                <mat-option *ngFor="let userLocation of customlocationList"
+                                                    [value]="userLocation.id">
+                                                    {{userLocation.userLocationName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-3 read-only">
+                                        <mat-form-field>
+                                            <mat-select placeholder="{{labels.userSubLocation}}"
+                                                formControlName="workFlowSublocationId">
+                                                <mat-option [value]='0'>All</mat-option>
+                                                <mat-option *ngFor="let sublocation of customsubLocationList[i]"
+                                                    [value]="sublocation.sublocationId">
+                                                    {{sublocation.subLocationName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-3 read-only">
+                                        <mat-form-field>
+                                            <mat-select placeholder="{{labels.userDepartment}}"
+                                                formControlName="workFlowDepartmentId">
+                                                <mat-option [value]='0'>All</mat-option>
+                                                <mat-option *ngFor="let userDepartment of customdepartmentlist[i]"
+                                                    [value]="userDepartment.id">
+                                                    {{userDepartment.userDepartmentName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <mat-checkbox formControlName="reqWorkFlowDetailsIsActive">{{labels.active}}
+                                        </mat-checkbox>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-15">
+                            <div *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowIsActive' "
+                                class="col-md-2 read-only">
+                                <mat-checkbox formControlName="reqWorkFlowIsActive">{{labels.active}}</mat-checkbox>
+                            </div>
+                            <div class="col-md-2"
+                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowIsMailRequired' ">
+                                <mat-checkbox formControlName="reqWorkFlowIsMailRequired">{{labels.mail}}</mat-checkbox>
+                            </div>
+                            <div class="col-md-2 read-only"
+                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowIsNotificationRequired' ">
+                                <mat-checkbox formControlName="reqWorkFlowIsNotificationRequired">
+                                    {{labels.notification}}</mat-checkbox>
+                            </div>
+                            <div class="col-md-3"
+                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowIsMgtEscalationRequired' ">
+                                <mat-checkbox formControlName="reqWorkFlowIsMgtEscalationRequired">
+                                    {{labels.managementEscalation}}</mat-checkbox>
+                            </div>
+
+
+                            <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowReassign' ">
+                                <mat-checkbox formControlName="reqWorkFlowReassign">{{labels.reassign}}</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <mat-label>Executer Configuration</mat-label> -->
+                                <h3 class="box_title">{{labels.executerConfig}}</h3>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2" style="margin:15px 0 0 0;"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'excutorHolidayisRequired' ">
+                                            <mat-checkbox formControlName="executorHoliday">
+                                                {{labels.executorHoliday}}</mat-checkbox>
+                                        </div>
+                                        <div class="col-md-2" style="margin:15px 0 0 0;"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'excutorWeekendisRequired' ">
+                                            <mat-checkbox formControlName="executorWeekend">
+                                                {{labels.executorWeekend}}</mat-checkbox>
+                                        </div>
+                                        <div class="col-md-2" style="float:right;">
+                                            <mat-slide-toggle formControlName="slaConfigure" class="pull-right  m-20"
+                                                (change)="slideToggle($event)"> {{labels.indiviudalSLA}} ?
+                                            </mat-slide-toggle>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-20" *ngIf="saveForm">
+                                <div class="col-md-12" formArrayName="requestWorkFlowExecuterVo"
+                                    *ngFor="let item of saveForm.get('requestWorkFlowExecuterVo')['controls']; let i = index">
+                                    <div [formGroupName]="i">
+
+                                        <div class="mt-20" *ngIf="defaultCommon == '1' && i == '0'">
+                                            <div class="col-md-12" formArrayName="requestWorkFlowSlaVo"
+                                                *ngFor="let item of saveForm.get('requestWorkFlowSlaVo')['controls']; let j = index">
+                                                <div [formGroupName]="j">
+                                                    <div class="col-md-2">
+                                                        <p class="text-low" *ngIf="j == '0'">{{labels.low}}</p>
+                                                        <p class="text-medium" *ngIf="j == '1'">
+                                                            {{labels.medium}}</p>
+                                                        <p class="text-high" *ngIf="j == '2'">{{labels.high}}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-4"
+                                                        *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSla' ">
+                                                        <mat-form-field>
+                                                            <input matInput placeholder="{{labels.SLA}}"
+                                                                [(ngModel)]="exSequence3[i][j]" type="text"
+                                                                (keyup)="validateExFloatKeyPress(this,i,j)"
+                                                                pattern="^[0-9]*$" maxlength=2
+                                                                formControlName="reqWorkFlowSla">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3"
+                                                        *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaType' ">
+                                                        <mat-form-field>
+                                                            <mat-select placeholder="{{labels.SLAType}}"
+                                                                formControlName="reqWorkFlowSlaType">
+                                                                <input type="text" placeholder="{{labels.search}}"
+                                                                    class="advanceddropSearchTextbox"
+                                                                    [(ngModel)]="exslaTypeFilter[i][j]"
+                                                                    [ngModelOptions]="{standalone: true}">
+                                                                <mat-option class="select-span">{{labels.selectHere}}
+                                                                </mat-option>
+                                                                <mat-option
+                                                                    *ngFor="let exslaTypes of slaTypes   | dropdownFilter : {viewValue : exslaTypeFilter[i][j]}"
+                                                                    [value]="exslaTypes.value">
+                                                                    {{exslaTypes.viewValue}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3  read-only"
+                                                        *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaIsActive' ">
+                                                        <mat-checkbox formControlName="reqWorkFlowSlaIsActive">
+                                                            {{labels.SLAActive}}</mat-checkbox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-2"
+                                                *ngIf="userBaseFieldName | arrayFilter : 'executerLocationId' ">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="{{labels.executerLocation}}"
+                                                        formControlName="executerLocationId" (openedChange)="exlocationListFilter[i] = ''"
+                                                        (selectionChange)="selected_ExsequenceLocationType($event.value, i, saveForm)">
+                                                        <input type="text" placeholder="{{labels.search}}"
+                                                            class="advanceddropSearchTextbox"
+                                                            [(ngModel)]="exlocationListFilter[i]"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                        <mat-option class="select-span">{{labels.selectHere}}
+                                                        </mat-option>
+                                                        <mat-option
+                                                            *ngFor="let userLocation of locationList   | dropdownFilter : {userLocationName : exlocationListFilter[i]}"
+                                                            [value]="userLocation.id">
+                                                            {{userLocation.userLocationName}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-md-2"
+                                                *ngIf="userBaseFieldName | arrayFilter : 'executerSublocationId' ">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="{{labels.executerSubLocation}}"
+                                                        formControlName="executerSublocationId" (openedChange)="exsublocationFilter[i] = ''"
+                                                        (selectionChange)="selected_ExsequencesubLocationType($event.value, i, item, saveForm)">
+                                                        <input type="text" placeholder="{{labels.search}}"
+                                                            class="advanceddropSearchTextbox"
+                                                            [(ngModel)]="exsublocationFilter[i]"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                        <mat-option class="select-span">{{labels.selectHere}}
+                                                        </mat-option>
+                                                        <mat-option
+                                                            *ngFor="let sublocation of subLocationNameExSeq_data[i] | dropdownFilter : {subLocationName : exsublocationFilter[i]}"
+                                                            [value]="sublocation.sublocationId">
+                                                            {{sublocation.subLocationName}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-md-2"
+                                                *ngIf="userBaseFieldName | arrayFilter : 'executerDepartmentId' ">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="{{labels.executerDepartment}}"
+                                                        formControlName="executerDepartmentId" (openedChange)="exuserDepartmentFilter[i] = ''"
+                                                        (selectionChange)="dynamicExGetUSerRole($event.value, i, saveForm, item)">
+                                                        <input type="text" placeholder="{{labels.search}}"
+                                                            class="advanceddropSearchTextbox"
+                                                            [(ngModel)]="exuserDepartmentFilter[i]"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                        <mat-option class="select-span">{{labels.selectHere}}
+                                                        </mat-option>
+                                                        <mat-option
+                                                            *ngFor="let userDepartment of squExdepartmentlist[i]  | dropdownFilter : {userDepartmentName : exuserDepartmentFilter[i]}"
+                                                            [value]="userDepartment.id">
+                                                            {{userDepartment.userDepartmentName}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-md-2"
+                                                *ngIf="userBaseFieldName | arrayFilter : 'executerRoleId' ">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="{{labels.executerUserRole}}"
+                                                        formControlName="executerRoleId" (openedChange)="exuserRoleFilter[i] = ''"
+                                                        (selectionChange)="dynamicExFieldsGetUSer($event.value, i, saveForm)">
+                                                        <input type="text" placeholder="{{labels.search}}"
+                                                            class="advanceddropSearchTextbox"
+                                                            [(ngModel)]="exuserRoleFilter[i]"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                        <mat-option class="select-span">{{labels.selectHere}}
+                                                        </mat-option>
+                                                        <mat-option
+                                                            *ngFor="let userRole of dynamicExUserRoleList[i]  | dropdownFilter : {userRoleName : exuserRoleFilter[i]}"
+                                                            [value]="userRole.id">
+                                                            {{userRole.userRoleName}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-2"
+                                                *ngIf="userBaseFieldName | arrayFilter : 'executerUserId' ">
+                                                <div>
+                                                    <mat-form-field>
+                                                        <mat-select placeholder="{{labels.executerUser}}"
+                                                            formControlName="executerUserId" (openedChange)="exuseruserFilter[i] = ''">
+                                                            <input type="text" placeholder="{{labels.search}}"
+                                                                class="advanceddropSearchTextbox"
+                                                                [(ngModel)]="exuseruserFilter[i]"
+                                                                [ngModelOptions]="{standalone: true}">
+                                                            <mat-option class="select-span">{{labels.selectHere}}
+                                                            </mat-option>
+                                                            <mat-option
+                                                                *ngFor="let user of dynamicExUserList[i] | dropdownFilter : {firstName : exuseruserFilter[i]}"
+                                                                [value]="user.id">
+                                                                {{user.firstName}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <a _ngcontent-c19="" matTooltip="Remove Row" class="circle_iconbg mr-15"
+                                                    href="javascript:void(0);" (click)="deleteExSequence(i)">
+                                                    <i _ngcontent-c19="" class="material-icons">remove</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="defaultCommon == '0'">
+                                            <div class="col-md-12" formArrayName="requestWorkFlowSlaVo"
+                                                *ngFor="let item of saveForm.get('requestWorkFlowSlaVo')['controls']; let j = index">
+                                                <div [formGroupName]="j">
+                                                    <div class="col-md-2">
+                                                        <p class="text-low" *ngIf="j == '0'">{{labels.low}}</p>
+                                                        <p class="text-medium" *ngIf="j == '1'">
+                                                            {{labels.medium}}</p>
+                                                        <p class="text-high" *ngIf="j == '2'">{{labels.high}}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-4"
+                                                        *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSla' ">
+                                                        <mat-form-field>
+                                                            <input matInput placeholder="{{labels.SLA}}"
+                                                                [(ngModel)]="exSequence3[i][j]" type="text"
+                                                                pattern="^[0-9]*$" maxlength=2
+                                                                (keyup)="validateExFloatKeyPress(this,i,j)"
+                                                                formControlName="reqWorkFlowSla">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3"
+                                                        *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaType' ">
+                                                        <mat-form-field>
+                                                            <mat-select placeholder="{{labels.SLAType}}"
+                                                                formControlName="reqWorkFlowSlaType">
+                                                                <input type="text" placeholder="{{labels.search}}"
+                                                                    class="advanceddropSearchTextbox"
+                                                                    [(ngModel)]="exslaTypeFilter[i][j]"
+                                                                    [ngModelOptions]="{standalone: true}">
+                                                                <mat-option class="select-span">{{labels.selectHere}}
+                                                                </mat-option>
+                                                                <mat-option
+                                                                    *ngFor="let exslaTypes of slaTypes   | dropdownFilter : {viewValue : exslaTypeFilter[i][j]}"
+                                                                    [value]="exslaTypes.value">
+                                                                    {{exslaTypes.viewValue}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3  read-only"
+                                                        *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaIsActive' ">
+                                                        <mat-checkbox formControlName="reqWorkFlowSlaIsActive">
+                                                            {{labels.SLAActive}}?</mat-checkbox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-right mb-10">
+                                <a _ngcontent-c19="" matTooltip="Add New Row" class="circle_iconbg mr-15"
+                                    href="javascript:void(0);" (click)="addExSequence()">
+                                    <i _ngcontent-c19="" class="material-icons">add</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="row" style="margin-bottom:20px;">
+                                    <div class="col-md-2"
+                                        *ngIf="userBaseFieldName | arrayFilter : 'approverHolidayisRequired' ">
+                                        <mat-checkbox formControlName="approverHoliday">
+                                            {{labels.approverHoliday}}</mat-checkbox>
+                                    </div>
+                                    <div class="col-md-2"
+                                        *ngIf="userBaseFieldName | arrayFilter : 'approverWeekendisRequired' ">
+                                        <mat-checkbox formControlName="approverWeekend">
+                                            {{labels.approverWeekend}}</mat-checkbox>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row" style="margin-top: -20px;">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body p-0">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <!-- <mat-label>Sequance 1</mat-label> -->
+                                                        <h3 class="box_title">{{labels.approvalConfigHier}}</h3>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="row p-10">
+                                                            <div class="col-md-5"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSeqLevelType' ">
+                                                                <mat-form-field>
+                                                                    <mat-select
+                                                                        placeholder="{{labels.configurationlevelType}}"
+                                                                        (selectionChange)="sequanceOne($event)" (openedChange)="workflowLevelOneFilter = ''"
+                                                                        formControlName="reqWorkFlowSeqLevelTypeOne">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="workflowLevelOneFilter"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let workflowLevelOne of workflowLevelOnes | dropdownFilter : {viewValue : workflowLevelOneFilter}"
+                                                                            [value]="workflowLevelOne.value">
+                                                                            {{workflowLevelOne.viewValue}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-5"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSeqLevelhierarchy' ">
+                                                                <div *ngIf="selectedList">
+                                                                    <mat-form-field>
+                                                                        <input matInput
+                                                                            placeholder="{{labels.restrictionHierarcy}}"
+                                                                            maxLength="2"
+                                                                            (keypress)="numberOnly($event)"
+                                                                            formControlName="reqWorkFlowSeqLevelhierarchy">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 read-only">
+                                                                <mat-checkbox
+                                                                    formControlName="seq1reqWorkFlowSeqIsActive">
+                                                                    {{labels.active}}</mat-checkbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12" formArrayName="seq1requestWorkFlowSlaVo"
+                                                            *ngFor="let item of saveForm.get('seq1requestWorkFlowSlaVo')['controls']; let j = index">
+                                                            <div class="row" [formGroupName]="j">
+                                                                <div class="col-md-2">
+                                                                    <p class="text-low" *ngIf="j == '0'">{{labels.low}}
+                                                                    </p>
+                                                                    <p class="text-medium" *ngIf="j == '1'">
+                                                                        {{labels.medium}}</p>
+                                                                    <p class="text-high" *ngIf="j == '2'">
+                                                                        {{labels.high}}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-4"
+                                                                    *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSla' ">
+                                                                    <mat-form-field>
+                                                                        <input matInput placeholder="{{labels.SLA}}"
+                                                                            pattern="^[0-9]*$" maxlength=2
+                                                                            [(ngModel)]="sequence1[j]" type="text"
+                                                                            (keyup)="validateFloatKeyPresssequence1(this,j)"
+                                                                            formControlName="reqWorkFlowSla">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="col-md-3"
+                                                                    *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaType' ">
+                                                                    <mat-form-field>
+                                                                        <mat-select placeholder="{{labels.SLAType}}"
+                                                                            formControlName="reqWorkFlowSlaType">
+                                                                            <input type="text"
+                                                                                placeholder="{{labels.search}}"
+                                                                                class="advanceddropSearchTextbox"
+                                                                                [(ngModel)]="workflowLevelOneSlaTypeFilter[j]"
+                                                                                [ngModelOptions]="{standalone: true}">
+                                                                            <mat-option class="select-span">
+                                                                                {{labels.selectHere}}</mat-option>
+                                                                            <mat-option
+                                                                                *ngFor="let exslaTypes of slaTypes   | dropdownFilter : {viewValue : workflowLevelOneSlaTypeFilter[j]}"
+                                                                                [value]="exslaTypes.value">
+                                                                                {{exslaTypes.viewValue}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="col-md-3  read-only"
+                                                                    *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaIsActive' ">
+                                                                    <mat-checkbox
+                                                                        formControlName="reqWorkFlowSlaIsActive">
+                                                                        {{labels.SLAActive}}</mat-checkbox>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body p-0">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <!-- <mat-label>Sequance 2</mat-label> -->
+                                                        <h3 class="box_title">{{labels.approvalConfigDept}}</h3>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="row p-10">
+                                                            <div class="col-md-6"
+                                                                [ngClass]="{'read-only': saveForm.value.reqWorkFlowSeqLevelTypeOne != '1' && saveForm.value.reqWorkFlowSeqLevelTypeOne != '0'}"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSeqLevelType' ">
+                                                                <mat-form-field>
+                                                                    <mat-select 
+                                                                        placeholder="{{labels.configurationlevelType}}" formControlName="reqWorkFlowSeqLevelTypeTwo"
+                                                                        (selectionChange)="sequanceTwo($event)" (openedChange)="workflowLevelTwoFilter = ''">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="workflowLevelTwoFilter"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let workflowLevelTwo of workflowLevelTwos | dropdownFilter : {viewValue : workflowLevelTwoFilter}"
+                                                                            [value]="workflowLevelTwo.value">
+                                                                            {{workflowLevelTwo.viewValue}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-4"></div>
+                                                            <div class="col-md-2 read-only">
+                                                                <mat-checkbox
+                                                                    formControlName="seq2reqWorkFlowSeqIsActive">
+                                                                    {{labels.active}}</mat-checkbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12" formArrayName="seq2requestWorkFlowSlaVo"
+                                                            [ngClass]="{'read-only': saveForm.value.reqWorkFlowSeqLevelTypeOne != '1' && saveForm.value.reqWorkFlowSeqLevelTypeOne != '0'}"
+                                                            *ngFor="let item of saveForm.get('seq2requestWorkFlowSlaVo')['controls']; let j = index">
+                                                            <div class="row" [formGroupName]="j">
+                                                                <div class="col-md-2">
+                                                                    <p style="    font-size: 14px;margin: 15px 0;color: #f77772;"
+                                                                        *ngIf="j == '0'">{{labels.low}}</p>
+                                                                    <p style="    font-size: 14px; margin: 15px 0; color: #f7be19;"
+                                                                        *ngIf="j == '1'">
+                                                                        {{labels.medium}}</p>
+                                                                    <p style="    font-size: 14px;margin: 15px 0;color: #28c128;"
+                                                                        *ngIf="j == '2'">{{labels.high}}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-4"
+                                                                    *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSla' ">
+                                                                    <mat-form-field>
+                                                                        <input matInput placeholder="{{labels.SLA}}"
+                                                                            [(ngModel)]="sequence2[j]" type="text"
+                                                                            pattern="^[0-9]*$" maxlength=2
+                                                                            (keyup)="validateFloatKeyPresssequence2(this,j)"
+                                                                            formControlName="reqWorkFlowSla"
+                                                                            [required]="enablesla">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="col-md-3"
+                                                                    *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaType' ">
+                                                                    <mat-form-field>
+                                                                        <mat-select placeholder="{{labels.SLAType}}"
+                                                                            formControlName="reqWorkFlowSlaType"
+                                                                            [required]="enablesla">
+                                                                            <input type="text"
+                                                                                placeholder="{{labels.search}}"
+                                                                                class="advanceddropSearchTextbox"
+                                                                                [(ngModel)]="workflowLevelTwoSlaTypeFilter[j]"
+                                                                                [ngModelOptions]="{standalone: true}">
+                                                                            <mat-option class="select-span">
+                                                                                {{labels.selectHere}}</mat-option>
+                                                                            <mat-option
+                                                                                *ngFor="let exslaTypes of slaTypes   | dropdownFilter : {viewValue : workflowLevelTwoSlaTypeFilter[j]}"
+                                                                                [value]="exslaTypes.value">
+                                                                                {{exslaTypes.viewValue}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="col-md-3 read-only"
+                                                                    *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaIsActive' ">
+                                                                    <mat-checkbox
+                                                                        formControlName="reqWorkFlowSlaIsActive">
+                                                                        {{labels.SLAActive}}</mat-checkbox>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="card" style="margin-top: 0px;">
+                                    <div class="card-body p-0">
+                                        <div class="row" *ngIf="saveForm">
+
+                                            <div class="col-md-12" formArrayName="requestWorkFlowSequenceList"
+                                                *ngFor="let item of saveForm.get('requestWorkFlowSequenceList')['controls']; let i = index">
+                                                <div class="row" [formGroupName]="i">
+
+                                                    <div class="col-md-12" *ngIf="i==0">
+                                                        <!-- <mat-label>Sequance 3</mat-label> -->
+                                                        <h3 class="box_title">{{labels.approvalConfigExe}}</h3>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="row p-10">
+                                                            <div class="col-md-2"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'id' ">
+                                                                <mat-form-field>
+                                                                    <mat-select placeholder="{{labels.userLocation}}"
+                                                                        formControlName="locationId" (openedChange)="sequserLocationFilter[i] = ''"
+                                                                        (selectionChange)="selected_sequenceLocationType($event.value, i)">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="sequserLocationFilter[i]"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let userLocation of locationList | dropdownFilter : {userLocationName : sequserLocationFilter[i]}"
+                                                                            [value]="userLocation.id">
+                                                                            {{userLocation.userLocationName}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-md-2"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'sublocationId' ">
+                                                                <mat-form-field>
+                                                                    <mat-select placeholder="{{labels.sublocation}}"
+                                                                        formControlName="sublocationId" (openedChange)="seqsublocationFilter[i] = ''"
+                                                                        (selectionChange)="selected_sequenceSubLocationType($event.value, i, item)">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="seqsublocationFilter[i]"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let sublocation of subLocationNameSeq_data[i]  | dropdownFilter : {subLocationName : seqsublocationFilter[i]}"
+                                                                            [value]="sublocation.sublocationId">
+                                                                            {{sublocation.subLocationName}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-md-2"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentId' ">
+                                                                <mat-form-field>
+                                                                    <mat-select placeholder="{{labels.userDepartment}}"
+                                                                        formControlName="userDepartmentId" (openedChange)="sequserDepartmentFilter[i] = ''"
+                                                                        (selectionChange)="dynamicGetUSerRole($event.value, i, item)">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="sequserDepartmentFilter[i]"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let userDepartment of squdepartmentlist[i]  | dropdownFilter : {userDepartmentName : sequserDepartmentFilter[i]}"
+                                                                            [value]="userDepartment.id">
+                                                                            {{userDepartment.userDepartmentName}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-md-2"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'userRoleId' ">
+                                                                <mat-form-field>
+                                                                    <mat-select (openedChange)="sequserRoleFilter[i] = ''"
+                                                                        placeholder="{{labels.sequenceUserRole}}"
+                                                                        formControlName="userRoleId"
+                                                                        (selectionChange)="dynamicFieldsGetUSer($event.value, i)">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="sequserRoleFilter[i]"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let userRole of dynamicUserRoleList[i]  | dropdownFilter : {userRoleName : sequserRoleFilter[i]}"
+                                                                            [value]="userRole.id">
+                                                                            {{userRole.userRoleName}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-2"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'userId' ">
+                                                                <div *ngIf="saveForm.value.requestWorkFlowSequenceList[i] != undefined && 
+                                                                saveForm.value.requestWorkFlowSequenceList[i].userRoleId != ''">
+                                                                    <mat-form-field>
+                                                                        <mat-select
+                                                                            placeholder="{{labels.sequenceUser}}"
+                                                                            formControlName="userId" (openedChange)="sequserFilter[i] = ''">
+                                                                            <input type="text"
+                                                                                placeholder="{{labels.search}}"
+                                                                                class="advanceddropSearchTextbox"
+                                                                                [(ngModel)]="sequserFilter[i]"
+                                                                                [ngModelOptions]="{standalone: true}">
+                                                                            <mat-option class="select-span">
+                                                                                {{labels.selectHere}}</mat-option>
+                                                                            <mat-option
+                                                                                *ngFor="let user of dynamicUserList[i]   | dropdownFilter : {firstName : sequserFilter[i]}"
+                                                                                [value]="user.id">
+                                                                                {{user.firstName}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 read-only">
+                                                                <mat-checkbox formControlName="reqWorkFlowSeqIsActive">
+                                                                    {{labels.active}}?</mat-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12" formArrayName="requestWorkFlowSlaVo"
+                                                        *ngFor="let item of saveForm.get('requestWorkFlowSlaVo')['controls']; let j = index">
+                                                        <div [formGroupName]="j">
+                                                            <div class="col-md-2">
+                                                                <p class="text-low" *ngIf="j == '0'">{{labels.low}}</p>
+                                                                <p class="text-medium" *ngIf="j == '1'">
+                                                                    {{labels.medium}}</p>
+                                                                <p class="text-high" *ngIf="j == '2'">{{labels.high}}
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-4"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSla' ">
+                                                                <mat-form-field>
+                                                                    <input matInput placeholder="{{labels.SLA}}"
+                                                                        [(ngModel)]="sequence3[i][j]" type="text"
+                                                                        pattern="^[0-9]*$" maxlength=2
+                                                                        (keyup)="validateFloatKeyPress(this,i,j)"
+                                                                        formControlName="reqWorkFlowSla">
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-3"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaType' ">
+                                                                <mat-form-field>
+                                                                    <mat-select placeholder="{{labels.SLAType}}"
+                                                                        formControlName="reqWorkFlowSlaType">
+                                                                        <input type="text"
+                                                                            placeholder="{{labels.search}}"
+                                                                            class="advanceddropSearchTextbox"
+                                                                            [(ngModel)]="seqSlaTypeFilter[i][j]"
+                                                                            [ngModelOptions]="{standalone: true}">
+                                                                        <mat-option class="select-span">
+                                                                            {{labels.selectHere}}</mat-option>
+                                                                        <mat-option
+                                                                            *ngFor="let exslaTypes of slaTypes   | dropdownFilter : {viewValue : seqSlaTypeFilter[i][j]}"
+                                                                            [value]="exslaTypes.value">
+                                                                            {{exslaTypes.viewValue}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-3  read-only"
+                                                                *ngIf="userBaseFieldName | arrayFilter : 'reqWorkFlowSlaIsActive' ">
+                                                                <mat-checkbox formControlName="reqWorkFlowSlaIsActive">
+                                                                    {{labels.SLAActive}}</mat-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 text-right mb-10">
+                                                <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);"
+                                                    (click)="addSequence()">
+                                                    <i _ngcontent-c19="" class="material-icons">add</i>
+                                                </a>
+                                                <a _ngcontent-c19="" class="circle_iconbg mr-15"
+                                                    href="javascript:void(0);" (click)="deleteSequence()">
+                                                    <i _ngcontent-c19="" class="material-icons">remove</i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center mt-20">
+                        <button mat-raised-button color="warn" class="btn-orange mr-10"
+                            type="submit">{{labels.save}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10"
+                            (click)="clearForm()">{{labels.clear}}</button>
+
+                        <button mat-raised-button color="warn" class="btn-orange"
+                            routerLink="/request-configuration">{{labels.back}}</button>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </form>
+</div>

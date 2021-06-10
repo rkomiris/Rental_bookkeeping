@@ -1,0 +1,72 @@
+<h3 class="popup_title">{{labels.search  | i18n}}
+  <!-- <button mat-button class="modal_close_icon" [mat-dialog-close]="true" cdkFocusInitial>
+    <i class="material-icons">close</i>
+  </button> -->
+</h3>
+<mat-dialog-content class="mat-typography md-dialog">
+    <form #searchListForm [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm.value)">
+        
+        <div class="row" *ngIf="searchForm">
+          <div class="col-md-12" formArrayName="searchDatas"
+            *ngFor="let item of searchForm.controls['searchDatas'].controls; let i = index">
+            <div class="row" [formGroupName]="i">
+              <div class="col-md-6">
+                <mat-form-field style="margin-top: 10px;">
+                  <mat-select [(ngModel)]="qtd[i]" formControlName="dropDownVal"  placeholder="{{labels.choosethefield}}">
+                    <mat-option [disabled]="searchCombo.dis" (click)="changefield(searchCombo,i,searchForm)" *ngFor="let searchCombo of searchCombo"
+                      [value]="searchCombo.value">{{searchCombo.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="qtd[i]!=='requestDate' && qtd[i]!=='requestPriority' && qtd[i]!=='currentStatusId'">
+                  <mat-form-field style="margin-top: 10px;">
+                      <input matInput placeholder="{{labels.value}}" [(ngModel)]="qtm[i]" formControlName="textVal" (keyup)="removeFilter($event.target.value)" >
+                  </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="qtd[i]==='requestDate'">
+                  <mat-form-field style="margin-top: 10px;">
+                    <input matInput readonly [matDatepicker]="picker3" [(ngModel)]="qtm[i]" formControlName="textVal" placeholder="{{labels.date}}" (click)="dateClick($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="qtd[i]==='requestPriority'">
+                  <mat-form-field style="margin-top: 10px;">
+                    <mat-select [(ngModel)]="qtm[i]" formControlName="textVal" placeholder="{{labels.priority}}" >
+                      <mat-option *ngFor="let desi of desicionarr" (click)="removeFilter($event.target.textContent)" [value]="desi.value">{{desi.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="qtd[i]==='currentStatusId'">
+                    <mat-form-field style="margin-top: 10px;">
+                      <mat-select [(ngModel)]="qtm[i]" formControlName="textVal" placeholder="{{labels.status}}" >
+                        <mat-option *ngFor="let status of statusArray" (click)="removeFilter($event.target.textContent)" [value]="status.value">{{status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence(searchForm)">
+              <i _ngcontent-c19="" class="material-icons">add</i>
+            </a>
+            <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+              <i _ngcontent-c19="" class="material-icons">remove</i>
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+              <button mat-raised-button color="warn" class="btn-orange mr-10 mb-10" [mat-dialog-close]="searchForm.value" type="submit"
+              [disabled]="!searchForm.valid">{{labels.search}}</button>
+          </div>
+          </div>
+      </form>
+  </mat-dialog-content>

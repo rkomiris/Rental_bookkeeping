@@ -1,0 +1,195 @@
+<div class="content-pageXXX container-fluid">
+  <!-- <form #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm.value)" novalidate> -->
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+      <app-left-nav></app-left-nav>
+      <article class="right-panel">
+        <h4 class="page-title">{{labels.userMappingModify  | i18n}}</h4>
+
+        <div class="row">
+          <div class="col-md-12">
+            <br>
+            <div class="col-md-12">
+
+              <mat-card>
+                <div class="row">
+                  <!-- **************** Row One ********************* -->
+                  <div class="col-md-12">
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userLocationId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.location}} (selectionChange)="getSubLocationList2($event.value, saveForm)"
+                          [(ngModel)]="location" formControlName="userLocationId" (openedChange)="locationFilter = ''">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="locationFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let location of locationList  | dropdownFilter : {userLocationName: locationFilter}"
+                            [value]="location.id">{{location.userLocationName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'subLocationId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.subLocation}} (openedChange)="sublocationFilter = ''"
+                          (selectionChange)="getdepartmentList2($event.value, saveForm)" formControlName="subLocationId">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="sublocationFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let sublocation of userSubLocationCombo  | dropdownFilter : {subLocationName: sublocationFilter}"
+                            [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.department}} (openedChange)="departmentFilter = ''"
+                          (selectionChange)="executerGetUSerRole2($event.value, saveForm)" formControlName="userDepartmentId">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="departmentFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let department of departmentList  | dropdownFilter : {userDepartmentName: departmentFilter}"
+                            [value]="department.id">{{department.userDepartmentName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userRoleId' ">
+                      <mat-form-field>
+                        <mat-select placeholder={{labels.userRole}} formControlName="userRoleId"
+                          (selectionChange)="executerGetUSer2($event.value, saveForm)" (openedChange)="userRoleFilter = ''">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="userRoleFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let userRole of userRoleList  | dropdownFilter : {userRoleName: userRoleFilter}"
+                            [value]="userRole.id">{{userRole.userRoleName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userId' ">
+                      <div *ngIf="saveForm.value.userRoleId != ''">
+                        <mat-form-field>
+                          <mat-select placeholder={{labels.user}} formControlName="userId" (openedChange)="userFilter = ''">
+                            <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                              [(ngModel)]="userFilter" [ngModelOptions]="{standalone: true}">
+                            <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                            <mat-option
+                              *ngFor="let user of executerUserList  | dropdownFilter : {firstName : userFilter}"
+                              [value]="user.id">{{user.firstName}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="col-md-12">
+
+
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingLocationId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.reportingUserLocation}}
+                          (selectionChange)="getReportingSubLocationList2($event.value, saveForm)"
+                          formControlName="reportingLocationId" (openedChange)="reportinglocationFilter = ''">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="reportinglocationFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let location of locationList  | dropdownFilter : {userLocationName : reportinglocationFilter}"
+                            [value]="location.id">{{location.userLocationName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingSubLocationId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.reportingUserSubLocation}} (openedChange)="reportingsublocationFilter = ''"
+                          (selectionChange)="getReportingdepartmentList2($event.value, saveForm)"
+                          formControlName="reportingSubLocationId">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="reportingsublocationFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let sublocation of userReportingSubLocationCombo  | dropdownFilter : {subLocationName : reportingsublocationFilter}"
+                            [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingUserDepartment' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.reportingUserDepartment}} (openedChange)="reportingdepartmentFilter = ''"
+                          (selectionChange)="getreportuser2($event.value, saveForm)" formControlName="reportingUserDepartment">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="reportingdepartmentFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let department of reportingDepartmentList  | dropdownFilter : {userDepartmentName : reportingdepartmentFilter}"
+                            [value]="department.id">{{department.userDepartmentName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+
+
+                  </div>
+                  <!-- *********** Row Four *********** -->
+                  <div class="col-md-12">
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingToUser' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.reportingToUser}} formControlName="reportingToUser"
+                        (openedChange)="reportingUserFilter = ''">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="reportingUserFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let user of reportUserList  | dropdownFilter : {firstName : reportingUserFilter}"
+                            [value]="user.id">{{user.firstName}} &nbsp; {{user.lastName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'levelId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder={{labels.level}} formControlName="levelId" (openedChange)="reportinglevelFilter = ''">
+                          <input type="text" placeholder={{labels.search}} class="advanceddropSearchTextbox"
+                            [(ngModel)]="reportinglevelFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">Select Here</mat-option>
+                          <mat-option
+                            *ngFor="let level of levelCombo  | dropdownFilter : {itemValue : reportinglevelFilter}"
+                            [value]="level.commonId">{{level.itemValue}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br>
+            <br>
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"  [disabled]="saveForm.invalid">{{labels.modify}}</button>
+            <!--<button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Cancel</button>-->
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/user-map">{{labels.back}}</button>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,61 @@
+<div class="content-pageXXX container-fluid">
+    <!-- <form #modifyForm="ngForm" (ngSubmit)="onSubmit(modifyForm.value)" novalidate> -->
+    <!-- <form #viewListForm [formGroup]="viewForm" (ngSubmit)="onSubmit()">  -->
+    <form #viewListForm [formGroup]="viewForm">
+        <div class="contentXXX main-content">
+
+
+            <app-left-nav></app-left-nav>
+
+            <article class="right-panel">
+
+                <h4 class="page-title">{{labels.ExternalLinkView  | i18n}}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.name}}" formControlName="externalLinkName" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkLogo' ">
+                                <div class="row">
+                                    <div class="col-md-1" style="padding-right:0;">
+                                        <mat-icon style="margin-top:14px;cursor:pointer;" matTooltip="{{labels.download}}" (click)="pictureDownload()">vertical_align_bottom</mat-icon>
+                                    </div>
+                                    <div class="col-md-11 download_attachment">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.logo}}" formControlName="externalLinkLogo" readonly>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkUrl' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.Url}}" formControlName="externalLinkUrl" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkDisplaySeq' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.displaySequence}}" formControlName="externalLinkDisplaySeq" readonly>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-2 readonly" *ngIf="userBaseFieldName | arrayFilter : 'externalLinkIsActive' ">
+                                <mat-checkbox formControlName="externalLinkIsActive">{{labels.active}}</mat-checkbox>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button color="warn" class="btn-orange" routerLink="/external-link">{{labels.back}}</button>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </form>
+</div>

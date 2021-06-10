@@ -1,0 +1,523 @@
+<!-- <div class="hamberger_toggle" (click)="changeState()">
+    <div id="menuToggle">
+      <mat-icon>menu</mat-icon>
+    </div>
+</div> -->
+
+
+<div class="hamberger_toggle" (mousedown)="increase()">
+  <div id="menuToggle">
+    <mat-icon>menu</mat-icon>
+  </div>
+</div>
+
+
+<!-- <aside class="left-panel mobile-left-panel" [@changeLeftNavSize]=currentState> -->
+<aside class="left-panel mobile-left-panel">
+
+  <!-- <div class="hamberger_toggle">
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    </div> -->
+
+  <div class="logo-sec">
+    <figure>
+      <img src="assets/img/login/logo.png" alt=" " class="logo" />
+      <img src="assets/img/login/SRMLogo.jpg" alt="" class="logo_srmav" routerLink="/landing-page" />
+    </figure>
+  </div>
+
+
+  <!-- <div class="side-nav" [ngStyle]="{ 'width.px': sidenavWidth }"> -->
+  <div class="side-nav scroll-width-thin" [ngStyle]="{ 'width.px': sidenavWidth }">
+    <ul>
+      <li>
+        <a href="javascript:;">
+          <figure>
+            <span *ngIf="userDetails" matTooltip="{{labels.viewProfile}}">
+              <i class=""><img [src]="profile" alt=" " routerLink="/userprofile" class="img-responsive user_img" /></i>
+            </span>
+
+            <span class="leftMenu_userName_sec" *ngIf="sidenavWidth > 55">
+
+              <span class="leftMenu_userName"><a href="javascript:;" *ngIf="userDetails"  matTooltip="{{userDetails.userName}}"
+                  routerLink="/userprofile"> {{ (userDetails.userName.length>12)? (userDetails.userName | slice:0:12)+'...':(userDetails.userName) }}  </a></span>
+              
+              <span><a href="javascript:;" *ngIf="entityName" matTooltip="{{entityName}}"> 
+                {{ (entityName.length>12)? (entityName | slice:0:12)+'...':(entityName) }} </a></span>    
+              <!-- matTooltip="{{userDetails.username}}">{{ userDetails.userName }}
+                  {{ (userDetails.username.length>12)? (userDetails.username | slice:0:12)+'...':(userDetails.username) }}</a></span> -->
+              
+                  <span class="leftMenu_userName leftMenu_userIcons">
+                <a href="javascript:;" routerLink="/changepassword">
+                  <mat-icon matTooltip="{{labels.changePassword}}">settings</mat-icon>
+                </a>
+                <a href="javascript:;" (click)="logout()">
+                  <mat-icon matTooltip="{{labels.logOut}}">power_settings_new</mat-icon>
+                </a>
+              </span>
+            </span>
+          </figure>
+          <p> User <br>Name </p>
+        </a>
+      </li>
+
+
+
+
+      <li>
+        <a href="javascript:;" routerLink="/dashboard">
+          <figure>
+            <!-- <span><i class="icon-web-settings font-46"></i></span> -->
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.dashboard}}">poll</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels.dashboard}}</span>
+          </figure>
+          <p> DASHBOARD </p>
+        </a>
+        <hr>
+      </li>
+
+      <li>
+        <a href="javascript:;" routerLink="/phone">
+          <figure>
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.phonebook}}">contact_phone</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels. phonebook}}</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>
+        </a>
+        <hr>
+      </li>
+      <!-- Entity Master -->
+      <li *ngIf="userId == '1'">
+        <a href="javascript:;" routerLink="/entity">
+          <figure>
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.entityMaster}}">person_add</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels. entityMaster}}</span>
+          </figure>
+          <p> ENTITY <br>MASTER </p>
+        </a>
+        <hr>
+      </li>
+      <!-- Plan Master -->
+      <li *ngIf = "userId == '1'">
+        <a href="javascript:;" routerLink="/plan-master">
+          <figure>
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.planMaster}}">playlist_add_check</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels. planMaster}}</span>
+          </figure>
+          <p> PLAN <br>MASTER </p>
+        </a>
+        <hr>
+      </li>
+
+      <li *ngIf="masterlist!=='' && masterlist.length!==0">
+        <a href="javascript:;" (click)="onSelect1()">
+          <figure>
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.master}}">perm_data_setting</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels.master}}</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>
+        </a>
+        <ul [hidden]="IsHidden">
+
+          <li *ngFor="let tt of masterlist">
+            <a href="javascript:;" [routerLink]="tt.screenUrl">
+              <figure>
+                <span>
+                  <mat-icon class="font-46" matTooltip="{{tt.screenName}}">{{tt.screenIcon}}</mat-icon>
+                </span>
+                <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{tt.screenName}}</span>
+              </figure>
+              <p> PHONE <br>BOOK </p>
+            </a>
+            <hr>
+          </li>
+
+        </ul>
+        <hr>
+      </li>
+      <li *ngIf="configlist!=='' && configlist.length!==0">
+        <a href="javascript:;" (click)="onSelect2()">
+          <figure>
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.configuration}}">rv_hookup</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels.configuration}}</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>
+        </a>
+
+        <ul [hidden]="IsIsHidden">
+          <li *ngFor="let tt of configlist">
+            <a href="javascript:;" [routerLink]="tt.screenUrl">
+              <figure>
+                <span>
+                  <mat-icon class="font-46" matTooltip="{{tt.screenName}}">{{tt.screenIcon}}</mat-icon>
+                </span>
+                <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{tt.screenName}}</span>
+              </figure>
+              <p> ROOM<br> BOOKING </p>
+            </a>
+            <hr>
+          </li>
+        </ul>
+
+        <hr>
+      </li>
+
+
+
+
+
+
+      <li *ngIf="transactionlist!=='' && transactionlist.length!==0">
+        <a href="javascript:;" (click)="onSelect3()">
+          <figure>
+            <span>
+              <mat-icon class="font-46" matTooltip="{{labels.general}}">pages</mat-icon>
+            </span>
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{labels.general}}</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>
+        </a>
+
+        <ul [hidden]="IsIsIsHidden">
+          <li *ngFor="let tt of transactionlist">
+            <a href="javascript:;" [routerLink]="tt.screenUrl">
+              <figure>
+                <span>
+                  <mat-icon class="font-46" matTooltip="{{tt.screenName}}">{{tt.screenIcon}}</mat-icon>
+                </span>
+                <span class="leftMenu_name" *ngIf="sidenavWidth > 55">{{tt.screenName}}</span>
+              </figure>
+              <p> ROOM<br> BOOKING </p>
+            </a>
+            <hr>
+          </li>
+        </ul>
+
+        <hr>
+      </li>
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <li>
+        <a href="javascript:;" (click)="onSelect1()">
+          <figure>
+            <span><mat-icon class="font-46" matTooltip="Master">perm_data_setting</mat-icon></span>            
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Master</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>          
+        </a>
+          <ul [hidden]="IsHidden">
+            <li>
+              <a href="javascript:;" routerLink="/user">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="User">account_box</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >User</span>
+                </figure>
+                <p> PHONE <br>BOOK </p>          
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/phonedetails">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Phone Book Details">contact_phone</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Phone Book Details</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/user-map">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="User Mapping">dns</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >User Mapping</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/userrole">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="User Role">library_books</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >User Role</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/location">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Location">location_on</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Location</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/sublocation">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Sublocation">dns</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Sublocation</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/department">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Department">games</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Department</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/authentication">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Authentication">security</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Authentication</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+          </ul>
+        <hr>
+      </li> -->
+      <!-- <li>
+        <a href="javascript:;" (click)="onSelect2()">
+          <figure>
+            <span><mat-icon class="font-46" matTooltip="Configuration">rv_hookup</mat-icon></span>            
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Configuration</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>          
+        </a>
+          <ul [hidden]="IsIsHidden">
+            <li>
+              <a href="javascript:;" routerLink="/request-type">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Request Type">aspect_ratio</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Request Type</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/widgets">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Widget">all_out</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Widget</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/request-subtype">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Request SubType">starts</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Request SubType</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/request-scrconfig">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Req Screen Config">group_work</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Req Screen Config</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/request-configuration">
+                <figure>
+                    <span><mat-icon class="font-46" matTooltip="Request Configuration">receipt</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Request Configuration</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/external-link">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="External Link">donut_small</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >External Link</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/flash-news">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Flash News">extension</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Flash News</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+          </ul>
+        <hr>
+      </li> -->
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <li>
+        <a href="javascript:;" (click)="onSelect3()">
+          <figure>
+            <span><mat-icon class="font-46" matTooltip="General">pages</mat-icon></span>            
+            <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >General</span>
+          </figure>
+          <p> PHONE <br>BOOK </p>          
+        </a>
+          <ul [hidden]="IsIsIsHidden">
+            <li>
+              <a href="javascript:;" routerLink="/request-summary">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Req Summary">extension</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Req Summary</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" (click)="callmyroute()">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Request">ballot</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Request</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/approvallist">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Approval">all_out</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Approval</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+            <li>
+              <a href="javascript:;" routerLink="/request-resolver">
+                <figure>
+                  <span><mat-icon class="font-46" matTooltip="Resolver">donut_small</mat-icon></span>
+                  <span class="leftMenu_name" *ngIf="sidenavWidth > 55" >Resolver</span>
+                </figure>
+                <p> ROOM<br> BOOKING </p>
+              </a>
+              <hr>
+            </li>
+          </ul>
+        <hr>
+      </li> -->
+
+    </ul>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="side-nav">
+    <ul>
+      <li>
+        <a href="javascript:;">
+          <figure>
+            <i class=""><img src="assets/img/user_profile_icon.png" alt=" " class="img-responsive user_img" /></i>
+          </figure>
+          <p> User <br>Name </p>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:;" routerLink="/landing-page">
+          <figure>
+            <i class="icon-web-settings font-46"></i>
+          </figure>
+          
+        </a>
+        <hr>
+      </li>
+      <li>
+        <a href="javascript:;" routerLink="/room-booking">
+          <figure>
+            <i class="icon-booking font-46"></i>
+          </figure>
+          <p> ROOM<br> BOOKING </p>
+        </a>
+        <hr>
+      </li>
+      <li>
+        <a href="javascript:;" routerLink="/phone">
+          <figure>
+            <i class="icon-agenda font-46"></i>
+          </figure>
+          <p> PHONE <br>BOOK </p>
+        </a>
+        <hr>
+      </li>
+    </ul>
+  </div> -->
+
+
+</aside>

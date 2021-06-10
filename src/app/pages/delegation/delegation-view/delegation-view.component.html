@@ -1,0 +1,185 @@
+<div class="content-pageXXX container-fluid">
+  <form #saveListForm [formGroup]="saveForm">
+    <div class="contentXXX main-content">
+      <article class="right-panel">
+        <app-left-nav></app-left-nav>
+        <h4 class="page-title">{{labels.delegationView  | i18n}}</h4>
+        <!-- {{saveForm.value | json}} -->
+        <div class="col-md-12">
+          <!-- <mat-card> -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.userName}}" readonly formControlName="userName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-1" >
+                  <!-- <button type="button"  mat-icon-button>
+                    <mat-icon aria-label="Example icon-button with a heart icon" 
+                    (click)="projectDelete()" matTooltip="Delete" style="float: right;">delete</mat-icon>
+                  </button> -->
+                </div>
+              </div>
+
+              <!-- <div class="col-md-12" formArrayName="userDelegationDetailsVo"
+                *ngFor="let item of saveForm.get('userDelegationDetailsVo')['controls']; let i = index">
+                <div [formGroupName]="i">
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <mat-select placeholder="{{labels.user}}" formControlName="delegatedUserId" (selectionChange)="duplicatedCheck()">
+                        <input type="text" placeholder="{{labels.search}}.." class="advanceddropSearchTextbox"
+                          [(ngModel)]="userFilter" [ngModelOptions]="{standalone: true}">
+                        <mat-option class="select-span">{{labels.searchHere}}</mat-option>
+                        <mat-option *ngFor="let user of userDropDown  | dropdownFilter : {firstName: userFilter}"
+                          [value]="user.id">{{user.firstName}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <mat-form-field>
+                      <input matInput placeholder="{{labels.activeFrom}}" [min]="today" [matDatepicker]="picker1"
+                        formControlName="userActiveFrom" (dateInput)="duplicateUserCheck()" readonly>
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker  #picker1 color="warn" ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <mat-form-field>
+                      <input matInput placeholder="{{labels.activeTo}}" readonly
+                        [matDatepicker]="picker2" formControlName="userActiveTo">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2 color="warn"></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <mat-form-field class="example-full-width">
+                      <mat-select placeholder="{{labels.userType}}" formControlName="userType" (selectionChange)="duplicateTypeCheck()">
+                        <mat-option *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="{{labels.remarks}}" formControlName="delegationRemarks" maxlength="250">
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="col-md-1 mt-15">
+                    <mat-checkbox formControlName="delegatedUserActive">{{labels.active}}</mat-checkbox>
+                  </div>
+                  <div class="col-md-1" *ngIf="assignButton">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">{{labels.assign}}</button>
+                  </div>
+                  <div class="col-md-1" *ngIf="updateButton">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">{{labels.update}}</button>
+                  </div>
+                  <div class="col-md-1" *ngIf="modifyButton">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10"
+                        (click)="projectModify()" type="button">{{labels.modify}}</button>
+                  </div>
+                  <div class="col-md-1" *ngIf="deleteButton">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10"
+                        (click)="projectDelete()" type="button">{{labels.delete}}</button>
+                  </div>
+                  
+                </div>
+              </div> -->
+
+              <!-- ***************** TABLE **************** -->
+              <!-- <div class="card" style="margin: 22px;">
+                <div class="card-body p-5" style="margin-left: 30px; margin-top: 15px;"> -->
+                  <div class="row col-md-12">
+
+                    <div class="mat-elevation-z8">
+                      <div class="table-responsive">
+                        <table mat-table [dataSource]="dataSource" matSort class="dTable">
+
+                          <ng-container matColumnDef="select">
+                              <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'" style="width:50px;">
+                                <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()" 
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                </mat-checkbox> -->
+                              </th>
+                              <td mat-cell *matCellDef="let row" [ngClass]="'text-center'">
+                                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)" 
+                                   (change)="recordview(row)">
+                                </mat-checkbox>
+                              </td>
+                            </ng-container>
+
+                          <ng-container matColumnDef="delegatedUserName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.delegatedUser}}</th>
+                            <td mat-cell *matCellDef="let row"> {{row.delegatedUserName}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="userActiveFrom">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.activeFrom}}</th>
+                            <td mat-cell *matCellDef="let row"> {{row.activeFrom |date: 'dd/MM/yyyy' }}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="userActiveTo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.activeTo}}</th>
+                            <td mat-cell *matCellDef="let row">{{row.activeTo |date: 'dd/MM/yyyy' }}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="userType">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.userType}}</th>
+                            <td mat-cell *matCellDef="let row"> {{row.userTypeName}}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="remarks">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.remarks}}</th>
+                            <td mat-cell *matCellDef="let row"> {{row.userDelegationDetailsVo.delegationRemarks}}</td>
+                          </ng-container>
+                          
+                          <ng-container matColumnDef="active">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.active}} </th>
+                            <td mat-cell *matCellDef="let row">
+                              <div *ngIf= "row.userDelegationDetailsVo.delegatedUserActive == true">{{labels.active}}</div>
+                              <div *ngIf= "row.userDelegationDetailsVo.delegatedUserActive == false">{{labels.inactive}}</div>
+                            </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="userNameTable"></tr>
+                          <tr mat-row *matRowDef="let row;  columns:userNameTable"
+                            (click)="row.highlighted = !row.highlighted" (click)="selection.toggle(row)"
+                            [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+
+                        </table>
+
+                        <div [hidden]="displayNoRecords" class="p-10">
+                          <h3 class="noRecordGrid">{{labels.noRecords}}</h3>
+                        </div>
+
+
+                      </div>
+                      <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                      </mat-paginator>
+                    </div>
+
+                  </div>
+                <!-- </div>
+              </div> -->
+              <div class="col-md-12 text-center">
+                <button mat-raised-button color="warn" class="btn-orange mr-10" type="button"
+                  routerLink="/delegation">{{labels.back}}</button>
+                  <!-- <button mat-raised-button color="warn" (click)="reset()" type="button" class="btn-orange mr-10">{{labels.clear}}</button> -->
+              </div>
+            </div>
+
+          <!-- </mat-card> -->
+        </div>
+      </article>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="content-pageXXX container-fluid">
+    <form #viewListForm [formGroup]="viewForm">
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.RequestTypeView  | i18n}}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeCode' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.code}}" formControlName="requestTypeCode" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.reqType}}" formControlName="requestTypeName" readonly>
+                                </mat-form-field>
+                            </div>
+                            <!--<div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="URL" formControlName="requestTypeUrl" readonly>
+                </mat-form-field>
+              </div>-->
+                            <div class="col-md-3 mt-15 readonly-wrapper" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeIsActive' ">
+                                <mat-checkbox formControlName="requestTypeIsActive">{{labels.active}}</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button color="warn" class="btn-orange" routerLink="/request-type">{{labels.back}}</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </form>
+</div>

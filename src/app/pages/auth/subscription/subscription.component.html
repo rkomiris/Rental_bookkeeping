@@ -1,0 +1,70 @@
+ <h3 class="popup_title">Plan Subscription 
+  <button mat-button class="modal_close_icon" [mat-dialog-close]="false" cdkFocusInitial>
+  <i class="material-icons">close</i>
+</button>
+</h3>
+<mat-dialog-content class="mat-typography md-dialog" style="margin-bottom: 16px;">
+  <div class="content-pageXXX container-fluid">
+    <div class="row">
+      <div class="col-md-4 "  *ngFor="let count of loadDataList; let i = index" (click)="entityCreation(count)" >
+        <mat-card class="mt-10 matCard"  style="
+      transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+      display: block;
+      border: solid 0.5px lightgrey;
+      position: relative;" ngClass="dash{{i}}">
+       <!-- matTooltip="{{count.category}}" 
+       matTooltipClass="tooltipClass" -->
+          <mat-card-title class="matCardTitle matCardClass">{{count.planName}}
+          </mat-card-title>
+          <mat-card-body>
+            <div class="row">
+              <div class="col-md-4">
+                <img [src]="count.imgURL" height="130" width="100">
+              </div>
+              <div class="col-md-7 details">
+                <div class="row">
+                  <div class="col-md-6 label_left"> User Count</div>
+                  <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom'">{{count.userCount}}</div>
+                  <div class="col-md-6 label_right" *ngIf="count.planName == 'Custom'"> - </div>
+                </div>
+                <div class="row">
+                 <div class="col-md-6  label_left"> Transaction Count </div>
+                 <div class="col-md-6 label_right"  *ngIf="count.planName != 'Custom'">{{count.transactionCount}}</div>
+                 <div class="col-md-6 label_right"  *ngIf="count.planName == 'Custom'"> - </div>
+               </div>
+               <div class="row">
+                 <div class="col-md-6 label_left "> Duration (in month)</div>
+                 <div *ngIf="count.duration == 1 && count.planName != 'Custom' && count.toDate == null
+                  && count.fromDate == null" class="col-md-6 label_right">{{count.duration}} month</div>
+                 <div *ngIf="count.duration > 1  && count.planName != 'Custom' && count.toDate == null
+                   && count.fromDate == null" class="col-md-6 label_right">{{count.duration}} months</div>
+                 <div *ngIf="count.planName == 'Custom' && count.duration != null"  class="col-md-6 label_right"> - </div>
+                 <div *ngIf="count.duration == null && count.planName != 'Custom'" class="col-md-6 label_right">{{count.fromDate | date:'dd/MM/yyyy'}} - {{count.toDate | date: 'dd/MM/yyyy'}}</div>
+               </div>
+               <div class="row">
+              <div class="col-md-6 label_left"> Original Amount</div>
+                <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom' && count.amount != null">{{count.symbol}}{{count.amount}}</div>
+                <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom' && count.amount == null"> - </div>
+                <div class="col-md-6 label_right" *ngIf="count.planName == 'Custom'"> - </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 label_left"> Offer Amount</div>
+                <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom' && count.offerAmount != null">{{count.symbol}}{{count.offerAmount}}</div>
+                <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom' && count.offerAmount == null"> - </div>
+                <div class="col-md-6 label_right" *ngIf="count.planName == 'Custom'"> - </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 label_left"> Offer Remarks</div>
+                <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom' && count.offerRemarks != null">{{count.offerRemarks}}</div>
+                <div class="col-md-6 label_right" *ngIf="count.planName != 'Custom' && count.offerRemarks == null"> - </div>
+                <div class="col-md-6 label_right" *ngIf="count.planName == 'Custom'"> - </div>
+              </div>
+              </div>
+            </div>             
+          </mat-card-body>
+        </mat-card>
+      </div>
+    </div> 
+  </div>
+</mat-dialog-content> 
+

@@ -1,0 +1,29 @@
+
+.container{
+  width: 60%;
+}
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  .row{
+    padding-top: 20px;
+  }
+  
+  .mat-dialog-content{
+    max-height: 90vh;
+  }
+  .title{
+    font-family: 'Montserrat-Regular';
+    font-size: 24px;
+    color: orange;
+    padding: 20px 10px;
+    
+    vertical-align: middle;
+  }
+  .closebut{
+    color: black;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+  }

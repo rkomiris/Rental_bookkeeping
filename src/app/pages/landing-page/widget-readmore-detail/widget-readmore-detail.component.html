@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="main-content">
+
+        <app-left-nav></app-left-nav>
+
+        <app-tasks></app-tasks>
+
+        <div class="col-md-3">
+          <div class="back">
+              <button mat-raised-button color="warn" class="btn-orange" (click)="goBack()">{{labels.back}}</button>
+          </div>
+
+            <div class="news">
+                <div *ngIf="widgetData">
+              <div class="news-head">
+                <figure>
+                    <img src="assets/img/megaphone.png" alt=" " />
+                </figure>
+
+
+                <h1>{{landingDetailWidgetData[position].widgetTitle}}</h1>
+              </div>
+
+
+              <ng-scrollbar class="my-scrollbar">
+              <div class="news-des">
+                  <div *ngFor="let item of widgetData;index as i">
+                  <div class="media" (click)="onSelectItem(item)" [class.selected]="item === selectedItem">
+                    <img class="pull-left mr-3" src="assets/img/news3.png" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <div class="news-content mt-0">
+                            <h2>{{item.widgetDetailHeading}}</h2>
+                            <p>{{item.widgetDetailDescription}}</p>
+
+                     </div>
+                    </div>
+                  </div>
+                  </div>
+
+
+            </div>
+          </ng-scrollbar>
+
+        </div>
+      </div>
+       </div>
+
+       <div class="col-md-6">
+
+          <app-widget-more-detail [widgetItem] = "selectedItem"></app-widget-more-detail>
+
+       </div>
+
+       </div>
+       </div>

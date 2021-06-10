@@ -1,0 +1,108 @@
+<div class="content-pageXXX container-fluid">
+
+    <form #saveListForm [formGroup]="saveForm">
+      <div class="contentXXX main-content">
+        <article class="right-panel">
+          <app-left-nav></app-left-nav>
+          <h4 class="page-title">{{labels.LocationView  | i18n}}</h4>
+          <div class="card">
+            <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userLocationName' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationName}}" maxlength="250" formControlName="userLocationName" readonly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userLocationDetails' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationDetails}}" maxlength="250" formControlName="userLocationDetails" readonly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'contactName' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationContatctName}}" maxlength="250" formControlName="contactName" readonly>
+                </mat-form-field>
+              </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'cityId' ">
+                  <mat-form-field class="example-full-width readonly-wrapper">
+                    <mat-select placeholder="{{labels.locationCity}}" formControlName="cityId">
+                      <mat-option *ngFor="let city of cityCombo" [value]="city.cityId">
+                        {{city.cityName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'stateId' ">
+                  <mat-form-field class="example-full-width readonly-wrapper">
+                    <mat-select placeholder="{{labels.locationState}}" formControlName="stateId">
+                      <mat-option *ngFor="let state of stateCombo" [value]="state.stateId">
+                        {{state.stateName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div><div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'countryId' ">
+                  <mat-form-field class="example-full-width readonly-wrapper">
+                    <mat-select placeholder="{{labels.locationCountry}}" formControlName="countryId">
+                      <mat-option *ngFor="let country of countryCombo" [value]="country.countryId">
+                        {{country.countryName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">                
+                
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'email' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.emailId}}" formControlName="email" readonly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'zip' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.locationZip}}" formControlName="zip" readonly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'phone' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.phoneNumber}}" formControlName="phone" readonly>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          
+            
+            
+            
+            <div class="row">
+              <div class="col-md-12">               
+                
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'fax' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="{{labels.locationFax}}" formControlName="fax" readonly>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+          
+
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button mat-raised-button color="warn" class="btn-orange" routerLink="/location">{{labels.back}}</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </form>
+  </div>

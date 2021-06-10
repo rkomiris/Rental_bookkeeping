@@ -1,0 +1,7 @@
+
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.6;   }
+    .readonly-wrapper{
+        pointer-events: none;
+    }

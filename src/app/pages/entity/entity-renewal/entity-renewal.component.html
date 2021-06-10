@@ -1,0 +1,190 @@
+<div class="container-fluid">
+    <div class="contentXXX main-content">
+
+        <form #viewListForm [formGroup]="viewForm">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+
+                <h4 class="page-title">{{labels.entityRenewal  | i18n}}</h4>
+                <!-- <div class="card">
+          <div class="card-body"> -->
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityName' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.entityName}}" formControlName="entityName"
+                                    maxlength="250" readonly>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'email' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.emailId}}" formControlName="email" maxlength="250">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'location' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.location}}" formControlName="location"
+                                    maxlength="250" readonly>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'subLocation' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.sublocation}}" formControlName="subLocation"
+                                    maxlength="250" readonly>
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'planName' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.planName}}" formControlName="planName"
+                                     readonly>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityAddress' ">
+                            <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="{{labels.entityAddress}}" formControlName="entityAddress"
+                                    maxlength="250"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityLang'">
+                            <mat-form-field>
+                            <mat-select placeholder="{{labels.applicationLanguage}}" (openedChange)="languageFilter = ''" formControlName="entityLang">
+                                <input type="text" placeholder="{{labels.search}}"
+                                    class="advanceddropSearchTextbox" [(ngModel)]="languageFilter"
+                                    [ngModelOptions]="{standalone: true}">
+                                <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                <mat-option
+                                    *ngFor="let language of languageList  | dropdownFilter : {language: languageFilter}"
+                                    [value]="language.languageCode">{{language.language}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'statusValue' ">
+                            <mat-checkbox formControlName="status">{{labels.active}}</mat-checkbox>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- </div>
+        </div> -->
+
+
+                <h4 class="page-title" style="font-weight: bold;padding:0px !important">{{labels.entityDetails}}</h4>
+                <!-- <div class="card" style="margin: 15px;">
+         <div class="card-body"> -->
+                <div class="row" *ngIf="viewForm">
+                    <div class="col-md-12" formArrayName="entityLicenseDetailsVoList"
+                        *ngFor="let item of viewForm.get('entityLicenseDetailsVoList')['controls']; let i = index">
+                        <div [formGroupName]="i">
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <input matInput placeholder="{{labels.fromDate}}" [min]="minFromDate"
+                                        (dateChange)="dateChange(viewForm)" [matDatepicker]="picker1"
+                                        formControlName="fromDate" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1 color="warn"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.toDate}}" [min]="minToDate"
+                                        [matDatepicker]="picker2" formControlName="toDate" readonly (dateChange)="todateChange(viewForm)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2 color="warn"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.licenseRenewalUserLimit}}" type="text" (change)="valid(viewForm)"
+                                        pattern="^[0-9]*$" formControlName="userLicense">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.licenseRenewalTransactionLimit}}" type="text"  (change)="valid1(viewForm)"
+                                        pattern="^[0-9]*$" formControlName="transactionLicense">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="button"
+                        (click)="modify(viewForm.value)">{{labels.modify}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="button"
+                        [disabled] = "enable"  
+                         (click)="renewal(viewForm.value)">{{labels.renewal}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange"
+                            routerLink="/entity">{{labels.back}}</button>
+                    </div>
+                </div>
+
+
+                <div class="mat-elevation-z8" class="mt-15">
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="dataSource" matSort class="dTable">
+
+                            <ng-container matColumnDef="renewalFromDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Renewal Valid From Date </th>
+                                <td mat-cell *matCellDef="let row"> {{row.renewalFromDate}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="renewalToDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Renewal Valid To Date</th>
+                                <td mat-cell *matCellDef="let row"> {{row.renewalToDate}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="transactionCount">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Renewal License Transaction Count
+                                </th>
+                                <td mat-cell *matCellDef="let row"> {{row.renewalTransactionCount}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="userCount">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Renewal License User Count </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.renewalUserCount }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="usedTransactionCount">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Used Transaction Count </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.usedTransactionCount }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="usedUserCount">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Used User Count </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.usedUserCount }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="createdDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Renewal Date </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.createdDateStr}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="renewalBy">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Renewal By </th>
+                                <td mat-cell *matCellDef="let row"> {{ row.createdByUser}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="userRoleFieldName"></tr>
+                            <tr mat-row *matRowDef="let row;  columns:userRoleFieldName"
+                                (click)="row.highlighted = !row.highlighted" (click)=" selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+                        </table>
+                        <div [hidden]="displayNoRecords" class="p-10">
+                            <h3 class="noRecordGrid">{{labels.noRecords}}</h3>
+                        </div>
+                    </div>
+                    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </div>
+            </article>
+
+        </form>
+    </div>
+</div>

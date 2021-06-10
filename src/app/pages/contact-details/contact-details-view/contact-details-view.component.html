@@ -1,0 +1,41 @@
+<div class="content-pageXXX container-fluid">
+    <form #saveListForm [formGroup]="saveForm">
+        <div class="contentXXX main-content">
+
+            <article class="right-panel">
+                <app-left-nav></app-left-nav>
+                <h4 class="page-title">{{labels.contactDetailsView  | i18n}}</h4>
+
+                <div class="col-md-12">
+                    <mat-card>
+                        <div class="row readonly-wrapper">
+                            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'emergencyContactName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.emergencyContactName}}" formControlName="emergencyContactName" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6" *ngIf="userBaseFieldName | arrayFilter : 'emergencyContactPath' ">
+                                <div class="col-md-12">
+                                    <div class="col-md-1">
+                                        <mat-icon style="color:#000; cursor:pointer" *ngIf="formField.emergencyContactPath !== undefined" class="icons-color-white" (click)="download()" matTooltip="{{labels.download}}">vertical_align_bottom</mat-icon>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput name="emergencyContactPath" formControlName="emergencyContactPath" readonly></mat-form-field>
+                                    </div>
+                                </div>
+                                <!-- <span *ngIf="formField.emergencyContactPath">{{formField.emergencyContactPath}}</span> -->
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <button mat-raised-button color="warn" class="btn-orange" routerLink="/contact-details">{{labels.back}}</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </form>
+</div>

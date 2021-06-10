@@ -1,0 +1,131 @@
+/* .newsitem:hover{
+    box-shadow: 0px 1px 5px lightgray;
+} */
+
+
+
+/* .equalHeight .row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .equalHeight .row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+  } */
+
+
+/*
+  .table-row-equal {
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+		border-spacing: 30px 0px;
+		word-wrap: break-word;
+		border-spacing: 30px 0px;
+	}
+	.table-row-equal .thumbnail {
+		float: none;
+		display: table-cell;
+		vertical-align: top;
+		width: 1%;
+	} */
+
+
+	/* .fc-day[data-date^=" "]:hover {
+		background: blue !important;
+		cursor: pointer;
+	} */
+
+
+    .error{
+        text-align: center;
+        font-family: inherit;
+        font-size: 12px;
+        margin-top: calc(359px/2 - 6px);
+        /* margin: 50% 0; */
+    }
+    .newsflash{
+        white-space: nowrap;
+        background: orangered;
+    }
+    .errornew{
+        text-align: center;
+        font-family: inherit;
+        font-size: 12px;
+        margin-top: calc(196px/2 - 6px);
+    }
+    .left-content .news .news-head figure, .left-content .news .news-head figure:after {
+      background: none;
+    }
+    .left-content .news, .left-content .announcements, .left-content .events {
+      /* min-height: 393px !important; */
+      /* min-height: 359px !important; */
+      min-height: 420px !important;
+      padding: 10px 0;
+    }
+    .right-content .calender-sec {
+      margin-top: 10px;
+      padding:26px 10px 25px !important;
+    }
+    
+.holiday-events{
+	border: none;
+    background: #005181;
+    color: #fff;
+    width: 100%;
+    padding: 7px;
+	margin-bottom: 10px;
+	border-radius: 2PX;
+}
+.left-content .news .news-head figure{
+  display: inline-block;
+}
+.left-content .news .news-des {
+  max-height: 350px !important;
+  overflow: hidden;
+}
+.well-head figure img{
+  padding: 5px;
+  max-width: 30px;
+  position: relative;
+}
+.well-head figure, .well-head h1{
+  display: inline-block;
+}
+
+::ng-deep header {
+  display: block;
+ }
+
+ .widgetHeader{
+  overflow-x: hidden;
+  max-height: 43px;
+  overflow-y: auto;
+  white-space: normal;
+ 
+ }
+
+ .widgetHeader::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 0px;
+}
+
+.widgetHeader::-webkit-scrollbar
+{
+  width: 7px;
+  background-color: #F5F5F5;
+}
+
+.widgetHeader::-webkit-scrollbar-thumb
+{
+  border-radius: 0px;
+  /* background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgba(253, 109, 94, 0.38)), color-stop(0.72, rgba(253, 106, 96, 0.71)), color-stop(0.86, rgb(253, 109, 94))); */
+  background-image: -webkit-gradient(linear, left top, left bottom, 
+  color-stop(0%, rgba(209,143,38,1)), color-stop(100%, rgba(245,214,164,1)));
+  
+}

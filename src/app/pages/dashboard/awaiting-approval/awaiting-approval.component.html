@@ -1,0 +1,29 @@
+<!-- <div class="app_waiting_sec">
+  02
+</div> -->
+
+
+<div class="app_waiting_sec">
+  <div  [ngClass]="applicaitonDate===0 ?'app_waiting_count0':'app_waiting_count'">
+  <a style="color: #fff" (click)="approvalNav()" > {{applicaitonDate}}</a>
+  </div>
+</div>
+
+
+
+<div class="app_waiting_srmav_sec">
+    <div class="circle-wrap"  (click)="approvalNav()">
+      <div class="circle">
+        <div class="mask full">
+          <div class="fill"></div>
+        </div>
+        <div class="mask half">
+          <div class="fill"></div>
+        </div>
+        <div class="inside-circle"
+         [ngClass]="applicaitonDate===0 ?'app_waiting_count0':'app_waiting_count'" >
+          {{applicaitonDate}}
+        </div>
+      </div>
+    </div>
+  </div>

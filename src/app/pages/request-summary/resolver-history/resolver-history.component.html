@@ -1,0 +1,685 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 bodySection">
+
+      <!-- *********** Request Details ************ -->
+      <div class="col-md-9 viewSection" [@expandPanel]="dashboard">
+        <!-- <div class="row">
+          DashBoard Content
+        </div> -->
+        <div class="row">
+          <div class="col-md-3 " *ngFor="let count of countList">
+            <mat-card class="mt-10 matCard">
+              <mat-card-title class="matCardTitle matCardClass" matTooltip="{{count.requestSubtypeName}}"
+                matTooltipClass="tooltipClass">{{count.requestSubtypeName}}
+              </mat-card-title>
+              <mat-card-body>
+                <div class="matCardBody ">
+                  <a>
+                    <span style="font-size: 37px;color: white;cursor: default;">
+                      {{count.subtypeCount}}
+                    </span>
+                  </a></div>
+              </mat-card-body>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- *********** View Details *********** -->
+      <div class="col-md-9 viewSection viewSection_details" [@expandPanel]="viewboard">
+        <!-- <div class="row">
+          viewSection Content
+        </div> -->
+        <!-- ********** -->
+        <div *ngIf="viewboard2">
+          <div class="content-pageXXX container-fluid">
+
+            <div class="contentXXX main-content">
+              <app-left-nav></app-left-nav>
+              <article class="right-panel">
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" *ngIf="seqmodel">
+                  <h4 class="page-title">{{labels.requestResolver}}</h4>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeId' ">
+                          <mat-form-field>
+                            <input name="requestTypeName" matInput placeholder="{{labels.reqType}}"
+                              [(ngModel)]="seqmodel.requestTypeName">
+                          </mat-form-field>
+                        
+                      <!--  <mat-form-field>
+                          <mat-select (selectionChange)="getSubTypeList(seqmodel.requestTypeId)" name="requestTypeId"
+                            placeholder="{{labels.reqType}}" [(ngModel)]="seqmodel.requestTypeId"
+                            #requestTypeId="ngModel" [ngClass]="{ 'is-invalid': f.submitted && requestTypeId.invalid }"
+                            required>
+                            <mat-option *ngFor="let requestTypeList of requestTypeList"
+                              [value]="requestTypeList.requestTypeId">
+                              {{requestTypeList.requestTypeName}}</mat-option>
+                          </mat-select>
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestTypeId.invalid" class="invalid-feedback">
+                              <div *ngIf="requestTypeId.errors.required">requestType is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field> -->
+                      </div>
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'requestSubtypeId' ">
+                        <mat-form-field>
+                         <input name="requestSubTypeName" matInput placeholder="{{labels.reqSubType}}"
+                         [(ngModel)]="seqmodel.requestSubTypeName">
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'id' ">
+                        <mat-form-field>
+                          <input name="location" matInput placeholder="{{labels.location}}"
+                          [(ngModel)]="seqmodel.locationName">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'sublocationId' ">
+                        <mat-form-field>
+                         <input name="sublocation" matInput placeholder="{{labels.subLocation}}"
+                         [(ngModel)]="seqmodel.sublocationName">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentName' ">
+                        <mat-form-field>
+                          <input name="userDepartmentName" [(ngModel)]="seqmodel.userDepartmentName"
+                            [value]="seqmodel.userDepartmentName" [readonly]="seqmodel.userDepartmentName !== ''"
+                            matInput placeholder="{{labels.department}}">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'requestMobileNo' ">
+                        <mat-form-field>
+                          <input [(ngModel)]="seqmodel.requestMobileNo" [value]="seqmodel.requestMobileNo"
+                            [readonly]="seqmodel.requestMobileNo !== ''" name="requestMobileNo" matInput
+                            placeholder="{{labels.mobile}}">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 dis" *ngIf="userBaseFieldName | arrayFilter : 'requestDate' ">
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="picker" [readonly]="seqmodel.requestDate !== ''"
+                            [(ngModel)]="seqmodel.requestDate" name="requestDate" #requestDate="ngModel"
+                            placeholder="{{labels.requestDate}}">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3"  *ngIf="userBaseFieldName | arrayFilter : 'requestAttachment' ">
+
+                        <div class="row">
+                          <div class="col-md-1" style="padding-right:0;margin-top:5px">
+                            <mat-icon style="color:#000; cursor:pointer" *ngIf="seqmodel.requestAttachment !== undefined"
+                              class="icons-color-white" (click)="download(this.seqmodel.requestId)"
+                              matTooltip="{{labels.download}}">
+                              vertical_align_bottom</mat-icon>
+                          </div>
+                          <div class="col-md-11 download_attachment">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="{{labels.requestAttachment}}" [(ngModel)]="seqmodel.requestAttachment" name="requestAttachment" readonly>
+                          </mat-form-field>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row dis">
+                    <div class="col-md-12">
+                      <h4 class="page-title">{{labels.requestInfo}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestPriority' ">
+                        <mat-form-field>
+                          <mat-select name="requestPriority" [(ngModel)]="seqmodel.requestPriority"
+                            #requestPriority="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && sublocationId.invalid }" required
+                            placeholder="{{labels.requestPriority}}">
+                            <mat-option *ngFor="let priorityCombo of priorityCombo" [value]="priorityCombo.id">
+                              {{priorityCombo.Value}}</mat-option>
+                          </mat-select>
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestPriority.invalid" class="invalid-feedback">
+                              <div *ngIf="requestPriority.errors.required">request Priority is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestSubject' ">
+                        <mat-form-field>
+                          <!-- <input name="requestSubject" [(ngModel)]="seqmodel.requestSubject" #requestSubject="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && requestSubject.invalid }" required matInput
+                            placeholder="{{labels.requestSubject}}"> -->
+
+                          <textarea matInput name="requestSubject" [(ngModel)]="seqmodel.requestSubject"
+                            #requestSubject="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && requestSubject.invalid }" [readonly]="readonly"
+                            required placeholder="{{labels.requestSubject}}" maxlength=250>
+                          </textarea>
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestSubject.invalid" class="invalid-feedback">
+                              <div *ngIf="requestSubject.errors.required">request Subject is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestFromDate' ">
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="picker1" name="requestFromDate"
+                            placeholder="{{labels.requestFromDate}}" [(ngModel)]="seqmodel.requestFromDate"
+                            #requestFromDate="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && requestFromDate.invalid }" required matInput>
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestFromDate.invalid" class="invalid-feedback">
+                              <div *ngIf="requestFromDate.errors.required">request FromDate is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestToDate' ">
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="picker2" name="requestToDate"
+                            [(ngModel)]="seqmodel.requestToDate" #requestToDate="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && requestToDate.invalid }"
+                            placeholder="{{labels.requestToDate}}">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestToDate.invalid" class="invalid-feedback">
+                              <div *ngIf="requestToDate.errors.required">requestToDate is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestCode' ">
+                        <mat-form-field>
+                          <input name="requestCode" [(ngModel)]="seqmodel.requestCode" #requestCode="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && requestCode.invalid }" required matInput
+                            placeholder="{{labels.code}}">
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestCode.invalid" class="invalid-feedback">
+                              <div *ngIf="requestCode.errors.required">requestCode is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'requestExtension' ">
+                        <mat-form-field>
+                          <input type="number" name="requestExtension" [(ngModel)]="seqmodel.requestExtension"
+                            #requestExtension="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && requestExtension.invalid }" matInput
+                            placeholder="{{labels.extension}}">
+                          <mat-error>
+                            <div *ngIf="f.submitted && requestExtension.invalid" class="invalid-feedback">
+                              <div *ngIf="requestExtension.errors.required">requestExtension is required</div>
+                            </div>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 " *ngIf="userBaseFieldName | arrayFilter : 'forwardRedirectRemarks' ">
+                        <mat-form-field>
+                          <textarea matInput placeholder="{{labels.forwardRedirectRemarks}}" maxlength="250"
+                            name="forwardRedirectRemarks" [(ngModel)]="seqmodel.forwardRedirectRemarks" required
+                            readonly></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-3 " *ngIf="userBaseFieldName | arrayFilter : 'resolverRemarks' ">
+                      <mat-form-field>
+                        <textarea matInput placeholder="{{labels.resolverRemarks}}" maxlength="250"
+                          name="resolverRemarks" [(ngModel)]="seqmodel.resolverRemarks" readonly></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <!-- <input matInput [matDatepicker]="picker3" name="createdDate"
+                          [(ngModel)]="seqmodel.createdDate" #createdDate="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && createdDate.invalid }"
+                          placeholder="{{labels.createdDate}}">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker> -->
+                        <input matInput [(ngModel)]="seqmodel.createdDate" name="createdDate" #createdDate="ngModel"
+                        placeholder="{{labels.createdDate}}" readonly>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+
+
+                  <div class="row" *ngIf="seq">
+                    <div class="col-md-12">
+                      <h4 class="page-title">Request Details</h4>
+                    </div>
+
+                    <div class="col-md-12 dis">
+                      <div *ngFor="let formitem of seqmodel.requestDetailList" class="col-md-3 custom_clear">
+
+                        <div [ngSwitch]="formitem.requestScreenDetailConfigurationFieldType">
+
+                          <div *ngSwitchCase="'S'">
+                            <mat-form-field>
+                              <mat-select placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}"
+                                [name]="formitem.requestScreenDetailConfigurationFieldName"
+                                [(ngModel)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [(value)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [required]="formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'">
+                                <mat-option *ngFor="let formitemselect of formitem.list_value | keyvalue"
+                                  [value]="formitemselect.value">{{ formitemselect.value }} </mat-option>
+                              </mat-select>
+                              <mat-error>
+                                <span
+                                  *ngIf="f.form.controls[formitem.requestScreenDetailConfigurationFieldName]?.errors?.required ">
+                                  {{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong>
+                                </span>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div *ngSwitchCase="'C'">
+                            <div style="color: rgba(0,0,0,.54);font-size: 9px">
+                              {{formitem.requestScreenDetailConfigurationFieldName}}</div>
+                            <!--<div *ngFor = "let formitemselect of formitem.list_value | keyvalue ; let i = index">
+                                            <mat-checkbox  [(ngModel)]="formitemselect.value" [checked]="formitemselect.checked" name="{{formitemselect.value}}{{i}}">
+                                                {{formitemselect.value}}</mat-checkbox>
+                                                </div>-->
+
+                            <span *ngFor="let formitemselect of formitem.list_value | keyvalue ; let i = index">
+
+
+                              <!-- <mat-checkbox [disabled]="!display" [(ngModel)]="formitemselect.checked" [value]="formitemselect.value" [name]="formitem.requestScreenDetailConfigurationFieldName" (change)="getCheckboxes(formitemselect.checked,formitemselect.value,formitem,f.form.controls[formitem.requestScreenDetailConfigurationFieldName])" [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'">{{formitemselect.value}}</mat-checkbox>
+                                                   -->
+                              <mat-checkbox [ngModel]="isSelected(formitemselect.value,formitem)"
+                                name="topicgroup_{{i}}"
+                                (change)="getCheckboxes(formitemselect.value,$event,formitem,f.form.controls)"
+                                [required]="formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'">
+                                {{formitemselect.value}}</mat-checkbox>
+
+                            </span>
+                            <mat-error>
+                              <!-- <span *ngIf = "formitem.objectList==='' || f.form.controls[formitem.requestScreenDetailConfigurationFieldName]?.errors?.required ">
+                                                          {{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong>
+                                                      </span>-->
+                              <!-- <span *ngIf="checkboxvalidation">{{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong></span>-->
+                            </mat-error>
+
+                          </div>
+
+                          <div *ngSwitchCase="'A'">
+
+                            <mat-form-field>
+                              <textarea matInput placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}"
+                                [name]="formitem.requestScreenDetailConfigurationFieldName"
+                                [(ngModel)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [(value)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [required]="formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'"></textarea>
+                              <mat-error>
+                                <span
+                                  *ngIf="f.form.controls[formitem.requestScreenDetailConfigurationFieldName]?.errors?.required ">
+                                  {{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong>
+                                </span>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div *ngSwitchCase="'T'">
+
+                            <mat-form-field>
+                              <input type="text" matInput
+                                placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}"
+                                [name]="formitem.requestScreenDetailConfigurationFieldName"
+                                [(ngModel)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [(value)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [required]="formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'" />
+                              <mat-error>
+                                <span
+                                  *ngIf="f.form.controls[formitem.requestScreenDetailConfigurationFieldName]?.errors?.required ">
+                                  {{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong>
+                                </span>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <div *ngSwitchCase="'R'">
+
+                            <mat-radio-group class="mr-10"
+                              [required]="formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'"
+                              [(ngModel)]="formitem.requestScreenDetailConfigurationFieldValue"
+                              [name]="formitem.requestScreenDetailConfigurationFieldName">
+                              <mat-radio-button *ngFor="let formitemselect of formitem.list_value | keyvalue"
+                                [value]="formitemselect.value">{{ formitemselect.value }} </mat-radio-button>
+
+                            </mat-radio-group>
+                            <mat-error>
+                              <span
+                                *ngIf="f.form.controls[formitem.requestScreenDetailConfigurationFieldName]?.errors?.required ">
+                                {{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong>
+                              </span>
+                            </mat-error>
+                          </div>
+                          <div *ngSwitchCase="'D'">
+                            <mat-form-field>
+                              <!--(dateChange)="setDate(formitem)"-->
+                              <input matInput [matDatepicker]="picker"
+                                placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}"
+                                [name]="formitem.requestScreenDetailConfigurationFieldName"
+                                [(ngModel)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [(value)]="formitem.requestScreenDetailConfigurationFieldValue"
+                                [required]="formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'">
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                              <mat-error>
+                                <span
+                                  *ngIf="f.form.controls[formitem.requestScreenDetailConfigurationFieldName]?.errors?.required ">
+                                  {{formitem.requestScreenDetailConfigurationFieldName}} is <strong>required</strong>
+                                </span>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'remarks' ">
+                      <mat-form-field>
+                        <input name="requestMobileNo" matInput placeholder="{{labels.remarks}}" [(ngModel)]="remarks"
+                          readonly>
+                      </mat-form-field>
+                    </div>
+                    <!-- <div class="col-md-2" *ngIf="userBaseFieldName | arrayFilter : 'reassignUserId' ">
+                      <div *ngIf="formDetails && formDetails.workFlowReassign == '1'">
+                        <mat-form-field class="example-full-width">
+                          <mat-select placeholder="{{labels.reassignUser}}" [(ngModel)]="reassignUserId">
+                            <mat-option *ngFor="let user of userDropDown" [value]="user.id">{{user.firstName}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div> -->
+                    <div class="col-md-4 dis" *ngIf="userBaseFieldName | arrayFilter : 'userName' ">
+                      <div *ngIf="formDetails">
+                        <mat-form-field>
+                          <input [(ngModel)]="displayUserName" matInput placeholder="{{labels.userName}}">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-5"> -->
+                    <!-- <button mat-raised-button color="warn" class="btn-orange mr-10 ml-10"
+                        (click)="completedAction()">Completed</button>
+                      <button mat-raised-button color="warn" class="btn-orange mr-10 ml-10"
+                        (click)="inProgressAction()">InProgress</button>
+                      <button mat-raised-button color="warn" *ngIf="formDetails && formDetails.workFlowReassign == '1'"
+                        class="btn-orange mr-10 ml-10" (click)="reassignAction()">Reassign</button> -->
+                    <!-- <button mat-raised-button color="warn" class="btn-orange mr-10 ml-10"
+                        (click)="back()">Back</button> -->
+                    <!-- </div> -->
+                  </div>
+                </div>
+
+                <mat-accordion>
+                  <mat-expansion-panel class="mb-15 no-border-radius">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title style="font-weight: bold;">
+                        {{labels.workFlowListDetails}}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row" style="text-align: center">
+                      <br>
+                      <div class="col-md-10"></div>
+                      <div class="col-md-1">
+                        <div
+                          style="border-radius: 5px;margin: 0px 27px;width: 20px;height: 20px;background-color: gainsboro">
+                        </div> {{labels.initial}}
+                      </div>
+                      <!-- <div class="col-md-1"> <div style="border-radius: 5px;margin: 0px 27px;width: 20px;height: 20px;background-color: green"></div> De-Escalate</div>-->
+                      <div class="col-md-1">
+                        <div
+                          style="border-radius: 5px;margin: 0px 27px;width: 20px;height: 20px;background-color: red">
+                        </div>
+                        {{labels.escalate}}
+                      </div>
+
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col-md-12 pt-15 p-0"> -->
+                        <div class="mat-elevation-z8 mt-5">
+                          <div class="table-responsive">
+                            <table mat-table [dataSource]="dataSource" matSort class="dTable">
+                              <ng-container matColumnDef="userName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.user}} </th>
+                                <td mat-cell *matCellDef="let row"> {{row.userName}} </td>
+                              </ng-container>
+              
+                              <ng-container matColumnDef="approvalExecuter">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                  {{labels.approval}}/{{labels.executer}}/{{labels.requester}}</th>
+                                <td mat-cell *matCellDef="let row">
+                                  <!--{{row.approvalExecuter}}-->
+                                  <span *ngIf="row.approvalExecuter===1">{{labels.approval}}</span>
+                                  <span *ngIf="row.approvalExecuter===2">{{labels.executer}}</span>
+                                  <span *ngIf="row.approvalExecuter===3">{{labels.requester}}</span>
+                                </td>
+                              </ng-container>
+              
+                              <ng-container matColumnDef="descisionType">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.decisionType}}</th>
+                                <td mat-cell *matCellDef="let row">
+                                  <span *ngIf="row.descisionType===0">{{labels.pending}}</span>
+                                  <span *ngIf="row.descisionType===1">{{labels.approved}}</span>
+                                  <span *ngIf="row.descisionType===2">{{labels.rejected}}</span>
+                                  <span *ngIf="row.descisionType===3">{{labels.resubmitted}}</span>
+                                  <span *ngIf="row.descisionType===4">{{labels.completed}}</span>
+                                  <span *ngIf="row.descisionType===5">{{labels.inprogress}}</span>
+                                  <span *ngIf="row.descisionType===6">{{labels.reassign}}</span>
+                                  <span *ngIf="row.descisionType===7">{{labels.reopen}}</span>
+                                  <span *ngIf="row.descisionType===8">{{labels.closed}}</span>
+                                  <span *ngIf="row.descisionType===9">{{labels.notworking}}</span>
+                                  <span *ngIf="row.descisionType===10">{{labels.cancelled}}</span>
+                                  <span *ngIf="row.descisionType===14">{{labels.hold}}</span>>
+                                </td>
+                              </ng-container>
+                              <ng-container matColumnDef="Status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.status}}</th>
+                                <td mat-cell *matCellDef="let row">
+                                  <span *ngIf="row.descisionType===0">{{labels.pending}}</span>
+                                  <span *ngIf="row.descisionType===1">{{labels.approved}}</span>
+                                  <span *ngIf="row.descisionType===2">{{labels.rejected}}</span>
+                                  <span *ngIf="row.descisionType===3">{{labels.resubmitted}}</span>
+                                  <span *ngIf="row.descisionType===4">{{labels.completed}}</span>
+                                  <span *ngIf="row.descisionType===5">{{labels.inprogress}}</span>
+                                  <span *ngIf="row.descisionType===6">{{labels.reassign}}</span>
+                                  <span *ngIf="row.descisionType===7">{{labels.reopen}}</span>
+                                  <span *ngIf="row.descisionType===8">{{labels.closed}}</span>
+                                  <span *ngIf="row.descisionType===9">{{labels.notworking}}</span>
+                                  <span *ngIf="row.descisionType===10">{{labels.cancelled}}</span>
+                                  <span *ngIf="row.descisionType===14">{{labels.hold}}</span>
+                                </td>
+                              </ng-container>
+              
+                              <ng-container matColumnDef="approvedon">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.approvaldate }}</th>
+                                <td mat-cell *matCellDef="let row">
+                                  <div *ngIf="row.descisionType == 9"> </div>
+                                  <div *ngIf="row.descisionType!= 9"> {{row.updatedDate | date: 'short'}}</div></td>
+                              </ng-container>
+                              <ng-container matColumnDef="Sla">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.SLA}} </th>
+                                <td mat-cell *matCellDef="let row">
+                                  <div *ngIf="row.status===0 && row.descisionType == 9"></div>
+                                  <div *ngIf="row.status===2  && row.descisionType == 9"></div>
+                                  <div style="border-radius: 3px;width: 50px;height: 10px;background-color: gainsboro"
+                                    *ngIf="row.status===0 && row.descisionType != 9"></div>
+                                  <div style="border-radius: 3px;width: 50px;height: 10px;background-color: red"
+                                    *ngIf="row.status===2 && row.descisionType != 9"></div>
+                                </td>
+                              </ng-container>
+                  
+                              <ng-container matColumnDef="remarks">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.remarks}} </th>
+                                <td mat-cell *matCellDef="let row"> {{row.remarks}}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="forwardRedirectRemarks">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> {{labels.forwardRedirectRemarks}} </th>
+                                <td mat-cell *matCellDef="let row ;let i = index">{{row.forwardRemarks}}
+                                </td>
+                              </ng-container>
+
+                              <tr mat-header-row *matHeaderRowDef="requestBaseFieldName"></tr>
+                              <tr mat-row *matRowDef="let row;  columns:requestBaseFieldName"
+                                (click)="row.highlighted = !row.highlighted" (click)=" selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+
+                            </table>
+
+                            <!-- <div [hidden]="displayNoRecords" class="p-10">
+                              <h3 class="noRecordGrid">{{labels.noRecords}}</h3>
+                            </div> -->
+
+                          </div>
+                          <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+                        </div>
+                      <!-- </div>
+                    </div> -->
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center mt-20">
+            <button type="button" mat-raised-button color="warn" class="btn-orange" (click)="refresh()">Back</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- ****************** -->
+      <div class="col-md-3 searchColumn">
+        <div class="row">
+          <div class="col-md-12">
+
+            <!-- ********** POP UP *********** -->
+            <div class="text-left pr-10 mb-10">
+              <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="dialogOpen()"
+                type="button">{{labels.search}}</button>
+              <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="refresh()"
+                type="button">{{labels.refresh}}</button>
+            </div>
+
+            <!-- ******** LOCAL SEARCH ********** -->
+            <mat-form-field class="pr-15" style="width:inherit;">
+              <input matInput [(ngModel)]="term" name="term" placeholder="{{labels.filter}}">
+              <mat-icon matSuffix class="mr-1">search</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="scrollbar" id="style-8">
+          <div class="row" *ngIf="RecordEnable">
+            <div class="col-md-12" *ngIf=" this.requestList1 !== null">
+              <mat-card *ngFor="let request of requestList1 | filter:term" class="mb-5 reqMatcard"
+                (click)="getAllList(request)">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row mb-5">
+                      <div class="col-md-6">
+                        <span class="list-priority" *ngIf="request.requestPriority===1"
+                          style="background-color: #f77772;">{{labels.low}}</span>
+                        <span class="list-priority" *ngIf="request.requestPriority===2"
+                          style="background-color: #f7be19;">{{labels.medium}}</span>
+                        <span class="list-priority" *ngIf="request.requestPriority===3"
+                          style="background-color: #28c128;">{{labels.high}}</span>
+                      </div>
+                      <div class="col-md-6 lightfont">
+                        <mat-icon class="error">date_range</mat-icon>
+                        <p class="lightfont dayleft">
+                          {{request.requestDate | date:'dd-MMM-yyyy'}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row mb-5 col-md-12">
+                      <span class="list-subTypeReq"> {{labels.userName}} : {{request.userName}} </span>
+                      <br />
+                      <span class="list-subTypeReq">{{request.requestSubTypeName}}</span>
+                    </div>
+                    <div class="row  mb-5">
+                      <div class=col-md-6>
+                        <span class="list-reqCode" style="background-color: #9c9c21;">{{request.requestCode}}</span>
+                      </div>
+                      <div class=col-md-6>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===1"
+                          style="background-color: #398235;color:white">{{labels.completed}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===2"
+                          style="background-color: #ff9c02;">{{labels.pending}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===3"
+                          style="background-color: #de5400;">{{labels.escalated}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===4"
+                          style="background-color: #f7be19;">{{labels.new}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===5"
+                          style="background-color: #a69a9a;">{{labels.approved}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===6"
+                          style="background-color: #d9534f;color:white">{{labels.rejected}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===7"
+                          style="background-color: rgb(214, 22, 173);">{{labels.resubmit}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===8"
+                          style="background-color: #5bc0de;">{{labels.inprogress}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===9"
+                          style="background-color: rgb(136, 28, 207);">{{labels.reassign}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===10"
+                          style="background-color: #ff4a36;">{{labels.reopen}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===11"
+                          style="background-color: #a9bf00;">{{labels.closed}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===12"
+                          style="background-color: #f44336;">{{labels.notworking}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===13"
+                          style="background-color: #f3afaf;">{{labels.cancelled}}</span>
+                        <span class="list-reqCode" *ngIf="request.currentStatusId===14"
+                          style="background-color: #9e29b3;color:white">{{labels.hold}}</span>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5 col-md-12">
+                      <span> {{request.requestSubject}}</span>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+              <mat-paginator [length]="requestList.length" [pageSize]="size" [pageIndex]="page"
+                [pageSizeOptions]="[4, 8, 12]" (page)="getData($event)">
+              </mat-paginator>
+            </div>
+          </div>
+          <div class="row" *ngIf="RecordEnable2">
+            <div class=" col-md-12" style="text-align: center ">
+              <span class="mt-5 mb-5">
+                <a style="cursor:default;font-size:13px; color:black"> {{labels.noRecords}}</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

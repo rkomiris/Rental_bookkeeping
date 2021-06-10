@@ -1,0 +1,43 @@
+<div class="content-pageXXX container-fluid">
+    <form #modifyListForm [formGroup]="viewForm">
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.SubLocationView  | i18n}}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'Code' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{labels.code}} formControlName="subLocationCode" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'id' ">
+                                <mat-form-field class="example-full-width readonly-wrapper">
+                                    <mat-select placeholder="{{labels.locationName}}" formControlName="id">
+                                        <mat-option *ngFor="let userLocation of SL_selectFormGetDate" [value]="userLocation.id">
+                                            {{userLocation.userLocationName}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'subLocationName' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{labels.subLocationName}} formControlName="subLocationName" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4 mt-15 readonly-wrapper" *ngIf="userBaseFieldName | arrayFilter : 'subLocationIsActive' ">
+                                <mat-checkbox formControlName="subLocationIsActive">{{labels.active}}</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button color="warn" class="btn-orange" routerLink="/sublocation">{{labels.back}}</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </form>
+</div>

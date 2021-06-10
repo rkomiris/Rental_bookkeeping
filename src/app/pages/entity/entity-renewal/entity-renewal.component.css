@@ -1,0 +1,11 @@
+.hidden {
+    visibility: hidden;
+  }
+  
+  .visible {
+    visibility: visible;
+  }
+
+  .heading {
+      text-align: center;
+  }

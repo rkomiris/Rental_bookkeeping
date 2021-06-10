@@ -1,0 +1,261 @@
+
+<div class="content-pageXXX container-fluid">
+  <div class="contentXXX main-content">
+
+    <app-left-nav></app-left-nav>
+    <app-tasks></app-tasks>
+
+    <article class="right-panel">
+
+      <h4 class="page-title">Room Configuration</h4>
+
+
+      <div class="row">
+          <div class="col-md-12">
+          
+            <mat-accordion class="advance_search_sec">
+              <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Search</mat-panel-title>
+              </mat-expansion-panel-header>
+              
+              <div class="row advance_search_divBox">
+                <div class="col-md-6">
+                    <form #searchListForm [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm.value)">
+                        <div class="row" id="style-8">
+                    
+                          <div class="col-md-12">
+                            <div class="row" *ngIf="searchForm">
+                              <div class="col-md-12" formArrayName="searchDatas"
+                                *ngFor="let item of searchForm.controls['searchDatas'].controls; let i = index">
+                                <div class="row" [formGroupName]="i">
+                                  <div class="col-md-6">
+                                    <mat-form-field style="margin-top: 10px;">
+                                      <mat-select [(ngModel)]="qtd[i]" formControlName="dropDownVal"
+                                        placeholder="Choose Field" required>
+                                        <mat-option [disabled]="searchCombo.dis" *ngFor="let searchCombo of searchCombo"
+                                          (click)="changefield(searchCombo,i,searchForm)" [value]="searchCombo.Value">
+                                          {{searchCombo.Name}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+      
+                                  <div class="col-md-6" *ngIf="qtd[i]!=='status' && qtd[i]!== 'roomConfigPriorty' ">
+                                    <mat-form-field style="margin-top: 10px;">
+                                      <input matInput placeholder="Value" [(ngModel)]="qtm[i]" formControlName="textVal"
+                                        required>
+                                    </mat-form-field>
+                                  </div>
+      
+                                  <div class="col-md-6" *ngIf="qtd[i]==='status'">
+                                    <mat-form-field style="margin-top: 10px;">
+                                      <mat-select [(ngModel)]="qtm[i]" formControlName="textVal" placeholder="Status"
+                                        required>
+                                        <mat-option *ngFor="let desi of statuslist" [value]="desi.name">{{desi.name}}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-6" *ngIf="qtd[i]==='roomConfigPriorty'">
+                                    <mat-form-field style="margin-top: 10px;">
+                                      <mat-select [(ngModel)]="qtm[i]" formControlName="textVal" placeholder="Room Priority"
+                                        required>
+                                        <mat-option *ngFor="let priority of priorityList" [value]="priority.id">
+                                          {{priority.value}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    
+                            <div class="col-md-12 text-right">
+                              <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence(searchForm)">
+                                <i _ngcontent-c19="" class="material-icons">add</i>
+                              </a>
+                              <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+                                <i _ngcontent-c19="" class="material-icons">remove</i>
+                              </a>
+                            </div>
+                    
+                    
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 text-left">
+                            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit" [disabled]="!searchForm.valid">Search</button>
+                            <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset" (click)="searchClear()">Reset</button>
+                        </div>
+                        </div>
+                        </form>
+                </div>
+              </div>  
+              
+              </mat-expansion-panel>
+            </mat-accordion>
+          
+          </div>
+        </div>	
+
+
+     <!-- <div class="row">
+        <div class="col-md-12"><mat-label>Search</mat-label></div>
+
+        <div class="col-md-6">
+            <form #searchListForm [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm.value)">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="row" *ngIf="searchForm">
+                        <div class="col-md-12" formArrayName="searchDatas" *ngFor="let item of searchForm.controls['searchDatas'].controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                              <div class="col-md-6">
+                                <mat-form-field>
+                                    <mat-select  formControlName="dropDownVal" placeholder="Choose Field">
+                                      <mat-option *ngFor="let searchCombo of searchCombo" [value]="searchCombo.Value">{{searchCombo.Name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <div class="col-md-6">
+                                <mat-form-field>
+                                    <input matInput placeholder="Value" formControlName="textVal"  >
+                                </mat-form-field>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-right">
+                  <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence()">
+                    <i _ngcontent-c19="" class="material-icons">add</i>
+                  </a>
+                  <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+                    <i _ngcontent-c19="" class="material-icons">remove</i>
+                  </a>
+                </div>
+
+                <div class="col-md-12 text-left">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Search</button>
+                </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-6"></div>
+      </div>-->
+
+
+      <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+              <mat-grid-list cols="1" align="end">
+                  <mat-form-field style="width:inherit;">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                  </mat-form-field>
+        
+                  <button *ngIf="add" mat-icon-button routerLink="/roomconfig/roomconfig-add">
+                    <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Add">note_add</mat-icon>
+                  </button>
+        
+                  <button *ngIf="modify" mat-icon-button (click)="projectModify()">
+                    <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Modify">edit</mat-icon>
+                  </button>
+        
+                  <button *ngIf="view" mat-icon-button (click)="projectView()">
+                    <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="View">visibility</mat-icon>
+                  </button>
+        
+                  <button *ngIf="delete" mat-icon-button (click)="removeSelectedRows()">
+                    <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Delete">delete</mat-icon>
+                  </button>
+        
+              </mat-grid-list>
+          </div>
+        </div>
+
+
+      
+
+      <div class="mat-elevation-z8">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="dTable">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'" style="width:50px;">
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row" [ngClass]="'text-center'">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" (change)="row.highlighted = !row.highlighted">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+
+            <!-- <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'text-center'"> S.No </th>
+              <td mat-cell *matCellDef="let row" [ngClass]="'text-center'"> {{row.position}} </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="roomConfigCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+              <td mat-cell *matCellDef="let row"> {{row.roomConfigCode}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="userLocationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Location </th>
+              <td mat-cell *matCellDef="let row"> {{row.userLocationName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="subLocationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>SubLocation </th>
+              <td mat-cell *matCellDef="let row"> {{row.subLocationName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="roomConfigRoomName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Room Configuration Name </th>
+              <td mat-cell *matCellDef="let row"> {{row.roomConfigRoomName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="roomConfigNoOfSeats">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>No of Seats </th>
+              <td mat-cell *matCellDef="let row"> {{row.roomConfigNoOfSeats}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="roomConfigPriorty">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Room Configuration Priority </th>
+              <td mat-cell *matCellDef="let row"> {{(row.roomConfigPriorty == 1) ? 'Low' : '' || (row.roomConfigPriorty == 2) ? 'Medium' : '' || (row.roomConfigPriorty == 3) ? 'High' : ''}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let row"> {{(row.status)? 'Active':'InActive'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="roomConfigBaseFieldName"></tr>
+            <tr mat-row *matRowDef="let row;  columns:roomConfigBaseFieldName" (click)="row.highlighted = !row.highlighted"
+              (click)=" selection.toggle(row)" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+              (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+
+            <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.highlighted = !row.highlighted" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+              </tr>-->
+          </table>
+
+          <div [hidden]="displayNoRecords" class="p-10">
+            <h3 class="noRecordGrid">No Record Found...</h3>
+          </div>
+
+
+        </div>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </article>
+
+    </div>
+  </div>

@@ -1,0 +1,81 @@
+<div class="content-pageXXX container-fluid">
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+      <article class="right-panel">
+      <h4 class="page-title">{{labels.FlashNewsAdd  | i18n}}</h4>
+      <div class="card">
+          <div class="card-body">
+      <div class="row">
+        <!-- <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <input maxlength="10" matInput placeholder="Code" formControlName="flashNewsCode">
+            </mat-form-field>
+        </div> -->
+
+        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsType' ">
+            <mat-form-field class="example-full-width">
+              <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+              <mat-select placeholder={{labels.newsType}} formControlName="flashNewsType">
+                <mat-option *ngFor="let news of newsTypes" [value]="news.id">
+                    {{news.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsValidFrom' ">
+            <mat-form-field>
+              <input matInput placeholder={{labels.newsValidFrom}} [min]="today" [matDatepicker]="picker2" formControlName="flashNewsValidFrom" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsValidTo' ">
+            <mat-form-field>
+              <input matInput placeholder={{labels.newsValidTo}} readonly [min]="saveForm.value.flashNewsValidFrom" [matDatepicker]="picker3" formControlName="flashNewsValidTo" >
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3 color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsDate' ">
+            <mat-form-field>
+              <input matInput placeholder={{labels.newsDate}} [min]="saveForm.value.flashNewsValidFrom" [max]="saveForm.value.flashNewsValidTo" [matDatepicker]="picker1" formControlName="flashNewsDate" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+      </div>
+
+      <div class="row">
+
+          <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsDescription' ">
+              <mat-form-field class="example-full-width">
+                <!--<input matInput placeholder="Description" formControlName="flashNewsDescription">-->
+                <textarea matInput maxlength="50" placeholder={{labels.description}} 
+                formControlName="flashNewsDescription"></textarea>
+              </mat-form-field>
+          </div>
+
+        <div class="col-md-3 mt-15 readOnly" *ngIf="userBaseFieldName | arrayFilter : 'isFlashNewsActive' ">
+            <mat-checkbox formControlName="isFlashNewsActive">{{labels.active}}</mat-checkbox>
+        </div>
+      </div>
+</div>
+</div>
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <br>
+              <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"
+              [disabled]="saveForm.invalid">{{labels.save}}</button>
+              <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="clearForm()">{{labels.clear}}</button>
+              <button mat-raised-button color="warn" class="btn-orange"  routerLink="/flash-news">{{labels.back}}</button>
+          </div>
+      </div>
+
+    </article>
+  </div>
+</form>
+</div>

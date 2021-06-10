@@ -1,0 +1,211 @@
+<h3 class="popup_title"> {{ data.title   | i18n}}
+  <button mat-button class="modal_close_icon" *ngIf="data.close == null" [mat-dialog-close]="false" cdkFocusInitial>
+    <i class="material-icons">
+      close
+    </i>
+  </button>
+</h3>
+
+<mat-dialog-content class="mat-typography md-dialog">
+  <div class="content-pageXXX container-fluid">
+    <form [formGroup]="saveForm" #saveFormList (ngSubmit)="onSubmit()">
+      <h4 class="page-title" style="font-weight: bold;">{{ data.title }} Add</h4>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="page-title" style="font-weight: bold;">{{labels?.requestInfo}}</h4>
+          <div class="row mt-20">
+
+            <div class="col-md-4" *ngIf="forward">
+              <mat-form-field>
+                <input matInput readonly [(ngModel)]="requestType" formControlName="requestTypeId" placeholder="{{labels?.reqType}}">
+                 
+              </mat-form-field>
+            </div>    
+            
+            <div class="col-md-4" *ngIf="forward">
+              <mat-form-field>
+                <input matInput readonly [(ngModel)]="requestSubType" formControlName="requestSubTypeId" placeholder="{{labels?.reqSubType}}">
+                
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="redirect">
+              <mat-form-field>
+                <mat-select (selectionChange)="getReqSubType($event.value)" placeholder="{{labels?.reqType}}"
+                  formControlName="requestTypeId" (openedChange)="requestTypeFilter = ''">
+                  <input type="text" placeholder="{{labels?.search}}" class="advanceddropSearchTextbox"
+                    [(ngModel)]="requestTypeFilter" [ngModelOptions]="{standalone: true}">
+                  <mat-option class="select-span">{{labels?.selectHere}}</mat-option>
+                  <mat-option
+                    *ngFor="let requestType of reqTypeList | dropdownFilter : {requestTypeName : requestTypeFilter}"
+                    [value]="requestType.requestTypeId">
+                    {{requestType.requestTypeName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>    
+            
+            <div class="col-md-4" *ngIf="redirect">
+              <mat-form-field>
+                <mat-select placeholder="{{labels?.reqSubType}}" formControlName="requestSubTypeId"
+                  (selectionChange)="screenDetails(saveForm.value,saveForm)" (openedChange)="requestSubTypeFilter = ''">
+                  <input type="text" placeholder="{{labels?.search}}" class="advanceddropSearchTextbox"
+                    [(ngModel)]="requestSubTypeFilter" [ngModelOptions]="{standalone: true}">
+                  <mat-option class="select-span">{{labels?.selectHere}}</mat-option>
+                  <mat-option
+                    *ngFor="let requestSubType of reqSubTypeList | dropdownFilter : {requestSubTypeName : requestSubTypeFilter}"
+                    [value]="requestSubType.requestSubTypeId">
+                    {{requestSubType.requestSubTypeName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <mat-select placeholder="{{labels?.location}}" formControlName="locationId"  
+                  (selectionChange)="getReqSubLocation($event.value)" (openedChange)="locationFilter = ''">
+                  <input type="text" placeholder="{{labels?.search}}" class="advanceddropSearchTextbox"
+                    [(ngModel)]="locationFilter" [ngModelOptions]="{standalone: true}">
+                  <mat-option class="select-span">{{labels?.selectHere}}</mat-option>
+                  <!-- <mat-option [value]='0'>{{labels.all}}</mat-option> -->
+                  <mat-option
+                    *ngFor="let locationList of locationList | dropdownFilter : {userLocationName : locationFilter}"
+                    [value]="locationList.id">
+                    {{locationList.userLocationName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <mat-select placeholder="{{labels?.sublocation}}" formControlName="subLocationId"
+                  (selectionChange)="getReqDepartment($event.value)" (openedChange)="subLocationFilter = ''">
+                  <input type="text" placeholder="{{labels?.search}}" class="advanceddropSearchTextbox"
+                    [(ngModel)]="subLocationFilter" [ngModelOptions]="{standalone: true}">
+                  <mat-option class="select-span">{{labels?.selectHere}}</mat-option>
+                  <!-- <mat-option [value]='0'>{{labels.all}}</mat-option> -->
+                  <mat-option
+                    *ngFor="let sublocationList of sublocationList | dropdownFilter : {subLocationName : subLocationFilter}"
+                    [value]="sublocationList.sublocationId">
+                    {{sublocationList.subLocationName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <mat-select placeholder="{{labels?.department}}" formControlName="departmentId"
+                (selectionChange)="setDepartment($event.value)" (openedChange)="departmentFilter = ''">
+                  <input type="text" placeholder="{{labels?.search}}" class="advanceddropSearchTextbox"
+                    [(ngModel)]="departmentFilter" [ngModelOptions]="{standalone: true}">
+                  <mat-option class="select-span">{{labels?.selectHere}}</mat-option>
+                  <mat-option
+                    *ngFor="let departmentList of departmentList | dropdownFilter : {userDepartmentName : departmentFilter}"
+                    [value]="departmentList.id">
+                    {{departmentList.userDepartmentName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field>
+                <mat-select placeholder="{{labels?.requestPriority}}" formControlName="requestPriority">
+                  <mat-option *ngFor="let priorityCombo of priorityCombo" [value]="priorityCombo.id">
+                    {{priorityCombo.Value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field>
+                <textarea placeholder="{{labels?.remarks}}" matInput formControlName="remarks" maxlength=250>
+                  </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <h4 class="page-title" *ngIf="data.title == 'Redirect Request'" style="font-weight: bold;">{{labels?.requestDetails}}
+          </h4>
+          <div class="row mt-20" *ngIf="data.title == 'Redirect Request'">
+            <div formArrayName="requestDetailList"
+              *ngFor="let item of saveForm.controls['requestDetailList'].controls; let i = index">
+              <div [formGroupName]="i">
+                <div class="col-md-4"
+                  *ngIf="saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldType == 'T'">
+                  <mat-form-field>
+                    <input type="text" [required]="data.title == 'Redirect Request'" matInput
+                      placeholder={{saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldName}}
+                      formControlName="requestScreenDetailConfigurationFieldValue">
+                  </mat-form-field>
+                </div>
+                <!-- text ends-->
+                <div class="col-md-4"
+                  *ngIf="saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldType == 'S'">
+                  <!-- <mat-checkbox formControlName ="requestScreenDetailConfigurationFieldValue">{{saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldName}}</mat-checkbox> -->
+                  <mat-form-field>
+                    <mat-select [required]="data.title == 'Redirect Request'"
+                      placeholder={{saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldName}}
+                      formControlName="requestScreenDetailConfigurationFieldValue">
+                      <mat-option *ngFor="let drop of dropValues[i] | keyvalue " [value]="drop.value">
+                        {{drop.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" style="height: 75px;"
+                  *ngIf="saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldType == 'C'">
+                  <span *ngFor="let formitemselect of checkValues[i] ; let j = index">
+                    <mat-checkbox class="mr-10" [required]="data.title == 'Redirect Request'"
+                      (change)="getCheckboxes($event,formitemselect, j, saveForm.value.requestDetailList[i])"
+                      formControlName="requestScreenDetailConfigurationFieldValue">
+                      {{formitemselect}}</mat-checkbox>
+                  </span>
+                </div>
+                <!-- checkbox ends-->
+                <div class="col-md-4"
+                  *ngIf="saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldType == 'D'">
+                  <mat-form-field>
+                    <input matInput [required]="data.title == 'Redirect Request'" [matDatepicker]="picker"
+                      formControlName="requestScreenDetailConfigurationFieldValue" readonly
+                      placeholder={{saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldName}}>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <!-- DatePicker ends-->
+                
+                <div class="col-md-4"
+                  *ngIf="saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldType == 'A'">
+                  <mat-form-field>
+                    <textarea matInput [required]="data.title == 'Redirect Request'"
+                      placeholder={{saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldName}}
+                      formControlName="requestScreenDetailConfigurationFieldValue"
+                      ></textarea>
+                  </mat-form-field>
+                </div>
+                <!-- Textarea ends-->
+                <div class="col-md-4 p-20"
+                  *ngIf="saveForm.value.requestDetailList[i].requestScreenDetailConfigurationFieldType == 'R'">
+                  <mat-radio-group [required]="data.title == 'Redirect Request'"
+                    formControlName="requestScreenDetailConfigurationFieldValue">
+                    <mat-radio-button class="pl-10 pr-10" *ngFor="let drop of radioValues[i]" value="{{drop}}">{{drop}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <!-- Radio Group ends-->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 text-center mt-20">
+              <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Submit</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

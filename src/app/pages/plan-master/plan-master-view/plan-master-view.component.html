@@ -1,0 +1,116 @@
+<div class="content-pageXXX container-fluid">
+
+  <form #saveListForm [formGroup]="saveForm">
+    <div class="contentXXX main-content">
+      <article class="right-panel">
+        <app-left-nav></app-left-nav>
+        <h4 class="page-title">{{labels.planMasterView | i18n}}</h4>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-3">
+              <mat-card>
+                <div class="invalidmsg" *ngIf="message!==''">{{message}}</div>
+                <br>
+                <div class="imgUp">
+                  <div class="imagePreview">
+                    <img [src]="imgURL" height="175" width="100%" *ngIf="!imgURLcal">
+                    <img src="{{imgURL}}" height="175" width="100%" *ngIf="imgURLcal">
+
+                  </div>
+
+                </div>
+              </mat-card>
+            </div>
+            <div class="col-md-9">
+              <mat-card>
+                <div class="row">
+                  <div class="col-md-12 readOnly">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'planName' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.planName}} formControlName="planName" readonly>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'userCount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.planUserCount}} formControlName="userCount" readonly>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'transactionCount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.planTransactionCount}} readonly formControlName="transactionCount">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'amount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.amount}} formControlName="amount" readonly>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-12 readOnly">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'offerAmount' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder={{labels.offerAmount}} formControlName="offerAmount" readonly>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'currencyId' ">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder="{{labels.currencyName}}" formControlName="currencyId">
+                          <input type="text" placeholder="{{labels.search}}" class="advanceddropSearchTextbox"
+                            [(ngModel)]="currencyFilter" [ngModelOptions]="{standalone: true}">
+                          <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                          <mat-option
+                            *ngFor="let currency of currencyList | dropdownFilter : {currencyName: currencyFilter}"
+                            [value]="currency.currencyId">{{currency.currencyName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'duration' ">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="{{labels.duration}}({{labels.inMonth}})"
+                          formControlName="duration">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'fromDate' ">
+                      <mat-form-field>
+                        <input matInput [min]="today" [matDatepicker]="fromDate" placeholder={{labels.fromDate}}
+                          formControlName="fromDate" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                        <mat-datepicker #fromDate color="warn"></mat-datepicker> 
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-12 readOnly">
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'toDate' ">
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="toDate" placeholder={{labels.toDate}}
+                          formControlName="toDate" [min]="saveForm.value.fromDate" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                        <mat-datepicker #toDate color="warn"></mat-datepicker>       
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'offerRemarks' ">
+                      <mat-form-field class="example-full-width">
+                        <textarea matInput placeholder="{{labels.offerRemarks}}"
+                          formControlName="offerRemarks"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'activeFlag' ">
+                      <mat-checkbox formControlName="activeFlag">{{labels.active}}</mat-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 text-center" >
+                    <button mat-raised-button color="warn" class="btn-orange"
+                      routerLink="/plan-master">{{labels.back}}</button>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </form>
+</div>

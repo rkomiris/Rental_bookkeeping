@@ -1,0 +1,58 @@
+<div class="content-pageXXX container-fluid">
+
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+      <article class="right-panel">
+        <app-left-nav></app-left-nav>
+        <h4 class="page-title">{{labels.weekendMasterAdd | i18n}}</h4>
+        <div class="col-md-12">
+          <div class="row">
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'location' ">
+                  <mat-form-field class="example-full-width">
+                    <mat-select placeholder={{labels.location}} formControlName="locationId" 
+                    (selectionChange)="sublocation($event.value)" (openedChange)="locationFilter = ''">
+                      <input type="text" placeholder={{labels.search}}  class="advanceddropSearchTextbox" [(ngModel)]="locationFilter" [ngModelOptions]="{standalone: true}">
+                      <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                      <mat-option *ngFor="let location of locationList  | dropdownFilter : {userLocationName: locationFilter}" 
+                      [value]="location.id">{{location.userLocationName}}</mat-option>
+                      
+                  </mat-select>
+                  </mat-form-field>
+              </div>
+              
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'subLocationId' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder={{labels.sublocation}} formControlName="subLocationId" (openedChange)="sublocationFilter = ''">
+                    <input type="text" placeholder={{labels.search}}  class="advanceddropSearchTextbox" [(ngModel)]="sublocationFilter" [ngModelOptions]="{standalone: true}">
+                    <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                    <mat-option *ngFor="let sublocation of sublocationList  | dropdownFilter : {subLocationName: sublocationFilter}" 
+                    [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                   
+                </mat-select>
+                </mat-form-field>
+            </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'weekendDay' ">
+                  <mat-form-field class="example-full-width">
+                    <mat-select multiple placeholder={{labels.weekList}} (selectionChange)="check($event)" formControlName="weekendDetailArr">
+                      <input type="text" placeholder={{labels.search}}  class="advanceddropSearchTextbox" [(ngModel)]="weekendFilter" [ngModelOptions]="{standalone: true}">
+                      <mat-option [disabled]=true class="select-span">{{labels.selectHere}}</mat-option>
+                      <mat-option *ngFor="let day of weekList | dropdownFilter : { dayName : weekendFilter }" 
+                      [value]="day.dayNumber">{{day.dayName}}</mat-option>
+                  </mat-select>
+                  </mat-form-field>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br>
+            <br>
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"  [disabled]="saveForm.invalid">{{labels.save}}</button>
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">{{labels.clear}}</button>
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/weekend-master">{{labels.back}}</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </form>
+</div>

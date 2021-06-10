@@ -1,0 +1,229 @@
+<div class="content-pageXXX container-fluid">
+  <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+      <app-tasks></app-tasks>
+
+    <article class="right-panel">
+      <h4 class="page-title">{{labels.department  | i18n}}</h4>
+
+
+      <div class="row">
+          <div class="col-md-12">
+          
+            <mat-accordion class="advance_search_sec">
+              <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{labels.search}}</mat-panel-title>
+              </mat-expansion-panel-header>
+              
+              <div class="row advance_search_divBox">
+                <div class="col-md-6">
+                    <form #searchListForm [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm.value)">
+                        <div class="row" id="style-8">
+                          <div class="col-md-12">
+                            <div class="row" *ngIf="searchForm">
+                              <div class="col-md-12" formArrayName="searchDatas"
+                                *ngFor="let item of searchForm.controls['searchDatas'].controls; let i = index">
+                                <div class="row" [formGroupName]="i">
+                                  <div class="col-md-6">
+                                    <mat-form-field  style="margin-top: 10px;">
+                                      <mat-select [(ngModel)]="qtd[i]" formControlName="dropDownVal"
+                                        placeholder={{labels.selectHere}} required>
+                                        <mat-option [disabled]="searchCombo.dis" *ngFor="let searchCombo of searchCombo"
+                                          (click)="changefield(searchCombo,i,searchForm)" [value]="searchCombo.Value">
+                                          {{searchCombo.Name}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-6" *ngIf="qtd[i]!=='status' ">
+                                    <mat-form-field style="margin-top: 10px;">
+                                      <input matInput placeholder={{labels.value}} [(ngModel)]="qtm[i]" formControlName="textVal"
+                                        required>
+                                    </mat-form-field>
+                                  </div>
+                                  <!--<div class="col-md-6" *ngIf="qtd[i]==='phone' || qtd[i]==='zip'">
+                                  <mat-form-field>
+                                      <input matInput placeholder="Value"  maxlength="10" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"  [(ngModel)]="qtm[i]" formControlName="textVal" >
+                                  </mat-form-field>
+                                </div>-->
+      
+                                  <div class="col-md-6" *ngIf="qtd[i]==='status'">
+                                    <mat-form-field style="margin-top: 10px;">
+                                      <mat-select [(ngModel)]="qtm[i]" formControlName="textVal" placeholder={{labels.status}}
+                                        required>
+                                        <mat-option *ngFor="let desi of statuslist" [value]="desi.name">{{desi.name}}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12 text-right">
+                            <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);"
+                              (click)="addSequence(searchForm)">
+                              <i _ngcontent-c19="" class="material-icons">add</i>
+                            </a>
+                            <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+                              <i _ngcontent-c19="" class="material-icons">remove</i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 text-left">
+                            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"
+                              [disabled]="!searchForm.valid">{{labels.search}}</button>
+                              <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset" (click)="searchClear()">{{labels.reset}}</button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+              </div>  
+              
+              </mat-expansion-panel>
+            </mat-accordion>
+          
+          </div>
+        </div>
+
+
+
+        
+      <!--<div class="row">
+          <div class="col-md-12">
+            <mat-label>Search</mat-label>
+          </div>
+
+          <div class="col-md-6">
+            <form #searchListForm [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm.value)">
+              <div class="row">
+
+                <div class="col-md-12">
+                  <div class="row" *ngIf="searchForm">
+                    <div class="col-md-12" formArrayName="searchDatas"
+                      *ngFor="let item of searchForm.controls['searchDatas'].controls; let i = index">
+                      <div class="row" [formGroupName]="i">
+                        <div class="col-md-6">
+                          <mat-form-field>
+                            <mat-select formControlName="dropDownVal" placeholder="Choose Field">
+                              <mat-option *ngFor="let searchCombo of searchCombo" [value]="searchCombo.Value">
+                                {{searchCombo.Name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                          <mat-form-field>
+                            <input matInput placeholder="Value" formControlName="textVal"
+                               >
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 text-right">
+                  <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="addSequence()">
+                    <i _ngcontent-c19="" class="material-icons">add</i>
+                  </a>
+                  <a _ngcontent-c19="" class="circle_iconbg" href="javascript:void(0);" (click)="deleteSequence()">
+                    <i _ngcontent-c19="" class="material-icons">remove</i>
+                  </a>
+                </div>
+
+                <div class="col-md-12 text-left">
+                  <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-6"></div>
+        </div>-->
+
+
+
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <mat-grid-list cols="1" align="end">
+                    <mat-form-field style="width:inherit;">
+                      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{labels.filter}}">
+                    </mat-form-field>
+            
+                    <button *ngIf="add" mat-icon-button routerLink="/department/department-add">
+                      <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.add}}">note_add</mat-icon>
+                    </button>
+            
+                    <button *ngIf="modify" mat-icon-button (click)="projectModify()">
+                      <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.modify}}">edit</mat-icon>
+                    </button>
+            
+                    <button *ngIf="view" mat-icon-button (click)="projectView()">
+                      <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.view}}">visibility</mat-icon>
+                    </button>
+            
+                    <button *ngIf="delete" mat-icon-button (click)="removeSelectedRows()">
+                      <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="{{labels.delete}}">delete</mat-icon>
+                    </button>
+            
+                  </mat-grid-list>
+            </div>
+          </div>	
+
+
+
+        
+
+      <div class="mat-elevation-z8">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="dTable">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'" style="width:50px;">
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row" [ngClass]="'text-center'">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" (change)="row.highlighted = !row.highlighted">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="userDepartmentName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.department}} </th>
+              <td mat-cell *matCellDef="let row"> {{row.userDepartmentName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="userLocationName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.location}}</th>
+              <td mat-cell *matCellDef="let row"> {{row.userLocationName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="sublocationName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.sublocation}}</th>
+                <td mat-cell *matCellDef="let row"> {{row.sublocationName}}</td>
+              </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{labels.description}}</th>
+              <td mat-cell *matCellDef="let row"> {{ row.description }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="userRoleFieldName"></tr>
+            <tr mat-row *matRowDef="let row;  columns:userRoleFieldName" (click)="row.highlighted = !row.highlighted"
+              (click)=" selection.toggle(row)" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+              (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+          </table>
+          <div [hidden]="displayNoRecords" class="p-10">
+            <h3 class="noRecordGrid">{{labels.noRecords}}</h3>
+          </div>
+        </div>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </article>
+
+  </div>
+</div>

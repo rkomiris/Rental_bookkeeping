@@ -1,0 +1,159 @@
+<!--<div class="content-pageXXX container-fluid">
+
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+      <article class="right-panel">
+        <app-left-nav></app-left-nav>
+        <h4 class="page-title">Authentication Add</h4>
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Sceen" formControlName="screenId">
+                <mat-option *ngFor="let screen of screenCombo" [value]="screen.screenId">
+                  {{screen.screenName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="User Role" formControlName="roleId">
+                <mat-option *ngFor="let role of userRoleCombo" [value]="role.id">
+                  {{role.userRoleName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1 mt-15">
+            <mat-checkbox formControlName="addFlag">Add</mat-checkbox>
+          </div>
+          <div class="col-md-1 mt-15">
+            <mat-checkbox formControlName="modifyFlag">Modify</mat-checkbox>
+          </div>
+          <div class="col-md-1 mt-15">
+            <mat-checkbox formControlName="deleteFlag">Delete</mat-checkbox>
+          </div>
+          <div class="col-md-1 mt-15">
+            <mat-checkbox formControlName="viewFlag">View</mat-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Save</button>
+            <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Clear</button>
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/authentication">Back</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </form>
+</div>-->
+<div class="content-pageXXX container-fluid">
+    <div class="contentXXX main-content">
+        <article class="right-panel">
+            <app-left-nav></app-left-nav>
+            <h4 class="page-title">{{labels.AuthenticationAdd  | i18n}}</h4>
+            <div class="content" *ngIf="comboList">
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <textarea matInput readonly placeholder="{{labels.users}}" [(ngModel)]="comboList.userList"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field>
+                            <input matInput readonly placeholder="{{labels.userRole}}" style="color: #0f3859;font-weight: 600;" [(ngModel)]="comboList.roleName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <!--<button mat-raised-button color="primary" style="background-color: #ff4081;" class="m-2" (click)="onSubmit()" type="submit">Submit </button>
+      &nbsp;&nbsp;--><button mat-raised-button color="warn" type="reset" (click)="cancel()">{{labels.back}}</button>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-15" *ngIf="comboList.screenComboList">
+                    <div class="scrollbar" id="style-8">
+                        <div class="force-overflow">
+                            <mat-toolbar>{{labels.SCREENS}}</mat-toolbar>
+                            <div class="card-box">
+                                <div *ngFor="let item of comboList.screenComboList;  let i = index" [ngClass]="item.result === true ? 'highlight-bg' : ''">
+                                    <mat-checkbox (change)="getsubScreenValues($event,item.id)">
+                                        {{item.name}}
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4  mt-15" *ngIf="subscreenList.length > 0">
+                    <div class="scrollbar" id="style-8">
+                        <div class="force-overflow">
+                            <mat-toolbar>{{labels.SUBSCREENS}}</mat-toolbar>
+                            <div class="card-box">
+                                <div *ngFor="let item of subscreenList;  let i = index" [ngClass]="item.result === true ? 'highlight-bg' : ''">
+                                    <mat-checkbox (change)="getfieldsValues($event,item.id)">
+                                        {{item.name}}
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4  mt-15 " *ngIf="screenFieldList.length > 0">
+                    <div class="scrollbar" id="style-8">
+                        <div class="force-overflow">
+                            <mat-toolbar>{{labels.SCREENFIELDS}}</mat-toolbar>
+                            <div class="card-box readonly-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <mat-checkbox name="baseFilter" (change)="allNonTrades($event)">
+                                                </mat-checkbox>
+                                                {{labels.fieldName}}
+                                            </th>
+                                            <!-- <th>Base Filter</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of screenFieldList;  let k = index" [ngClass]="item.result === true ? 'highlight-bg' : ''">
+                                            <td>
+                                                <mat-checkbox [checked]="item.result" (change)="selectFields($event, item.id, item)">
+                                                    {{item.name}}
+                                                </mat-checkbox>
+                                            </td>
+                                            <!--<td>
+                           <mat-checkbox  [checked]="item.baseFilter" [(ngModel)]="item.baseFilter"
+                             (change)="baseFilterCheck($event, item.id, item)" [disabled]="!item.result">
+                           </mat-checkbox>
+                         </td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <div *ngFor="let item of screenFieldList;  let i = index">
+                 <mat-checkbox   (change)="getfieldsValues($event,item.id)">
+                     {{item.name}}
+                   </mat-checkbox>
+                 </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4  mt-15" *ngIf="screenFucntionList.length > 0">
+                    <div class="scrollbar" id="style-8">
+                        <div class="force-overflow">
+                            <mat-toolbar>{{labels.FUNCTIONS}}</mat-toolbar>
+                            <div class="card-box readonly-wrapper">
+                                <div *ngFor="let item of screenFucntionList;  let i = index" [ngClass]="item.result === true ? 'highlight-bg' : ''">
+                                    <mat-checkbox [checked]="item.result" (change)="selectFunctions($event,item.id, item)">
+                                        {{item.name}}
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </article>
+    </div>
+</div>

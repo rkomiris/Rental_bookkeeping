@@ -1,0 +1,188 @@
+<div class="container-fluid">
+    <div class="contentXXX main-content">
+        <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit(saveForm.value)">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                
+
+                <h4 class="page-title">{{labels.entityCreation}}</h4>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3"  *ngIf="userBaseFieldName | arrayFilter : 'entityName' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.entityName}}" formControlName="entityName">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'userLoginId' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.userLoginId}}" formControlName="userLoginId">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'location' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.location}}" formControlName="location">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'subLocation' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.sublocation}}" formControlName="subLocation">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'planId'">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder={{labels.planName}} formControlName="planId" (openedChange)="planFilter = ''"
+                                (selectionChange)="loadDetails($event.value)">
+                                  <input type="text" placeholder={{labels.search}}  class="advanceddropSearchTextbox" [(ngModel)]="planFilter"  [ngModelOptions]="{standalone: true}">
+                                      <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                      <mat-option *ngFor="let plan of planList | dropdownFilter : {planName: planFilter}" 
+                                      [value]="plan.planId">{{plan.planName}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'mobile' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.mobile}}" type="text" pattern="^[0-9]*$"
+                                    formControlName="mobile" minlength="8" maxlength="15">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'email' ">
+                            <mat-form-field class="example-full-width">
+                                <!-- <input matInput placeholder="Email Id" pattern="^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$" formControlName="email"> -->
+                                <textarea matInput placeholder="{{labels.emailId}}" formControlName="email"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityAddress' ">
+                            <mat-form-field class="example-full-width">
+                                <!-- <input matInput placeholder="Address" formControlName="entityAddress"> -->
+                                <textarea matInput placeholder="{{labels.address}}" formControlName="entityAddress"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'entityLang'">
+                            <mat-form-field>
+                            <mat-select placeholder="{{labels.applicationLanguage}}" (openedChange)="languageFilter = ''" formControlName="entityLang">
+                                <input type="text" placeholder="{{labels.search}}"
+                                    class="advanceddropSearchTextbox" [(ngModel)]="languageFilter"
+                                    [ngModelOptions]="{standalone: true}">
+                                <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                <mat-option
+                                    *ngFor="let language of languageList  | dropdownFilter : {language: languageFilter}"
+                                    [value]="language.languageCode">{{language.language}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </div>
+                        <div class="col-md-2" style="pointer-events: none;" *ngIf="userBaseFieldName | arrayFilter : 'status' ">
+                            <mat-checkbox formControlName="status">{{labels.active}}</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="page-title" style="font-weight: bold;padding:0px !important"> {{labels.passwordDetails}}</h4>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'passwordLength' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.pwdLength}}" type="text" pattern="^[0-9]*$"
+                                    formControlName="passwordLength" (change)="pwdCheck($event)" [minlength]="1"
+                                    [maxlength]="2">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'passwordSpecialChar' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.pwdSplCharacter}}" type="text" pattern="^[0-9]*$"
+                                    formControlName="passwordSpecialChar" [minlength]="1" [maxlength]="2">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'passwordNumeric' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.pwdNumericCharacter}}" type="text" pattern="^[0-9]*$"
+                                    [minlength]="1" [maxlength]="2" formControlName="passwordNumeric">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'passwordAlphanumericCaps' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.pwdAlphabeticCharacter}}" type="text"
+                                    pattern="^[0-9]*$" [minlength]="1" [maxlength]="2"
+                                    formControlName="passwordAlphanumericCaps">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'expiryDays' ">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="{{labels.expiryDays}}" type="text" [minlength]="1" [maxlength]="2"
+                                    formControlName="expiryDays">
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password Check Count" type="text" pattern="\d*" formControlName="passwordCheckCount">
+                        </mat-form-field>
+                    </div> -->
+                    </div>
+                </div>
+
+                <h4 class="page-title" style="font-weight: bold;padding:0px !important"> {{labels.entityDetails}}</h4>
+                <div class="row" *ngIf="saveForm">
+                    <div class="col-md-12" formArrayName="entityLicenseDetailsVoList"
+                        *ngFor="let item of saveForm.get('entityLicenseDetailsVoList')['controls']; let i = index">
+                        <div [formGroupName]="i">
+                            <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}"  
+                                *ngIf="userBaseFieldName | arrayFilter : 'fromDate' ">
+                                <mat-form-field>
+                                    <input matInput placeholder="{{labels.fromDate}}" [min]="today" [matDatepicker]="picker1"
+                                        formControlName="fromDate" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1 color="warn"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}" 
+                                *ngIf="userBaseFieldName | arrayFilter : 'toDate' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.toDate}}"
+                                        [min]="saveForm.value.entityLicenseDetailsVoList[0].fromDate"
+                                        [matDatepicker]="picker2" formControlName="toDate" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2 color="warn"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}" 
+                                *ngIf="userBaseFieldName | arrayFilter : 'userCount' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.planUserCount}}" type="text" pattern="^([0-9])+$"
+                                        formControlName="userCount">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" [ngClass]="{'readOnly' : enable == true}" 
+                                *ngIf="userBaseFieldName | arrayFilter : 'transactionCount' ">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{labels.planTransactionCount}}" type="text" pattern="^([0-9])+$"
+                                        formControlName="transactionCount">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center mt-20 mb-20">
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" [disabled]="saveForm.invalid"
+                            type="submit">Save</button>
+
+                        <button mat-raised-button color="warn" class="btn-orange mr-10" type="button"
+                            (click)="clear()">Clear</button>
+
+                        <button mat-raised-button color="warn" class="btn-orange"  routerLink="/entity"
+                            type="button">Back</button>
+                    </div>
+                </div>
+            </article>
+
+        </form>
+    </div>
+</div>

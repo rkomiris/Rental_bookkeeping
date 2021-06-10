@@ -1,0 +1,77 @@
+<div class="content-pageXXX container-fluid">
+  <form #viewListForm [formGroup]="viewForm">
+    <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+
+      <article class="right-panel">
+
+        <h4 class="page-title">{{labels.RequestSubTypeView  | i18n}}</h4>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestSubTypeCode' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder={{labels.code}} formControlName="requestSubTypeCode" readonly>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestTypeId' ">
+                  <mat-form-field class="example-full-width reaonly-wrapper">
+                    <mat-select placeholder={{labels.reqType}} formControlName="requestTypeId">
+                      <mat-option *ngFor="let requestType of RST_selectFormGetDate" [value]="requestType.requestTypeId">
+                        {{requestType.requestTypeName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestSubTypeName' ">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder={{labels.reqSubType}} formControlName="requestSubTypeName" readonly>
+                  </mat-form-field>
+                </div>
+
+
+
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+
+
+                <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'requestSubtypePriorty' ">
+                  <mat-form-field class="example-full-width reaonly-wrapper">
+                    <mat-select placeholder={{labels.reqSubTypePriority}} formControlName="requestSubtypePriorty">
+                      <mat-option *ngFor="let priorityArr of priorityArr" [value]="priorityArr.id">{{priorityArr.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3 mt-15 reaonly-wrapper" *ngIf="userBaseFieldName | arrayFilter : 'requestSubTypeIsActive' ">
+                  <mat-checkbox formControlName="requestSubTypeIsActive">{{labels.active}}</mat-checkbox>
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/request-subtype">{{labels.back}}</button>
+          </div>
+        </div>
+
+      </article>
+
+
+    </div>
+  </form>
+</div>

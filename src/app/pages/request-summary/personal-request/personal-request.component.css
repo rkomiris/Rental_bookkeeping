@@ -1,0 +1,136 @@
+.list-priority{
+    padding: 5px 5px;
+    color:black;
+    border-radius: 5px;
+    font-size: 12px;
+
+}
+.list-subTypeReq{
+    font-size: 16px;
+    Padding: 7px 0px;
+    color:black;
+
+}
+
+.list-subject{
+    font-size: 12px;
+    color:black;
+}
+
+.list-reqCode{
+    font-size: 12px;
+    padding: 5px 5px;
+    color:black;
+    border-radius:5px;
+   
+}
+
+.lightfont{
+
+    font-size: 10px;
+    font-family:'Montserrat-UltraLight';
+  }
+  .dayleft{
+    position: absolute;
+    top: 0;
+    left: 35px;
+  }
+
+  .error{
+    font-size: 18px;
+      margin-top: -5px;
+      color: #4d4d29;
+  }
+  .searchColumn{
+    color: #ea5e43;
+    box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);
+    background: #e2e2e2;
+    background: linear-gradient(to bottom, #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#ffe9e5 0%,#fefefe 100%);   
+    max-height: 370px;
+    overflow: auto;
+  }
+
+  .viewSection{
+    max-height: 500px;
+    overflow: auto;
+    padding-top: 15px;
+    
+  }
+
+  .bodySection{
+    background: radial-gradient(#ffc2c2, transparent);
+    padding: 20px;
+  }
+  .app_waiting_sec {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    max-height: 170px;
+}
+.page-title{
+  font-size: 15px;
+  text-align:center;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 20px;
+  margin: 0 0 10px 0;
+  padding: 10px 10px;
+  font-weight: 500;
+  text-shadow: 0px 0px 0px #ad0000, 2px 0px 2px #ad0000, 1px 1px 2px #ad0000;
+  background: linear-gradient(to bottom, #ffbcbd 1%,#ff5b6b 24%,#ff7f87 76%,#ff4c5b 100%);
+}
+.matCard{
+  height:150px;
+  border-radius: 20px;
+  color: #ea5e43;
+  box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);background: linear-gradient(to bottom, #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#ffe9e5 0%,#fefefe 100%);
+}
+.matCardTitle{
+  color: #ea5e43;
+    box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);
+    background: linear-gradient(to bottom, #ffbcbd 1%,#ff5b6b 24%,#ff7f87 76%,#ff4c5b 100%);
+    text-shadow: 0px 0px 0px #ad0000, 2px 0px 2px #ad0000, 1px 1px 2px #ad0000;
+    margin: 0 0 10px 0;
+    padding: 10px 10px;
+    /* padding: 5px; */
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 20px;
+}
+.matCardBody{
+  text-align: center;
+  /* padding: 23px; */
+  border: solid;
+  margin: 15px 55px 15px 55px;;
+  box-shadow: 0px 4px 30px -10px rgba(13,28,39,0.6);
+  background: linear-gradient(to bottom, #ffbcbd 1%,#ff5b6b 24%,#ff7f87 76%,#ff4c5b 100%);
+  text-shadow: 0px 0px 0px #ad0000, 2px 0px 2px #ad0000, 1px 1px 2px #ad0000;
+  border-style: groove;
+  border-radius:43px;
+  /* background: lightgrey;*/
+}
+.list-user{
+  font-size: 16px;
+  text-align: left;
+}
+.searchColumn::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+.searchColumn::-webkit-scrollbar
+{
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+.searchColumn::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgba(253, 109, 94, 0.38)), color-stop(0.72, rgba(253, 106, 96, 0.71)), color-stop(0.86, rgb(253, 109, 94)));
+}

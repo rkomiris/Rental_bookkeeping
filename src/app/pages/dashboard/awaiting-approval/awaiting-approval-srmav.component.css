@@ -1,0 +1,122 @@
+.app_waiting_sec {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    max-height: 170px;
+    display: none;
+}
+
+
+.app_waiting_count {
+    /* width: 55%; */
+    width: 80px;
+    height: 80px;
+    padding: 30px 0;
+    text-align: center;
+    color: #272727;
+    /* line-height: 16px; */
+    margin: 0px auto;
+    font-size: 16px;
+    border-radius: 100%;
+
+    /* background-image: linear-gradient(to right bottom, #fc745a, #fd6c5f, #fe6365, #fe5a6b, #fd5272); */
+
+    background: #f9b766;
+    background: -moz-radial-gradient(center, ellipse cover,  #f9b766 0%, #fb9d23 46%, #fb9d23 46%, #f9a845 53%, #fb9d23 100%);
+    background: -webkit-radial-gradient(center, ellipse cover,  #f9b766 0%,#fb9d23 46%,#fb9d23 46%,#f9a845 53%,#fb9d23 100%);
+    background: radial-gradient(ellipse at center,  #f9b766 0%,#fb9d23 46%,#fb9d23 46%,#f9a845 53%,#fb9d23 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9b766', endColorstr='#fb9d23',GradientType=1 );
+}
+.app_waiting_count0 {
+  /* width: 55%; */
+  width: 80px;
+  height: 80px;
+  padding: 30px 0;
+  text-align: center;
+  color: #272727;
+  /* line-height: 16px; */
+  margin: 0px auto;
+  font-size: 16px;
+  border-radius: 100%;
+  pointer-events: none;
+  /* background-image: linear-gradient(to right bottom, #fc745a, #fd6c5f, #fe6365, #fe5a6b, #fd5272); */
+  background: radial-gradient(ellipse at center, #a99d9d 0%,#8a8383 46%,#887b7b 46%,#7d7973 53%,#eadddd 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a99d9d', endColorstr='#7d7973',GradientType=1 );
+}
+
+
+
+
+
+
+/*********************/
+
+
+
+.app_waiting_srmav_sec {
+    margin: 30px 5px 30px 22px;
+    /* width: 100px; */
+    text-align: center;
+}
+
+.app_waiting_srmav_sec .circle-wrap {
+    margin: 30px auto;
+    width: 100px;
+    height: 100px;
+    background: #e6e2e7;
+    border-radius: 50%;
+  }
+  
+  .app_waiting_srmav_sec .circle-wrap .circle .mask,
+  .app_waiting_srmav_sec .circle-wrap .circle .fill {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .app_waiting_srmav_sec .circle-wrap .circle .mask {
+    clip: rect(0px, 100px, 100px, 50px);
+  }
+  
+  .app_waiting_srmav_sec .circle-wrap .circle .mask .fill {
+    clip: rect(0px, 50px, 100px, 0px);
+    background-color: #949544;
+  }
+  
+  
+  .app_waiting_srmav_sec .circle-wrap .circle .mask.full,
+  .app_waiting_srmav_sec .circle-wrap .circle .fill {
+    animation: fill ease-in-out 1s;
+    transform: rotate(180deg);
+  }
+  
+  @keyframes fill {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+  
+  .app_waiting_srmav_sec .circle-wrap .inside-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #c58a2b;
+    line-height: 80px;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 2em;
+    color: #fff;
+    padding: 0;
+  }
+
+
+  .inside-circle.app_waiting_count {padding: 0; cursor: pointer;}

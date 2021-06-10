@@ -1,0 +1,133 @@
+<div class="content-pageXXX container-fluid">
+
+
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+      <div class="contentXXX main-content">
+        <article class="right-panel">
+          <app-left-nav></app-left-nav>
+          <h4 class="page-title">{{labels.LocationModify  | i18n}}</h4>
+          <div class="card">
+            <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userLocationName' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.location}}" maxlength="50" 
+                  formControlName="userLocationName">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userLocationDetails' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationDetails}}" maxlength="50" 
+                  formControlName="userLocationDetails">
+                </mat-form-field>
+              </div>
+              
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'contactName' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationContatctName}}" maxlength="50" 
+                  formControlName="contactName">
+                </mat-form-field>
+              </div>              
+
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+
+              
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'cityId' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="{{labels.locationCity}}" formControlName="cityId" (openedChange)="cityFilter = ''">
+                    <!-- <mat-option *ngFor="let city of cityCombo" [value]="city.cityId">
+                      {{city.cityName}}</mat-option> -->
+                      <input type="text" placeholder="{{labels.search}}"  class="advanceddropSearchTextbox" [(ngModel)]="cityFilter"  [ngModelOptions]="{standalone: true}">
+                      <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                      <mat-option *ngFor="let city of cityCombo | dropdownFilter : {cityName: cityFilter}" 
+                      [value]="city.cityId">{{city.cityName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'stateId' "> 
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="{{labels.locationState}}" formControlName="stateId" (openedChange)="stateFilter = ''">
+                    <!-- <mat-option *ngFor="let state of stateCombo" [value]="state.stateId">
+                      {{state.stateName}}</mat-option> -->
+                      <input type="text" placeholder="{{labels.search}}"  class="advanceddropSearchTextbox" [(ngModel)]="stateFilter"  [ngModelOptions]="{standalone: true}">
+                      <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                      <mat-option *ngFor="let state of stateCombo | dropdownFilter : {stateName: stateFilter}" 
+                      [value]="state.stateId">{{state.stateName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'countryId' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="{{labels.locationCountry}}" formControlName="countryId" (openedChange)="countryFilter = ''">
+                    <!-- <mat-option *ngFor="let country of countryCombo" [value]="country.countryId">
+                      {{country.countryName}}</mat-option> -->
+                      <input type="text" placeholder="{{labels.search}}"  class="advanceddropSearchTextbox" [(ngModel)]="countryFilter"  [ngModelOptions]="{standalone: true}">
+                    <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                    <mat-option *ngFor="let country of countryCombo | dropdownFilter : {countryName: countryFilter}" 
+                    [value]="country.countryId">{{country.countryName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">              
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'email' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.email}}" formControlName="email">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'zip' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationZip}}"  [minlength]="3" [maxlength]="20" 
+                  onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' formControlName="zip">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'phone' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.phoneNumber}}" [minlength]="8"  
+                  [maxlength]="16" onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' 
+                  formControlName="phone">
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+            
+            
+          <div class="row">
+            <div class="col-md-12">              
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'fax' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="{{labels.locationFax}}"  [maxlength]="10" 
+                   formControlName="fax">
+                 <!-- onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' -->
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          
+
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit"
+              [disabled]="saveForm.invalid">{{labels.modify}}</button>
+             <!-- <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Cancel</button>-->
+              <button mat-raised-button color="warn" class="btn-orange" routerLink="/location">{{labels.back}}</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </form>
+  </div>

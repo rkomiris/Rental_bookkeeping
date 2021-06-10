@@ -1,0 +1,12 @@
+.col-clear .col-md-3:nth-child(5),.col-clear .col-md-3:nth-child(9), .col-clear .col-md-3:nth-child(13){
+    clear: both;
+    }
+
+
+    .checkbox{
+        margin-top: 15px;
+    }
+
+    .readonly{
+        pointer-events: none;
+    }

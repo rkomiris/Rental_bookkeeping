@@ -1,0 +1,250 @@
+<div class="content-pageXXX container-fluid">
+    <div class="contentXXX main-content">
+
+        <app-left-nav></app-left-nav>
+        <app-tasks></app-tasks>
+
+        <article class="right-panel">
+            <!-- <app-left-nav></app-left-nav> -->
+            <h4 class="page-title">{{labels.userProfile  | i18n}}</h4>
+
+            <div class="row" *ngIf="viewDetails">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                    <div align="center" *ngIf="userDetails">
+                        <img style=" margin-bottom: -16px;" class="profile-pic" [src]="picurl">
+
+                    </div>
+                    <table class="table table-bordered table-custom" *ngIf="userDetails">
+                        <tbody>
+                            <tr>
+                                <th class="text-center">{{labels.employeeId}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.employeeId}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.firstName}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.firstName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.middleName}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.middleName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.lastName}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.lastName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.mobile}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.mobile}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.email}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.emailId}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.skypeId}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.skypeId}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.location}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.locationName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.sublocation}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.subLocationName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.department}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.departmentName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">{{labels.language}}</th>
+                                <td>
+                                    <p align="center">{{userDetails.langCodeValue}}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <button mat-raised-button color="warn" class="btn-orange mr-10 pull-right"
+                        (click)="editDetails()">{{labels.editProfile}}</button>
+                </div>
+            </div>
+            <div class="row" *ngIf="!viewDetails">
+                <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <div align="center" *ngIf="userDetails">
+
+                            <label>
+                                <img class="profile-pic" [src]="picurl">
+                                <mat-icon class="custom-edit" matTooltip="Edit">edit</mat-icon>
+                                <input accept="image/*" type='file' (change)="onSelectFile($event)">
+                            </label>
+                        </div>
+                        <table class="table table-bordered table-custom1" *ngIf="userDetails">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.employeeId}}"
+                                                formControlName="employeeId" readonly>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.firstName}}" maxlength="50"
+                                                formControlName="firstName">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.middleName}}" maxlength="50"
+                                                formControlName="middleName">
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.lastName}}" maxlength="50"
+                                                formControlName="lastName">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.contactNumber}}" minlength="8"
+                                                maxlength="16"
+                                                onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                formControlName="mobile" type="number">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.email}}" formControlName="emailId"
+                                                readonly>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="{{labels.skypeId}}" formControlName="skypeId">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+
+
+
+                                        <mat-form-field class="example-full-width">
+                                            <mat-select placeholder="{{labels.userLocation}}"
+                                                formControlName="locationId"
+                                                (selectionChange)="getSublocation($event.value)"
+                                                (openedChange)="locationFilter = ''">
+                                                <input type="text" placeholder="{{labels.search}}"
+                                                    class="advanceddropSearchTextbox" [(ngModel)]="locationFilter"
+                                                    [ngModelOptions]="{standalone: true}">
+                                                <mat-option
+                                                    *ngFor="let location of locationList  | dropdownFilter : {userLocationName: locationFilter}"
+                                                    [value]="location.id">{{location.userLocationName}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+
+                                            <mat-select placeholder="{{labels.sublocation}}"
+                                                formControlName="sublocationId"
+                                                (selectionChange)="getDepartment($event.value)"
+                                                (openedChange)="sublocationFilter = ''">
+
+                                                <input type="text" placeholder="{{labels.search}}"
+                                                    class="advanceddropSearchTextbox" [(ngModel)]="sublocationFilter"
+                                                    [ngModelOptions]="{standalone: true}">
+                                                <mat-option
+                                                    *ngFor="let sublocation of sublocationList  | dropdownFilter : {subLocationName: sublocationFilter}"
+                                                    [value]="sublocation.sublocationId">{{sublocation.subLocationName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-select placeholder="{{labels.department}}"
+                                                formControlName="departmentId" (openedChange)="departmentFilter = ''">
+                                                <input type="text" placeholder="{{labels.search}}"
+                                                    class="advanceddropSearchTextbox" [(ngModel)]="departmentFilter"
+                                                    [ngModelOptions]="{standalone: true}">
+                                                <mat-option
+                                                    *ngFor="let department of departmentList  | dropdownFilter : {userDepartmentName: departmentFilter}"
+                                                    [value]="department.id">{{department.userDepartmentName}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-select placeholder="{{labels.language}}" formControlName="langCode"
+                                                (openedChange)="languageFilter = ''">
+
+                                                <input type="text" placeholder="{{labels.search}}"
+                                                    class="advanceddropSearchTextbox" [(ngModel)]="languageFilter"
+                                                    [ngModelOptions]="{standalone: true}">
+                                                <mat-option
+                                                    *ngFor="let language of languageList  | dropdownFilter : {language: languageFilter}"
+                                                    [value]="language.languageCode">{{language.language}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        <button mat-raised-button color="warn" class="btn-orange mr-10 pull-right"
+                            (click)="userGetDetails()">{{labels.cancel}}</button>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10 pull-right"
+                            type="submit">{{labels.update}}</button>
+
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</div>

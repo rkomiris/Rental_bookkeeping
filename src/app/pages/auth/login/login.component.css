@@ -1,0 +1,47 @@
+
+.loginBg{	
+	/* background: url(../../../../assets/img/login/login_full_bg.jpg) no-repeat; */
+    height: 100vh;
+    width: 100%;
+    background-size: 100% 100%; 
+    background-color: white;
+}
+
+.login_left_sec {display: table; width: 100%; height: 100vh;}
+.login_left_sec_inner { display: table-cell; vertical-align: middle; padding: 0 250px 0 70px;}
+.login_logo_sec {padding-bottom: 20px;}
+.login_logo_sec img {margin-right: 35px;}
+.login_logo_sec h3 {display: inline; color: #003f6c;}
+.login_left_sec_inner h3 {color: #003f6c;}
+.login_left_sec_inner p {color: #666;}
+
+
+.login_right_sec {display: table; width: 70%; height: 100vh; margin: 0 auto;}
+.login_right_sec_inner { display: table-cell; vertical-align: middle; /*padding: 0 50px 0 50px;*/}
+.login_right_sec h3 {color: #003f6c;}
+
+
+.footer_login {position: fixed; bottom: 25px;}
+.footer_login .footer_text {color: #996633; font-size: 13px;}
+
+.eyeicon {cursor: pointer;}
+
+
+.alertMessage{ /*display: table; width: 100%;*/ transition: all 0.5s ease;}
+.alert-success {
+    /*display: table-cell; 
+    vertical-align: middle;*/ 
+    padding: 10px 10px;
+    color: #fff;
+    width: 100%;
+    background-color: #f44336;
+    border-radius: .25rem;
+    /* transform: translate(-49%, 25%); */
+    transform: translate(0%, 0%);
+    transition: all 0.5s ease;
+}
+
+
+:host /deep/ #ng-chat{
+    display: none !important;
+}

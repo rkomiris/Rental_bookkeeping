@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <!-- <form #modifyForm="ngForm" (ngSubmit)="onSubmit(modifyForm.value)" novalidate> -->
+  <!-- <form #viewListForm [formGroup]="viewForm" (ngSubmit)="onSubmit()">  -->
+  <form #viewListForm [formGroup]="viewForm">
+    <div class="contentXXX main-content">
+
+
+      <app-left-nav></app-left-nav>
+
+      <article class="right-panel">
+
+        <h4 class="page-title">{{labels.FlashNewsView  | i18n}}</h4>
+        <div class="card">
+          <div class="card-body">
+            <div class="row diss">
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsCode' ">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder={{labels.code}} formControlName="flashNewsCode" readonly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsType' ">
+                <mat-form-field class="example-full-width">
+                  <!-- <input matInput placeholder="Type" formControlName="flashNewsType" readonly> -->
+                  <mat-select placeholder={{labels.newsType}} formControlName="flashNewsType">
+                    <mat-option *ngFor="let news of newsTypes" [value]="news.id">
+                      {{news.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsValidFrom' ">
+                <mat-form-field>
+                  <!-- <input matInput [min]="today" [matDatepicker]="newsValidFrom" placeholder="News Valid From" formControlName="flashNewsValidFrom" readonly>
+              <mat-datepicker-toggle matSuffix [for]="newsValidFrom"></mat-datepicker-toggle>
+              <mat-datepicker #newsValidFrom color="warn"></mat-datepicker> -->
+                  <input matInput placeholder={{labels.newsValidFrom}} formControlName="flashNewsValidFrom" readonly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsValidTo' ">
+                <mat-form-field>
+                  <!-- <input matInput  [matDatepicker]="newsValidTo" placeholder="News Valid To" formControlName="flashNewsValidTo" readonly>
+            <mat-datepicker-toggle matSuffix [for]="newsValidTo"></mat-datepicker-toggle>
+            <mat-datepicker #newsValidTo color="warn"></mat-datepicker> -->
+                  <input matInput placeholder="{{labels.newsValidTo}}" formControlName="flashNewsValidTo" readonly>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="row diss">
+
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsDate' ">
+                <mat-form-field>
+                  <!-- <input matInput  [matDatepicker]="newsDate" placeholder="News Date" formControlName="flashNewsDate" readonly>
+            <mat-datepicker-toggle matSuffix [for]="newsDate"></mat-datepicker-toggle>
+            <mat-datepicker #newsDate color="warn"></mat-datepicker> -->
+                  <input matInput placeholder={{labels.newsDate}} formControlName="flashNewsDate" readonly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'flashNewsDescription' ">
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder={{labels.description}} maxlength="250" formControlName="flashNewsDescription"
+                    readonly></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 mt-15" *ngIf="userBaseFieldName | arrayFilter : 'isFlashNewsActive' ">
+
+                <mat-checkbox formControlName="isFlashNewsActive">{{labels.active}}</mat-checkbox>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br>
+            <!-- <button mat-raised-button color="warn" class="btn-orange mr-10" (click)="submitSuccess()">Modify</button>
+              <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Cancel</button> -->
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/flash-news">{{labels.back}}</button>
+          </div>
+        </div>
+
+
+      </article>
+    </div>
+  </form>
+</div>

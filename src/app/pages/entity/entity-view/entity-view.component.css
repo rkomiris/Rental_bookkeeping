@@ -1,0 +1,15 @@
+.hidden {
+    visibility: hidden;
+  }
+  
+  .visible {
+    visibility: visible;
+  }
+
+  .heading {
+      text-align: center;
+  }
+
+  .readonly{
+    pointer-events: none;
+  }

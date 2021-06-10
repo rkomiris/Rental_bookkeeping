@@ -1,0 +1,150 @@
+
+<!-- <div class="container parent">
+    <div class="media">
+      <div class="media-body">
+        <h3 class="mt-0">News Title</h3>
+        <h3 class="mt-0">News Title 2</h3>
+        <h3 class="mt-0">News Title 3</h3>
+        <h3 class="mt-0">{{title}}</h3>
+        <h3 class="mt-0">{{name}}</h3>
+        <h3 class="mt-0">{{data.title}}</h3>
+        <h3 class="mt-0">{{data.name}}</h3>
+        <hr>
+        <p>{{date}}</p>
+      </div>
+    </div>
+  </div> -->
+
+
+
+<h3 class="popup_title">Events
+  <button mat-button class="modal_close_icon" *ngIf="data.close == null" [mat-dialog-close]="false" cdkFocusInitial>
+    <i class="material-icons">
+      close
+    </i>
+  </button>
+</h3>
+
+<mat-dialog-content class="mat-typography md-dialog" align="center">
+
+  <table class="table table-bordered table-custom" *ngIf="detailsList">
+    <tbody>
+
+      <tr>
+        <th class="text-center">Room</th>
+        <td>
+          <p align="center">{{data.roomConfigRoomName}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-center">Event</th>
+        <td>
+          <p align="center">{{data.title}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-center">From Date</th>
+        <td>
+          <p> {{data.start}}</p>
+        </td>
+      </tr>
+
+      <tr>
+        <th class="text-center">To Date</th>
+        <td>
+          <p> {{data.end}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-center">Time </th>
+        <td>
+          <p>{{data.time.from }} - {{ data.time.to}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th class="text-center">Current Status </th>
+        <td>
+          <p> {{data.currentStatusName}} </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div *ngIf="!detailsList" class="mat-elevation-z8">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort class="dTable">
+        <ng-container matColumnDef="approvedDate">
+          <th mat-header-cell *matHeaderCellDef >Approved On </th>
+          <td mat-cell *matCellDef="let row"> {{row.approvedDate | date: 'dd/MM/yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef >User Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.userName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="roomBookingWorkFlowAuditDescisionType">
+          <th mat-header-cell *matHeaderCellDef >Decision Type</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.roomBookingWorkFlowAuditDescisionType == '0'">Pending</span>
+            <span *ngIf="row.roomBookingWorkFlowAuditDescisionType == '1'">Approved</span>
+            <span *ngIf="row.roomBookingWorkFlowAuditDescisionType == '2'">Rejected</span>
+            <span *ngIf="row.roomBookingWorkFlowAuditDescisionType == '3'">Resubmit</span>
+            <span *ngIf="row.roomBookingWorkFlowAuditDescisionType == '9'">Not Working</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roomBookingWorkFlowAuditRemarks">
+          <th mat-header-cell *matHeaderCellDef >Remarks</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.roomBookingWorkFlowAuditRemarks!==null">{{row.roomBookingWorkFlowAuditRemarks}}</span>
+            <span *ngIf="row.roomBookingWorkFlowAuditRemarks===null">-</span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="approvalListFieldName"></tr>
+        <tr mat-row *matRowDef="let row;  columns:approvalListFieldName"></tr>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.highlighted = !row.highlighted" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+          </tr>-->
+      </table>
+
+      <div *ngIf="noRecord" class="p-10">
+        <h3 class="noRecordGrid">No Record Found...</h3>
+      </div>
+
+
+    </div>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions align="center" *ngIf="data.btnPrjYes != undefined">
+  <button style="margin-left: 0px !important;" (click)="btnPrjYes()" mat-raised-button [mat-dialog-close]="true"
+    class="dialogBtn" cdkFocusInitial color="primary">{{data.btnPrjYes}}</button>
+  <button (click)="btnPrjNo()" mat-raised-button mat-dialog-close class="dialogBtn"
+    color="basic">{{data.btnPrjNo}}</button>
+</mat-dialog-actions>
+
+<mat-dialog-actions align="center" *ngIf="data.btnYes != undefined && detailsList && currentusername==data.userId">
+  <button mat-raised-button style="margin-left: 0px !important;" class="dialogBtn"
+    *ngIf="data.isRoomConfigApprovalRequired === true" cdkFocusInitial color="primary"
+    (click)="statusList(data.roomBookingId)">Status</button>
+  <button mat-raised-button style="margin-left: 10px !important;" [mat-dialog-close]="true" class="dialogBtn"
+    *ngIf="data.modifyBtn" cdkFocusInitial color="primary"
+    (click)="modifyRoomBooking(data.roomBookingDetailsId, data.roomBookingId)">{{data.modifyBtn}}</button>
+  <button mat-raised-button style="margin-left: 10px !important;" *ngIf="data.isRoomBookingRecursive === false" [mat-dialog-close]="true" class="dialogBtn"
+    cdkFocusInitial color="primary" (click)="cancelRoomBooking(data.roomBookingDetailsId)">{{data.btnYes}}</button>
+  <button mat-raised-button style="margin-left: 10px !important;" *ngIf="data.isRoomBookingRecursive === true" [mat-dialog-close]="true" class="dialogBtn"
+    cdkFocusInitial color="primary" (click)="cancelRoomBooking(data.roomBookingDetailsId)">{{data.btn}}</button>
+  <button mat-raised-button style="margin-left: 10px !important;" *ngIf="data.isRoomBookingRecursive === true"
+    [mat-dialog-close]="true" class="dialogBtn" cdkFocusInitial color="primary"
+    (click)="cancelAllRoomBooking(data.roomBookingId)">Cancel All</button>
+  <!--<button mat-raised-button mat-dialog-close class="dialogBtn" color="basic">{{data.btnNo}}</button>-->
+</mat-dialog-actions>
+<mat-dialog-actions align="center" *ngIf="data.btnYes != undefined && !detailsList">
+  <button mat-raised-button style="margin-left: 0px !important;" class="dialogBtn" *ngIf="data.modifyBtn"
+    cdkFocusInitial color="primary" (click)="statusChange()">Back</button>
+</mat-dialog-actions>

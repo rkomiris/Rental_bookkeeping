@@ -1,0 +1,178 @@
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 24.5%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: -24.5%;
+    /* background-color:lightgoldenrodyellow; */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    color: #ea5e43;
+    box-shadow: -2px 0px 3px rgba(0,0,0, 0.2);
+
+    /* background: #e2e2e2;
+    background: -moz-linear-gradient(top,  #e2e2e2 0%, #d1d1d1 0%, #d1d1d1 0%, #fde3de 0%, #fefefe 100%);
+    background: -webkit-linear-gradient(top,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#fde3de 0%,#fefefe 100%);
+    background: linear-gradient(to bottom,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#fde3de 0%,#fefefe 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); */
+
+    background: #e2e2e2;
+    background: -moz-linear-gradient(top,  #e2e2e2 0%, #d1d1d1 0%, #d1d1d1 0%, #005181 0%, #fefefe 100%);
+    background: -webkit-linear-gradient(top,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#005181 0%,#fefefe 100%);
+    background: linear-gradient(to bottom,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#005181 0%,#fefefe 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 );
+
+  }
+  .sidenav1 {
+    height: 100%; /* 100% Full-height */
+    width: 30%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 3 !important; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: -30%;
+    /* background-color:lightgoldenrodyellow; */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    color: #ea5e43;
+    box-shadow: -2px 0px 3px rgba(0,0,0, 0.2);
+
+    /* background: #e2e2e2;
+    background: -moz-linear-gradient(top,  #e2e2e2 0%, #d1d1d1 0%, #d1d1d1 0%, #fde3de 0%, #fefefe 100%);
+    background: -webkit-linear-gradient(top,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#fde3de 0%,#fefefe 100%);
+    background: linear-gradient(to bottom,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#fde3de 0%,#fefefe 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); */
+
+    background: #e2e2e2;
+    background: -moz-linear-gradient(top,  #e2e2e2 0%, #d1d1d1 0%, #d1d1d1 0%, #005181 0%, #fefefe 100%);
+    background: -webkit-linear-gradient(top,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#005181 0%,#fefefe 100%);
+    background: linear-gradient(to bottom,  #e2e2e2 0%,#d1d1d1 0%,#d1d1d1 0%,#005181 0%,#fefefe 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 );
+
+  }
+
+  /* .custom_sidenav {box-shadow: 0px 2px 2px inset #f1cccc;} */
+
+  .widgetcontent{
+      background: white;
+      color: black;
+      margin-bottom: 10px;
+      border:1px solid gainsboro;
+
+       border-radius: 7px;
+
+  }
+
+
+
+  #myTasks.active{
+    right: 0;
+  }
+  #myTasks1.active{
+    right: 0;
+  }
+  .title{
+      color:black;
+  }
+
+  p{
+    font-size: 12px;
+    font-family: 'Montserrat-Light';
+  }
+h4{
+  font-family: 'Montserrat-Regular';
+  font-size: 14px;
+}
+.lightfont{
+
+  font-size: 10px;
+  font-family:'Montserrat-UltraLight';
+}
+.error{
+  font-size: 18px;
+    margin-top: -5px;
+    color: red;
+}
+.gray{
+  color: gray;
+}
+.yellow{
+  color: orange;
+}
+.dayleft{
+  position: absolute;
+  top: 0;
+  left: 35px;
+}
+.reqwarning{
+  position: absolute;
+  top: calc(50% - 10px);
+  font-size: 14px;
+  left: 40px;
+}
+.feedtitle{
+  font-family: 'Montserrat-Regular';
+  font-size: 18px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #93c339;
+  color: #ffffff;
+}
+.activitycomponent{
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+
+  border-radius:0;
+  margin: 0;
+  padding: 15px 0px 5px 0px;
+}
+
+/* .activitycomponent:hover {
+  background: darkcyan;
+  border-radius:0;
+  margin: 0;
+  padding: 15px 15px 5px 15px;
+  transition: 0.2s ease-in;
+} */
+
+.widgetcontent:hover {
+ /* background:#fde1e1;
+  color:black;*/
+ /* border:1px solid #fab8b9;*/
+  background: linear-gradient(60deg,#ef95ae,#f16089);
+  color: #fff;
+  border:1px solid gainsboro;
+
+  border-radius: 7px;
+}
+
+.mat-expansion-panel-header{
+  text-transform: capitalize;
+}
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-thumb-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-color);
+}
+.mat-expansion-panel-header{
+  height: 60px !important;
+}
+.centerAlign{
+  display: flex;
+  align-items: center;
+}

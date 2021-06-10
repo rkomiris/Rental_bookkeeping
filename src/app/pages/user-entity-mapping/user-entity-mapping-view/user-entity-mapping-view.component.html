@@ -1,0 +1,60 @@
+<div class="content-pageXXX container-fluid">
+    <div class="contentXXX main-content">
+        <article class="right-panel">
+            <app-left-nav></app-left-nav>
+            <h4 class="page-title">{{labels.userEntityView  | i18n}}</h4>
+
+            <div class="content" *ngIf="entityLicenseVOList">
+
+                <div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput readonly placeholder="{{labels.user}}" [(ngModel)]="userList">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- <button mat-raised-button color="primary" style="background-color: #4d4d2a;" class="m-2"
+                                (click)="onSubmit()" type="submit">Submit</button> &nbsp;&nbsp; -->
+                            <button mat-raised-button color="basic" type="reset" (click)="cancel()">{{labels.back}}</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mt-15">
+                        <div class="scrollbar" id="style-8">
+                            <div class="force-overflow">
+                                <mat-toolbar>{{labels.entity}}</mat-toolbar>
+                                <div class="card-box">
+                                    <div class="search-hero">
+                                        <mat-form-field class=" w-100 example-full-width">
+                                            <input matInput placeholder="{{labels.entitySearch}}" #myInput
+                                                [(ngModel)]="searchText" (keyup)="filterItem(myInput.value)">
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngFor="let item of entityLicenseVOList;  let i = index">
+                                        <div class="row readOnly" >
+                                            <div class="col-md-9">
+                                                <mat-checkbox [checked]="item.result === true" (change)="check($event,item)" [disabled]="">
+                                                    {{item.entityName}}
+                                                </mat-checkbox>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <mat-checkbox (change)="defaultCheck($event,item)" [checked]="item.defaultChecked" [disabled]="item.default === false">
+                                                {{labels.default}}</mat-checkbox>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- [ngClass]="item.result === true ? 'highlight-bg' : ''" -->
+
+              
+        </article>
+    </div>
+</div>

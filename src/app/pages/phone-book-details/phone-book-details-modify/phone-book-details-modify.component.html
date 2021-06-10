@@ -1,0 +1,208 @@
+<div class="content-pageXXX container-fluid">
+    <!-- <form #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm.value)" novalidate> -->
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.phoneBookDetailsModify  | i18n}}</h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'phoneBookProfile' ">
+                            <mat-card>
+                                <div class="invalidmsg" *ngIf="message!==''">{{message}}</div>
+                                <br>
+                                <div class="imgUp">
+                                    <div class="imagePreview">
+                                        <img [src]="imgURL" height="250" width="100%" *ngIf="!imgURLcal">
+                                        <img src="{{imgURL}}" height="250" width="100%" *ngIf="imgURLcal">
+
+                                    </div>
+
+
+                                </div>
+                                <label class="btn btn-primary">
+                                    {{labels.upload}} <input style="display: none" class="uploadFile img" value="Upload Photo"
+                                        #file type="file" accept='image/*' (change)="preview(file.files)" />
+                                </label>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-9">
+                            <mat-card>
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'employeeId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [maxlength]="10" matInput placeholder="{{labels.employeeId}}"
+                                                    formControlName="employeeId">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'employeeName' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [maxlength]="50" matInput placeholder="{{labels.employeeName}}"
+                                                    formControlName="employeeName" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'userLocationId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                                                <mat-select placeholder="{{labels.location}}" (openedChange)="locationFilter = ''"
+                                                    (selectionChange)="getSubLocationList2($event.value, saveForm)"
+                                                    formControlName="userLocationId">
+                                                    <input type="text" placeholder="{{labels.search}}"
+                                                        class="advanceddropSearchTextbox" [(ngModel)]="locationFilter"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                                    <mat-option
+                                                        *ngFor="let news of locationList | dropdownFilter : {userLocationName: locationFilter}"
+                                                        [value]="news.id">{{news.userLocationName}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'sublocationId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-select placeholder="{{labels.sublocation}}" (openedChange)="sublocationFilter = ''"
+                                                    formControlName="sublocationId"
+                                                    (selectionChange)="getDepartmentList2($event.value, saveForm.value.userLocationId,saveForm)">
+                                                    <input type="text" placeholder="{{labels.search}}"
+                                                        class="advanceddropSearchTextbox"
+                                                        [(ngModel)]="sublocationFilter"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                                    <mat-option
+                                                        *ngFor="let sublocation of subLocationList | dropdownFilter : {subLocationName: sublocationFilter}"
+                                                        [value]="sublocation.sublocationId">
+                                                        {{sublocation.subLocationName}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-select placeholder="{{labels.department}}" (openedChange)="departmentFilter = ''"
+                                                    formControlName="userDepartmentId">
+                                                    <input type="text" placeholder="{{labels.search}}" 
+                                                        class="advanceddropSearchTextbox" [(ngModel)]="departmentFilter"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                                                    <mat-option
+                                                        *ngFor="let department of subLocationListdept | dropdownFilter : {userDepartmentName: departmentFilter}"
+                                                        [value]="department.id">{{department.userDepartmentName}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'emailId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [maxlength]="30" matInput placeholder="{{labels.email}}" formControlName="emailId">
+                                                <mat-error>
+
+                                                    <span
+                                                        *ngIf="saveForm.controls.emailId?.errors?.pattern && !saveForm.controls.emailId?.errors?.required">
+                                                        Email is Invalid
+                                                    </span>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <br>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <br>
+
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'extensionNumber' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput [maxlength]="10"
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    placeholder="{{labels.extension}}"
+                                                    formControlName="extensionNumber">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'phoneNumber' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [maxlength]="10"
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    matInput placeholder="{{labels.phoneNumber}}"
+                                                    formControlName="phoneNumber">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'mobileNumberP' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [minlength]="8" [maxlength]="16" matInput
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    placeholder="{{labels.personalMobileNo}}"
+                                                    formControlName="mobileNumberP">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+
+
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'mobileNumberC' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [minlength]="8" [maxlength]="16" matInput
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    placeholder="{{labels.companyMobileNo}}"
+                                                    formControlName="mobileNumberC">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'skypeId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input [maxlength]="30" matInput placeholder="{{labels.skypeId}}"
+                                                    formControlName="skypeId">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-4 mt-15"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'phoneBookIsActive' ">
+                                            <mat-checkbox formControlName="phoneBookIsActive">{{labels.active}}
+                                            </mat-checkbox>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <br>
+                                <br>
+                            </mat-card>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <br>
+                        <button mat-raised-button color="warn" class="btn-orange mr-10"
+                            type="submit" [disabled]="!saveForm.valid">{{labels.modify}}</button>
+                        <!--<button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Cancel</button>-->
+                        <button mat-raised-button color="warn" class="btn-orange"
+                            routerLink="/phonedetails">{{labels.back}}</button>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </form>
+</div>

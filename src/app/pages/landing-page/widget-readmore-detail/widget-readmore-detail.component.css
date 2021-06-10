@@ -1,0 +1,32 @@
+.media{
+    padding: 10px  0;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+.media:hover{
+
+
+    background: rgb(222, 238, 248);
+
+}
+.news{
+    text-align: justify;
+}
+.news-content p{
+    height: 100%;
+    -webkit-line-clamp: 4;
+
+}
+.selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }
+  .mastercontent{
+      height: 70vh;
+      overflow-y: auto;
+  }
+  .my-scrollbar{
+    height: 70vh;
+    overflow-y: auto;
+  }

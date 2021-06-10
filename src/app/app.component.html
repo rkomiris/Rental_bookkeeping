@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<router-outlet>
+   <div *ngIf="showLoader" class="loaderwrapper">
+      <!-- <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="loading"></div>
+            
+         </div> -->
+
+      <div class="loader_outer_sec">
+         <div class="loader_inner_sec">
+            <div class="loader_sec">
+               <div class="loader">
+                  <div class="loader__bar"></div>
+                  <div class="loader__bar"></div>
+                  <div class="loader__bar"></div>
+                  <div class="loader__bar"></div>
+                  <div class="loader__bar"></div>
+                  <div class="loader__ball"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</router-outlet>
+
+<!-- <div  *ngIf="userId && currentUrl != '/'">
+   <ng-chat  #ngChatInstance [title]="'Chat'" [adapter]="adapter" [userId]="userId"  [historyEnabled]="false" [theme]="'light-theme'"></ng-chat>
+</div> -->
+
+<app-footer></app-footer>

@@ -1,0 +1,45 @@
+<div class="content-pageXXX container-fluid">
+  <div class="contentXXX main-content">
+
+    <article class="right-panel">
+      <app-left-nav></app-left-nav>
+      <app-tasks></app-tasks>
+      <h4 class="page-title">{{labels.requestSummary  | i18n}}</h4>
+      
+      <!-- ********** Body Content Starts *********** -->
+        <div class="row">
+          <!-- <div class="col-sm-6"></div>
+          <div class="col-sm-6"></div> -->
+          
+          <div class="col-md-12" >
+            <mat-tab-group>
+                <mat-tab label="{{labels.myRequest}}">
+                  <ng-template matTabContent>
+                    <app-personal-request></app-personal-request> 
+                  </ng-template>   
+                  <!-- Personal Request -->
+                </mat-tab>
+                <mat-tab label="{{labels.approvalRequest}}">
+                  <ng-template matTabContent>
+                   <app-request-approval></app-request-approval>
+                  </ng-template>
+                </mat-tab>
+                <mat-tab label="{{labels.requestHistory}}">
+                  <ng-template matTabContent>
+                   <app-request-history></app-request-history>
+                  </ng-template>
+                </mat-tab>
+                <mat-tab label="{{labels.resolverHistory}}">
+                  <ng-template matTabContent>
+                   <app-resolver-history></app-resolver-history>
+                  </ng-template>
+                </mat-tab>
+              </mat-tab-group>
+          </div>
+          
+        </div>
+      <!-- ******A***** Body Content Ends ************ -->
+
+    </article>
+  </div>
+</div>

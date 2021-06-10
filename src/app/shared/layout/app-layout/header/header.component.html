@@ -1,0 +1,260 @@
+<header class="main-head">
+    <div class="task-bar">
+      <div class="logo-sec visible-xs hidden-sm hidden-md hidden-lg">
+        <figure>
+          <img src="assets/img/login/logo.png" alt="" class="logo" />
+        </figure>
+      </div>
+
+
+
+      <nav class="hamberger-navCCC left_nav_header">
+          <!-- <div class="hamberger">
+              <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+          </div>   -->
+    
+          <div class="left_nav_header_menuList">
+            <ul class="nav navbar-nav">
+  
+              <li>
+                <a (click)="mailnotifination()">
+                  <span>
+                    <!-- <mat-icon class="icons-color-white" matTooltip="Tasks">assignment</mat-icon> -->
+                    <mat-icon class=" icon-font-size26 icons-color-white" matTooltip="{{labels.mailNotification}}">mail</mat-icon>
+                    <span *ngIf="headerService.notificationcount!==0" class="badge"> {{headerService.notificationcount}}</span>
+      
+                  </span>
+                </a>
+              </li>
+  
+  
+              <li>
+                <a href="javascript:;" routerLink="/help">
+                  <span>
+                    <mat-icon class="icons-color-white" matTooltip="{{labels.help}}">help_outline</mat-icon>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:;" routerLink="/faq">
+                  <span>
+                    <mat-icon class="icons-color-white" matTooltip="{{labels.faq}}">info</mat-icon>
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <a (click)="changeEntity()">
+                  <span>
+                    <mat-icon class=" icon-font-size26 icons-color-white" matTooltip="{{labels.entity}}">person</mat-icon>      
+                  </span>
+                </a>
+              </li>
+              
+              <!-- <li>
+                <a (click)="triggerChat()">
+                  <span>
+                    <mat-icon class="icons-color-white" matTooltip="chat">chat</mat-icon>
+                  </span>
+                </a>
+              </li> -->
+    
+              <!-- <li>
+                <a (click)="loadTasks()">
+                  <span>
+                    <mat-icon class=" icon-font-size26 icons-color-white" matTooltip="">assignment</mat-icon>
+                    <span *ngIf="appcount!==0" class="badge"> {{appcount}}</span>
+                  </span>
+                </a>
+              </li> -->
+    
+    
+            </ul>
+          </div>
+        </nav>
+
+
+
+
+
+
+      <nav class="right_nav_header">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="javascript:;" [matMenuTriggerFor]="menu">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="{{labels.master}}">perm_data_setting</mat-icon>
+              </span>
+            </a>
+  
+  
+            <mat-menu #menu="matMenu" class="master_menu_list">
+  
+              <div *ngIf="masterlist!=='' && masterlist.length!==0" class="panel-title-ven-outer">
+                <div  class="panel-title-ven-inner">{{master}}</div>
+                <span *ngFor="let tt of masterlist">
+                  <button style="margin: 5px 5px 5px 5px !important;    height: 34px !important;
+                    line-height: 34px !important;border: 0px solid #ddd !important;" mat-menu-item [routerLink]="tt.screenUrl">
+                    <mat-icon>{{tt.screenIcon}}</mat-icon>
+                    <span>{{tt.screenName}}</span>
+                  </button>
+                </span>
+              </div>
+
+
+
+
+
+              <div *ngIf="configlist!=='' && configlist.length!==0" class="panel-title-ven-outer">
+                  <div  class="panel-title-ven-inner">{{configuration}}</div>
+                 <span *ngFor="let tt of configlist">
+                  <button style="margin: 5px 5px 5px 5px !important;    height: 34px !important;
+                    line-height: 34px !important;border: 0px solid #ddd !important;" mat-menu-item [routerLink]="tt.screenUrl">
+                    <mat-icon>{{tt.screenIcon}}</mat-icon>
+                    <span>{{tt.screenName}}</span>
+                  </button>
+                </span>
+                </div>
+
+
+
+
+
+              <div *ngIf="transactionlist!=='' && transactionlist.length!==0" class="panel-title-ven-outer">
+                  <div  class="panel-title-ven-inner">{{general}}</div>
+                 <span *ngFor="let tt of transactionlist">
+                  <button style="margin: 5px 5px 5px 5px !important;    height: 34px !important;
+                    line-height: 34px !important;border: 0px solid #ddd !important;" mat-menu-item [routerLink]="tt.screenUrl">
+                    <mat-icon>{{tt.screenIcon}}</mat-icon>
+                    <span>{{tt.screenName}}</span>
+                  </button>
+                </span>
+                </div>
+
+                
+            </mat-menu>
+          </li>
+
+
+
+
+          <li>
+            <a href="javascript:;" routerLink="/landing-page">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="{{labels.home}}">dashboard</mat-icon>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" routerLink="/dashboard">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="{{labels.dashboard}}">poll</mat-icon>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" routerLink="/help">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="{{labels.help}}">help</mat-icon>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" routerLink="/faq">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="{{labels.FAQ}}">info</mat-icon>
+              </span>
+            </a>
+          </li>
+
+
+
+          <!--<li>
+              <a href="javascript:;">
+                <span>
+                <i class="icon-thumb-up-sign icon-font-size26 icons-color-white"></i><span class="badge"> 3</span> -->
+          <!--  <mat-icon class="icon-thumb-up-sign icon-font-size26 icons-color-white"></mat-icon><span class="badge"> 3</span>
+                </span>
+                <span class="task-des">Awaiting Approval</span> -->
+          <!-- </a>
+              <mat-menu #menu1="matMenu" class="master_menu_list">
+                  <div style="width: 150px;" *ngFor="let tt of headerService.approvallist">
+                      <a routerLink="/approvalpage/{{tt.requestId}}" style="font-size: 15px;">{{tt.requestCode}}</a>
+                    </div>
+                </mat-menu>
+            </li>-->
+         <!-- <li>
+            <a (click)="loadTasks()">
+              <span>
+                 <mat-icon class=" icon-font-size26 icons-color-white" matTooltip="Notification">assignment</mat-icon>
+                <span *ngIf="appcount!==0" class="badge"> {{appcount}}</span>
+  
+              </span>
+            </a>
+          </li>-->
+          <!-- <li>
+            <a (click)="mailnotifination()">
+              <span>
+                <mat-icon class=" icon-font-size26 icons-color-white" matTooltip="Mail Notification">mail</mat-icon>
+                <span *ngIf="headerService.notificationcount!==0" class="badge"> {{headerService.notificationcount}}</span>
+  
+              </span>
+            </a>
+          </li> -->
+
+
+
+          <!-- <li>
+            <a href="javascript:;" routerLink="/changepassword">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="Change Password">settings</mat-icon>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" routerLink="/userprofile">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="View Profile">account_circle</mat-icon>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" (click)="logout()">
+              <span>
+                <mat-icon class="icons-color-white" matTooltip="Log Out">assignment_return</mat-icon>
+              </span>
+            </a>
+          </li>
+          <li class="username" *ngIf="userDetails" routerLink="/userprofile" matTooltip="View Profile" style="display:none;">
+            <img class="profile-pic" src="{{url + userDetails.profile}}">
+            {{ userDetails.username }}
+          </li> -->
+
+
+          
+          <!-- <li>
+              <a href="javascript:;" (click)="logout()">
+                <span>
+                  <mat-icon class="icons-color-white" matTooltip="Logout">lock</mat-icon>
+                </span>
+              </a>
+            </li> -->
+  
+        </ul>
+      </nav>
+
+      <!-- <div class="entityDisplay">
+        <a>
+          <span class="entityName"> Entity:  {{entityName}}
+          </span>
+        </a>
+      </div> -->
+
+    </div>
+  </header>
+  

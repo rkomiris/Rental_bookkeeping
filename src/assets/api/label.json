@@ -1,0 +1,61 @@
+{
+
+    "choosethefield" : "Choose the fieldZAds",
+    "value" : "ValuXZe",
+    "search" : "Search",
+
+
+    "add" : "Add",
+    "modify" :  "Modify",
+    "view" : "View",
+    "delete" : "Delete",
+
+
+    "filter" : "Filter",
+    "noRecords": "No Record Found.....",
+
+
+    "save" : "Save",
+    "clear" : "Clear",
+    "back" : "Back",
+    "reset" : "Reset",
+
+    
+    "reqType": "Request Type",
+    "Url"  : "URL",
+    "status" : "Status",
+    "code"  : "Code",
+    "active"  : "Active",
+
+  
+    "reqSubType"  : "Request Sub Type",
+    "reqSubTypePriority" : "Request Sub Type Priority",
+
+
+    "locationName"  : "Location Name",
+    "locationDetails"  : "Location Details",
+    "locationZip" : "Zip",
+    "locationPhone" : "Phone",
+    "locationFax" : "Fax",
+    "locationEmail":"Email",
+    "locationContatctName":"Contact Name",
+    "locationCity":"City",
+    "locationState":"State",
+    "locationCountry":"Country",
+
+
+
+    "subLocationName" : "Sub Location Name" ,
+
+
+
+    "departmentName"  : "Department Name",
+    "description" :  "Description"
+
+
+    
+
+
+
+  
+}

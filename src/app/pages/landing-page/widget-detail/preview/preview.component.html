@@ -1,0 +1,19 @@
+<h3 class="popup_title">{{labels.preview  | i18n}}
+  <button mat-button class="modal_close_icon" [mat-dialog-close]="true" cdkFocusInitial>
+    <i class="material-icons">close</i>
+  </button>
+</h3>
+
+  <div class="mat-elevation-z8XX p-10">
+    <!-- <img *ngIf="imagename != null" height="380" width="470"
+      class="imageDisplay" src="{{url + imagename}}"> -->
+      <img *ngIf="imagename != null" height="380" width="470"
+      class="imageDisplay" [src]="previewPicture">
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center mb-10">
+      <button mat-raised-button class="dialogBtn mr-10" cdkFocusInitial (click)="download()"
+        color="primary">{{labels.download}}</button>
+    </div>
+  </div>

@@ -1,0 +1,222 @@
+<div class="content-pageXXX container-fluid">
+    <!-- <form #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm.value)" novalidate> -->
+
+    <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+        <div class="contentXXX main-content">
+            <app-left-nav></app-left-nav>
+            <article class="right-panel">
+                <h4 class="page-title">{{labels.phoneBookDetailsView  | i18n}}</h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'phoneBookProfile' ">
+                            <mat-card>
+                                <div class="invalidmsg" *ngIf="message!==''">{{message}}</div>
+                                <br>
+                                <div class="imgUp">
+                                    <div class="imagePreview">
+                                        <img [src]=" imgURL" height="250" width="100%" *ngIf="imgURL">
+                                    </div>
+                                </div>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-9 classdis">
+                            <mat-card>
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <br>
+
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'employeeId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="{{labels.employeeId}}"
+                                                    formControlName="employeeId">
+                                            </mat-form-field>
+                                        </div>
+                                        <!--<div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                           <mat-select placeholder="employeeId" formControlName="employeeId">
+                            <mat-option *ngFor="let news of userdroplist" [value]="news.id">
+                                {{news.firstName}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>-->
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'employeeName' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="{{labels.employeeName}}"
+                                                    formControlName="employeeName">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'userLocationId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                                                <mat-select placeholder="{{labels.location}}"
+                                                    formControlName="userLocationId">
+                                                    <mat-option *ngFor="let news of locationList" [value]="news.id">
+                                                        {{news.userLocationName}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+
+
+
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'sublocationId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                                                <mat-select placeholder="{{labels.sublocation}}"
+                                                    formControlName="sublocationId">
+                                                    <mat-option *ngFor="let news of subLocationList"
+                                                        [value]="news.sublocationId">
+                                                        {{news.subLocationName}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                                                <mat-select placeholder="{{labels.department}}"
+                                                    formControlName="userDepartmentId">
+                                                    <mat-option *ngFor="let news of subLocationListdept"
+                                                        [value]="news.id">
+                                                        {{news.userDepartmentName}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'emailId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="{{labels.email}}" formControlName="emailId">
+                                                <mat-error>
+
+                                                    <span
+                                                        *ngIf="saveForm.controls.emailId?.errors?.pattern && !saveForm.controls.emailId?.errors?.required">
+                                                        Email is Invalid
+                                                    </span>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <br>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <br>
+
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'extensionNumber' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    placeholder="{{labels.extension}}"
+                                                    formControlName="extensionNumber">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'phoneNumber' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    matInput placeholder="{{labels.phoneNumber}}"
+                                                    formControlName="phoneNumber">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'mobileNumberP' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    placeholder="{{labels.personalMobileNo}}"
+                                                    formControlName="mobileNumberP">
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <br>
+
+                                        <div class="col-md-4"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'mobileNumberC' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput
+                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode==65 || event.charCode==78 )'
+                                                    placeholder="{{labels.companyMobileNo}}"
+                                                    formControlName="mobileNumberC">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'skypeId' ">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="{{labels.skypeId}}"
+                                                    formControlName="skypeId">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-4 mt-15"
+                                            *ngIf="userBaseFieldName | arrayFilter : 'phoneBookIsActive' ">
+                                            <mat-checkbox formControlName="phoneBookIsActive">{{labels.active}}
+                                            </mat-checkbox>
+                                        </div>
+                                        <br>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                            </mat-card>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <!-- <div class="row">
+
+          <div class="col-md-3">
+            <mat-form-field>
+              <input matInput placeholder="News Valid From" [matDatepicker]="picker2" formControlName="flashNewsValidFrom" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <input matInput placeholder="News Valid To" [matDatepicker]="picker3" formControlName="flashNewsValidTo" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3 color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+          <div class="col-md-3 mt-15">
+              <mat-checkbox formControlName="isFlashNewsActive">Active</mat-checkbox>
+          </div>
+        </div>-->
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <br>
+                        <!-- <button mat-raised-button color="warn" class="btn-orange mr-10" type="submit">Save</button>
+                <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Cancel</button>
+               --><button mat-raised-button color="warn" class="btn-orange"
+                            routerLink="/phonedetails">{{labels.back}}</button>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </form>
+</div>

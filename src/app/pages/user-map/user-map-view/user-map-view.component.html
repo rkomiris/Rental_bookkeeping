@@ -1,0 +1,158 @@
+<div class="content-pageXXX container-fluid">
+  <!-- <form #saveForm="ngForm" (ngSubmit)="onSubmit(saveForm.value)" novalidate> -->
+  <form #saveListForm [formGroup]="saveForm">
+    <div class="contentXXX main-content">
+      <app-left-nav></app-left-nav>
+      <article class="right-panel">
+        <h4 class="page-title">{{labels.userMappingView  | i18n}}</h4>
+
+        <div class="row disableclass">
+          <div class="col-md-12">
+            <!-- **************** Row One ********************* -->
+            <div class="col-md-12">
+              <br>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userLocationId' ">
+                <mat-form-field class="example-full-width">
+                  <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                  <mat-select placeholder={{labels.location}} (selectionChange)="getSubLocationList($event.value)"
+                    [(ngModel)]="location" formControlName="userLocationId">
+                    <mat-option *ngFor="let news of locationList" [value]="news.id">
+                      {{news.userLocationName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'subLocationId' ">
+                <mat-form-field class="example-full-width">
+                  <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                  <mat-select placeholder={{labels.subLocation}} (selectionChange)="getdepartmentList($event.value)"
+                    formControlName="subLocationId">
+                    <mat-option *ngFor="let news of userSubLocationCombo" [value]="news.sublocationId">
+                      {{news.subLocationName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userDepartmentId' ">
+                <mat-form-field class="example-full-width">
+                  <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                  <mat-select placeholder={{labels.department}} (selectionChange)="executerGetUSerRole($event.value)"
+                    formControlName="userDepartmentId">
+                    <mat-option *ngFor="let news of departmentList" [value]="news.id">
+                      {{news.userDepartmentName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userRoleId' ">
+                <mat-form-field>
+                  <mat-select placeholder={{labels.userRole}} formControlName="userRoleId"
+                    (selectionChange)="executerGetUSer($event.value)">
+                    <mat-option *ngFor="let userRole of userRoleList" [value]="userRole.id">
+                      {{userRole.userRoleName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'userId' ">
+                <div *ngIf="saveForm.value.userRoleId != ''">
+                  <mat-form-field>
+                    <mat-select placeholder={{labels.user}} formControlName="userId">
+                      <mat-option *ngFor="let user of executerUserList" [value]="user.id">
+                        {{user.firstName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              
+            </div>
+
+            <div class="col-md-12">
+              <br>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingLocationId' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder={{labels.reportingUserLocation}}
+                    (selectionChange)="getReportingSubLocationList($event.value)" formControlName="reportingLocationId">
+                    <mat-option *ngFor="let news of locationList" [value]="news.id">
+                      {{news.userLocationName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingSubLocationId' ">
+                <mat-form-field class="example-full-width">
+                  <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                  <mat-select placeholder={{labels.reportingUserSubLocation}}
+                    (selectionChange)="getReportingdepartmentList($event.value)"
+                    formControlName="reportingSubLocationId">
+                    <mat-option *ngFor="let news of userReportingSubLocationCombo" [value]="news.sublocationId">
+                      <!--deprtlist-->
+                      {{news.subLocationName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingUserDepartment' ">
+                <mat-form-field class="example-full-width">
+                  <!-- <input matInput placeholder="Type" type="number" formControlName="flashNewsType"> -->
+                  <mat-select placeholder={{labels.reportingUserDepartment}}
+                    (selectionChange)="getreportuser($event.value)" formControlName="reportingUserDepartment">
+                    <mat-option *ngFor="let news of reportingDepartmentList" [value]="news.id">
+                      <!--deprtlist-->
+                      {{news.userDepartmentName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              
+              <br>
+            </div>
+            <!-- *********** Row Four *********** -->
+            <div class="col-md-12">
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'reportingToUser' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder={{labels.reportingToUser}} formControlName="reportingToUser">
+                    <mat-option *ngFor="let news of reportUserList" [value]="news.id">
+                      {{news.firstName}} &nbsp; {{news.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="userBaseFieldName | arrayFilter : 'levelId' ">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder={{labels.level}} formControlName="levelId">
+                    <mat-option *ngFor="let level of levelCombo" [value]="level.commonId">
+                      {{level.itemValue}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br>
+            <br>
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/user-map">{{labels.back}}</button>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </form>
+</div>

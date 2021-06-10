@@ -1,0 +1,79 @@
+<div class="content-pageXXX container-fluid">
+  <form #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <div class="contentXXX main-content">
+      <article class="right-panel">
+        <app-left-nav></app-left-nav>
+        <h4 class="page-title">{{labels.holidayDetailsView  | i18n}}</h4>
+        <div class="card">
+          <div class="card-body reaonly">
+            <div class="row col-clear">
+
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput readonly [matDatepicker]="picker3" formControlName="holidayDate"
+                    placeholder="{{labels.holidayDate}}">
+                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <mat-select formControlName="leaveType" placeholder="{{labels.leaveType}}">
+                    <mat-option *ngFor="let leave of leaveTypeList" [value]="leave.id">{{leave.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <textarea placeholder="{{labels.description}}" formControlName="description" matInput></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" formArrayName="holidayDetailsList"
+                *ngFor="let item of saveForm.get('holidayDetailsList')['controls']; let i = index">
+                <div class="row" [formGroupName]="i">
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-select formControlName="locationId" placeholder="{{labels.locationName}}"
+                        (selectionChange)="getSubLocation($event, i)">
+                        <input type="text" placeholder="{{labels.search}}" class="advanceddropSearchTextbox"
+                          [(ngModel)]="locationFilter[i]" [ngModelOptions]="{standalone: true}">
+                        <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                        <mat-option
+                          *ngFor="let location of locationCombo | dropdownFilter : {userLocationName: locationFilter[i]}"
+                          [value]="location.id">{{location.userLocationName}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-select formControlName="sublocationId" placeholder="{{labels.subLocationName}}">
+                        <input type="text" placeholder="{{labels.search}}" class="advanceddropSearchTextbox"
+                          [(ngModel)]="sublocationFilter[i]" [ngModelOptions]="{standalone: true}">
+                        <mat-option class="select-span">{{labels.selectHere}}</mat-option>
+                        <mat-option
+                          *ngFor="let sublocation of sublocationCombo[i] | dropdownFilter : {subLocationName: sublocationFilter[i]}"
+                          [value]="sublocation.sublocationId">{{sublocation.subLocationName}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3 checkbox">
+                    <mat-checkbox formControlName="activeFlag">{{labels.active}}</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <button mat-raised-button color="warn" class="btn-orange" routerLink="/holiday-details">{{labels.back}}</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </form>
+</div>

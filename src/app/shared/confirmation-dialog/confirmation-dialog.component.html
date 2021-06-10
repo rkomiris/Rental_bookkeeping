@@ -1,0 +1,400 @@
+<h3 class="popup_title"> {{ data.title | i18n }}
+  <!-- <button mat-button class="modal_close_icon" *ngIf="data.close == null" [mat-dialog-close]="false" cdkFocusInitial>
+    <i class="material-icons">
+      close
+    </i>
+  </button> -->
+</h3>
+
+<mat-dialog-content class="mat-typography md-dialog" *ngIf = "language == 'en'">
+  <div *ngIf="displayMessage === 'mandatory' ">
+    <p align="center">Please fill all mandatory fields</p>
+  </div>
+  <div *ngIf="displayMessage === 'submit' ">
+    <p align="center">Do you want to submit?</p>
+  </div>
+  <div *ngIf="displayMessage === 'superAdmin' ">
+    <p align="center">You don't have the rights to view this screen</p>
+  </div>
+  <div *ngIf="displayMessage === 'access' ">
+    <p align="center">You dont have access to this page</p>
+  </div>
+  <div *ngIf="displayMessage === 'entity' ">
+    <p align="center">Do You Want to Change the Entity ?</p>
+  </div>
+  <div *ngIf="displayMessage === 'view' ">
+    <p align="center">Do you want to view this record</p>
+  </div>
+  <div *ngIf="displayMessage === 'pwdmismatch'">
+    <p align="center">Password and Confirm Password didnot match</p>
+  </div>
+  <div *ngIf="displayMessage === 'delete' ">
+    <p align="center"> Do you want to delete this record(s)? </p>
+  </div>
+  <div *ngIf="displayMessage === 'singleSelection' ">
+    <p align="center"> Please select single record </p>
+  </div>
+  <div *ngIf="displayMessage === 'selection' ">
+    <p align="center"> Please select a record </p>
+  </div>
+  <div *ngIf="displayMessage === 'modify' ">
+    <p align="center"> Do you want to modify this record? </p>
+  </div>
+  <div *ngIf="displayMessage === 'close' ">
+    <p align="center"> Do you want to close this request? </p>
+  </div>
+  <div *ngIf="displayMessage === 'closedAlert' ">
+    <p align="center"> Request Closed </p>
+  </div>
+  <div *ngIf="displayMessage === 'reopen' ">
+    <p align="center"> Do you want to re-open this request? </p>
+  </div>
+  <div *ngIf="displayMessage === 'resubmitModify' ">
+    <p align="center"> Can't edit except resubmitted requests </p>
+  </div>
+  <div *ngIf="displayMessage === 'requestdate' ">
+    <p align="center">Please Enter Valid FlashNewsDate</p>
+  </div>
+  <div *ngIf="displayMessage === 'Fromdate' ">
+    <p align="center">Please Enter Valid FromDate</p>
+  </div>
+  <div *ngIf="displayMessage === 'cancel' ">
+    <p align="center"> Do you want to cancel this request?</p>
+  </div>
+  <div *ngIf="displayMessage === 'download' ">
+    <p align="center">Do you want to download this item(s)?</p>
+  </div>
+  <div *ngIf="displayMessage === 'cancelAlert' ">
+    <p align="center">Request cannot be Cancel</p>
+  </div>
+  <!-- ****** Approval ******* -->
+  <div *ngIf="displayMessage === 'attachment' ">
+    <p align="center">No attachment Found</p>
+  </div>
+  <div *ngIf="displayMessage === 'remarks' ">
+    <p align="center">Please fill the remarks</p>
+  </div>
+  <div *ngIf="displayMessage === 'Approval' ">
+    <p align="center">Do you want to approve the request?</p>
+  </div>
+  <div *ngIf="displayMessage === 'Reject' ">
+    <p align="center">Do you want to reject the request?</p>
+  </div>
+  <div *ngIf="displayMessage === 'Resubmit' ">
+    <p align="center">Do you want to re-submit the request?</p>
+  </div>
+  <div *ngIf="displayMessage === 'forward' ">
+    <p align="center">Do you want to forward this request?</p>
+  </div>
+  <div *ngIf="displayMessage === 'redirect' ">
+    <p align="center">Do you want to redirect this request?</p>
+  </div>
+  <!-- ******* Password ********** -->
+  <div *ngIf="displayMessage === 'password' ">
+    <p align="center">Please enter the password</p>
+  </div>
+  <div *ngIf="displayMessage === 'confirmpassword' ">
+    <p align="center">Please check the confirm password</p>
+  </div>
+  <div *ngIf="displayMessage === 'passwordcheck' ">
+    <p align="center">New Password cannot be same as Old Password</p>
+  </div>
+  <div *ngIf="displayMessage ==='temppassword'">
+    <p align="center">On submiting, temporary password will be sent to corresponding mail address!</p>
+  </div>
+  <div *ngIf="displayMessage ==='logout' && language == 'en'">
+    <p align="center">Do you want to log out?</p>
+  </div>
+  <div *ngIf="displayMessage ==='anotherRequest'">
+    <p align="center">Your Request is already processing,Do you want to raise another request?</p>
+  </div>  
+  <div *ngIf="displayMessage ==='requestCantReopen'">
+    <p align="center">Request Can't be Re-opened</p>
+  </div>  
+  <div *ngIf="displayMessage ==='reopenAgain'">
+    <p align="center">Request Can't be Re-opened Again</p>
+  </div>
+  <div *ngIf="displayMessage ==='requestCantClose'">
+    <p align="center">Request Can't be Closed</p>
+  </div> 
+  <div *ngIf="displayMessage ==='requestCloseAgain'">
+    <p align="center">Request Can't be Re-Closed Again</p>
+  </div> 
+  <div *ngIf="displayMessage === 'locSubDept'">
+    <p align="center">Please select Location, Sublocation and Department</p>
+  </div>
+  <div *ngIf="displayMessage === 'reassignUser'">
+    <p align="center">Please select Reassign User</p>
+  </div>  
+  <div *ngIf="displayMessage === 'twoDays'">
+    <p align="center">Please select any two days</p>
+  </div>
+  <div *ngIf="displayMessage === 'cantModify'">
+    <p align="center">Can't modify the completed record</p>
+  </div>
+  <div *ngIf="displayMessage === 'delegationHistory'">
+    <p align="center">This user has earlier delegation history. Do you want to edit it?</p>
+  </div>
+  <div *ngIf="displayMessage === 'alreadyDelegated'">
+    <p align="center">This user has already delegated. Do you want to proceed?</p>
+  </div>
+  <div *ngIf="displayMessage === 'alreadyDelegatedDate'">
+    <p align="center">This user has already delegated for the selected date. Do you want to proceed?</p>
+  </div>
+  <div *ngIf="displayMessage === 'delegatedDate'">
+    <p align="center">This user has already delegated for the selected date</p>
+  </div>
+  <div *ngIf="displayMessage === 'image'">
+    <p align="center">Please choose the image</p>
+  </div>
+  <div *ngIf="displayMessage === 'activate'">
+    <p align="center">Do you to activate this entity?</p>
+  </div>
+  <div *ngIf="displayMessage === 'deactivate'">
+    <p align="center">Do you to deactivate this entity?</p>
+  </div>
+  <div *ngIf="displayMessage === 'entityActive'">
+    <p align="center">Active record can't be Activated</p>
+  </div>
+  <div *ngIf="displayMessage === 'entityInactive'">
+    <p align="center">InActive record can't be De-Activated</p>
+  </div>
+  
+  
+  <!-- ****** SERVER MESSAGE ******** -->
+  <div *ngIf="data.server =='servermessage'">
+    <p align="center">{{displayMessage}}</p>
+  </div>
+  <div *ngIf="data.mess === 1 ">
+    <p align="center">{{data.message}}</p>
+  </div>
+
+  <div *ngIf="data.mess === 2 && data.message === 'Validation'">
+    <p align="center">Do you want to change the entity from  {{data.fromDate}} to {{data.toDate}}?</p>
+  </div>
+  <div *ngIf="data.mess === 3 && data.message === 'entityConfig'">
+    <p align="center">Are you sure you want to Configure {{data.firstName}} ?</p>
+  </div>
+  <div *ngIf="data.mess === 3 && data.message === 'entityView'">
+    <p align="center">Are you sure for want to View {{data.firstName}} ?</p>
+  </div>
+
+  <form *ngIf="data.message === null" #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width">
+      <textarea matInput maxlength="250" matTextareaAutosize matAutosizeMaxRows=1 formControlName="remarks"
+        [(ngModel)]="data.reopen.remarks" placeholder="Remarks"></textarea>
+    </mat-form-field>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <button mat-raised-button color="warn" class="btn-orange mr-10" [disabled]="!saveForm.valid"
+          [mat-dialog-close]="true" cdkFocusInitial type="submit">Save</button>
+        <button mat-raised-button color="warn" class="btn-basic mr-10" [mat-dialog-close]="false"
+          type="reset">Cancel</button>
+      </div>
+    </div>
+    <br>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-content class="mat-typography md-dialog" *ngIf = "language == 'jp'">
+
+  <div *ngIf="displayMessage === 'mandatory' ">
+    <p align="center">全ての必須分野に入力してください</p>
+  </div>
+  <div *ngIf="displayMessage === 'submit' ">
+    <p align="center">送信しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'access' ">
+    <p align="center">このページにアクセスできません</p>
+  </div>
+  <div *ngIf="displayMessage === 'pwdmismatch'">
+    <p align="center">パスワードと確認パスワードが一致しません</p>
+  </div>
+  <div *ngIf="displayMessage === 'delete' ">
+    <p align="center"> このレコードを削除しますか？ </p>
+  </div>
+  <div *ngIf="displayMessage === 'singleSelection' ">
+    <p align="center"> 単一のレコードを選択してください </p>
+  </div>
+  <div *ngIf="displayMessage === 'selection' ">
+    <p align="center"> レコードを選択してください </p>
+  </div>
+  <div *ngIf="displayMessage === 'modify' ">
+    <p align="center"> このレコードを変更しますか？ </p>
+  </div>
+  <div *ngIf="displayMessage === 'close' ">
+    <p align="center"> この要求を閉じますか？ </p>
+  </div>
+  <div *ngIf="displayMessage === 'closedAlert' ">
+    <p align="center"> 要求は終了しました </p>
+  </div>
+  <div *ngIf="displayMessage === 'reopen' ">
+    <p align="center"> この要求を再度開きますか？ </p>
+  </div>
+  <div *ngIf="displayMessage === 'resubmitModify' ">
+    <p align="center"> 再送信された要求以外は編集できません </p>
+  </div>
+  <div *ngIf="displayMessage === 'cancel' ">
+    <p align="center"> この要求をキャンセルしますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'download' ">
+    <p align="center">このアイテムをダウンロードしますか？?</p>
+  </div>
+  <div *ngIf="displayMessage === 'cancelAlert' ">
+    <p align="center">要求はキャンセルできません</p>
+  </div>
+  <!-- ****** Approval ******* -->
+  <div *ngIf="displayMessage === 'attachment' ">
+    <p align="center">添付ファイルが見つかりません</p>
+  </div>
+  <div *ngIf="displayMessage === 'remarks' ">
+    <p align="center">備考を記入してください</p>
+  </div>
+  <div *ngIf="displayMessage === 'Approval' ">
+    <p align="center">要求を承認しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'Reject' ">
+    <p align="center">要求を拒否しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'Resubmit' ">
+    <p align="center">要求を再送信しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'forward' ">
+    <p align="center">この要求を転送しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'redirect' ">
+    <p align="center">この要求をリダイレクトしますか？</p>
+  </div>
+  <div *ngIf="displayMessage ==='anotherRequest'">
+    <p align="center">リクエストはすでに処理中です。別のリクエストを発行しますか？</p>
+  </div>
+  <div *ngIf="displayMessage ==='requestCantReopen'">
+    <p align="center">リクエストを再開することはできません</p>
+  </div>  
+  <div *ngIf="displayMessage ==='reopenAgain'">
+    <p align="center">リクエストを再度開くことはできません</p>
+  </div>
+  <div *ngIf="displayMessage ==='requestCantClose'">
+    <p align="center">リクエストを閉じることができません</p>
+  </div> 
+  <div *ngIf="displayMessage ==='requestCloseAgain'">
+    <p align="center">リクエストを再度閉じることはできません</p>
+  </div> 
+  <div *ngIf="displayMessage === 'requestdate' ">
+    <p align="center">有効なフラシュニュース日付を入力してください</p>
+  </div>
+  <div *ngIf="displayMessage === 'Fromdate' ">
+    <p align="center">有効な開始日を入力してください</p>
+  </div>
+  <!-- ******* Password ********** -->
+  <div *ngIf="displayMessage === 'password' ">
+    <p align="center">パスワードを入力してください</p>
+  </div>
+  <div *ngIf="displayMessage === 'confirmpassword' ">
+    <p align="center">確認パスワードをチェックしてください</p>
+  </div>
+  <div *ngIf="displayMessage === 'passwordcheck' ">
+    <p align="center">新しいパスワードを古いパスワードと同じにすることはできません</p>
+  </div>
+  <div *ngIf="displayMessage ==='temppassword'">
+    <p align="center">送信すると、暫定のパスワードが対応するメールアドレスに送信されます！</p>
+  </div>
+  <div *ngIf="displayMessage ==='logout' && language == 'jp'">
+    <p align="center">ログアウトしますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'superAdmin' ">
+    <p align="center">この画面を表示する権限がありません</p>
+  </div>
+  <div *ngIf="displayMessage === 'locSubDept'">
+    <p align="center">ロケーション、サブロケーション、部門を選択してください</p>
+  </div>  
+  <div *ngIf="displayMessage === 'reassignUser'">
+    <p align="center">[ユーザーの再割り当て]を選択してください</p>
+  </div>
+  <div *ngIf="displayMessage === 'twoDays'">
+    <p align="center">任意の2日を選択してください</p>
+  </div>
+  <div *ngIf="displayMessage === 'cantModify'">
+    <p align="center">完了したレコードを変更することはできません</p>
+  </div>
+  <div *ngIf="displayMessage === 'delegationHistory'">
+    <p align="center">このユーザーには以前の委任履歴があります。 編集しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'alreadyDelegated'">
+    <p align="center">このユーザーは既に委任されています。 続行しますか</p>
+  </div>
+  <div *ngIf="displayMessage === 'alreadyDelegatedDate'">
+    <p align="center">このユーザーは、選択した日付にすでに委任されています。 続行しますか？</p>
+  </div>
+  <div *ngIf="displayMessage === 'delegatedDate'">
+    <p align="center">このユーザーは、選択した日付にすでに委任されています</p>
+  </div>
+  <div *ngIf="displayMessage === 'image'">
+    <p align="center">画像を選択してください。</p>
+  </div>
+  <div *ngIf="displayMessage === 'activate'">
+    <p align="center">このエンティティを有効にしますか?</p>
+  </div>
+  <div *ngIf="displayMessage === 'deactivate'">
+    <p align="center">このエンティティを無効にしますか?</p>
+  </div>
+  <div *ngIf="displayMessage === 'entityActive'">
+    <p align="center">有効のレコードは有効化にすることはできません。</p>
+  </div>
+  <div *ngIf="displayMessage === 'entityInactive'">
+    <p align="center">無効のレコードは無効化にすることはできません。</p>
+  </div>
+  
+  <!-- ****** SERVER MESSAGE ******** -->
+  <div *ngIf="data.server =='servermessage'">
+    <p align="center">{{displayMessage}}</p>
+  </div>
+  <div *ngIf="data.mess === 1 ">
+    <p align="center">{{data.message}}</p>
+  </div>
+  <div *ngIf="data.mess === 2 && data.message === 'Validation'">
+    <p align="center">エンティティを {{data.fromDate}} から {{data.toDate}} に変更しますか？</p>
+  </div>
+  <div *ngIf="data.mess === 3 && data.message === 'entityConfig'">
+    <p align="center">{{data.firstName}} を設定してよろしいですか ?</p>
+  </div>
+  <div *ngIf="data.mess === 3 && data.message === 'entityView'">
+    <p align="center">{{data.firstName}} を表示してもよろしいですか ?</p>
+  </div>
+
+
+
+  <form *ngIf="data.message === null" #saveListForm [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width">
+      <textarea matInput maxlength="250" matTextareaAutosize matAutosizeMaxRows=1 formControlName="remarks"
+        [(ngModel)]="data.reopen.remarks" placeholder="備考"></textarea>
+    </mat-form-field>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <button mat-raised-button color="warn" class="btn-orange mr-10" [disabled]="!saveForm.valid"
+          [mat-dialog-close]="true" cdkFocusInitial type="submit">保存</button>
+        <button mat-raised-button color="warn" class="btn-basic mr-10" [mat-dialog-close]="false"
+          type="reset">キャンセル</button>
+      </div>
+    </div>
+    <br>
+  </form>
+</mat-dialog-content>
+
+  
+
+<mat-dialog-actions align="center" *ngIf="data.btnPrjYes != undefined">
+  <button style="margin-left: 0px;" (click)="btnPrjYes()" mat-raised-button [mat-dialog-close]="true" class="dialogBtn"
+    cdkFocusInitial color="primary">{{data.btnPrjYes | i18n}}</button>
+  <button (click)="btnPrjNo()" *ngIf="data.btnPrjNo != undefined" mat-raised-button mat-dialog-close class="dialogBtn"
+    color="basic">{{data.btnPrjNo | i18n}}</button>
+</mat-dialog-actions>
+
+<mat-dialog-actions align="center" *ngIf="data.btnYes != undefined">
+  <button mat-raised-button [mat-dialog-close]="true" class="dialogBtn" cdkFocusInitial
+    color="primary">{{data.btnYes | i18n}}</button>
+  <button *ngIf="data.btnNo != undefined" mat-raised-button mat-dialog-close class="dialogBtn"
+    color="basic">{{data.btnNo | i18n}}</button>
+</mat-dialog-actions>
+

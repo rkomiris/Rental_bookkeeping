@@ -1,0 +1,32 @@
+<div class="content-pageXXX container-fluid">
+    <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+      <app-tasks></app-tasks>
+
+      <article class="right-panel">
+
+        <h4 class="page-title">FAQ</h4>
+
+        <div class="row">
+          <div class="col-md-12">
+              <mat-accordion>
+
+                  <mat-expansion-panel *ngFor="let item of items">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title style="font-weight: bold;">
+                        {{ item.question }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>{{ item.answer }}</p>
+                  </mat-expansion-panel>
+
+                </mat-accordion>
+                <br>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+  </div>

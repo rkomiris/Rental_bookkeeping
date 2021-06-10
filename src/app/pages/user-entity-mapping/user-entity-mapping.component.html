@@ -1,0 +1,61 @@
+<div class="content-pageXXX container-fluid">
+  <div class="contentXXX main-content">
+    <article class="right-panel">
+      <app-left-nav></app-left-nav>
+      <h4 class="page-title">{{labels.userEntityMapping  | i18n}}</h4>
+
+
+
+      <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <mat-grid-list cols="1" align="end">
+            <mat-form-field style="width:inherit;">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{labels.filter}}">
+            </mat-form-field>
+            <!-- <button mat-icon-button (click)="removeSelectedRows()">
+              <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Delete">delete
+              </mat-icon>
+            </button> -->
+          </mat-grid-list>
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="dTable">
+            <ng-container matColumnDef="select">
+              <th style="width: 3%" mat-header-cell *matHeaderCellDef [ngClass]="'text-center'">
+
+              </th>
+              <td mat-cell *matCellDef="let row" [ngClass]="'text-left'">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" (change)="row.highlighted = !row.highlighted">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="User Role Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.user}} </th>
+              <td mat-cell *matCellDef="let row"> {{row.firstName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Functions">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{labels.FUNCTIONS}} </th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-raised-button color="warn" class="mr-2" type="button" *ngIf="add"
+                  (click)="configure(row)">{{labels.configure}}</button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button mat-raised-button color="warn" class="ml-2" type="button" *ngIf="view"
+                  (click)="viewDetails(row)">{{labels.view}}</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="userBaseFieldName"></tr>
+            <tr mat-row *matRowDef="let row;  columns:userBaseFieldName"></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+      </div>
+
+    </article>
+  </div>
+</div>

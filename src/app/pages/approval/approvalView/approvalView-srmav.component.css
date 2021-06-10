@@ -1,0 +1,39 @@
+.col-md-3.fourthDiv:nth-child(4n+5) {
+    clear: left !important;
+    /* background: #ccc !important; */
+}
+
+
+
+
+
+
+
+  .mat-checkbox {margin-right: 15px;}
+.mat-radio-button {margin-right: 15px;}
+.custom_clear:nth-child(5) {clear: left;}
+mat-expansion-panel-header {
+  /* background: linear-gradient(rgb(252, 111, 106) 0%, rgb(255, 189, 170) 100%) !important; */
+  background: #eaeaea !important;
+  padding: 0 10px !important;
+  height: 42px !important;
+}
+mat-panel-title.mat-expansion-panel-header-title {
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+  font-weight: 500;
+  line-height: 20px;
+}
+mat-expansion-indicator{
+  color: #fff !important;
+}
+
+
+
+.mat-elevation-z8 {margin-top:0 !important;}
+
+.dis{
+  pointer-events: none;
+}

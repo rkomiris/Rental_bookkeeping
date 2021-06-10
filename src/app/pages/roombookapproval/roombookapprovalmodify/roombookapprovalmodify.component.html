@@ -1,0 +1,461 @@
+<form>
+  <div class="content-pageXXX container-fluid">
+    <div class="contentXXX main-content">
+
+      <app-left-nav></app-left-nav>
+
+      <article class="right-panel">
+
+        <!-- {{saveForm.value | json}} -->
+        <h4 class="page-title">Room Booking Approval Modify</h4>
+        <!--<div class="row">
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-select (selectionChange)="getSubTypeList($event)" #requestTypeId name="requestTypeId" [(ngModel)]="requestObj.requestTypeId"
+              placeholder="Request Type">
+              <mat-option *ngFor="let requestTypeList of onloadDropdownData.requestTypeList"
+                [value]="requestTypeList.requestTypeId">
+                {{requestTypeList.requestTypeName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-select (selectionChange)="getreqDetail()" [disabled]="requestTypeId.value === ''"
+              name="requestSubtypeId" placeholder="Request SubType" [(ngModel)]="requestObj.requestSubtypeId">
+              <mat-option *ngFor="let requestSubTypeList of requestSubTypeList"
+                [value]="requestSubTypeList.requestSubTypeId">
+                {{requestSubTypeList.requestSubTypeName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>-->
+        <div class="row mb-15">
+          <div class="col-md-12 readonly ">
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingSubject' ">
+              <mat-form-field>
+                <input name="roomBookingSubject" matInput placeholder="Subject"
+                  [(ngModel)]="requestObj.roomBookingSubject">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'id' ">
+              <mat-form-field>
+                <input name="locationName" matInput placeholder="Location" [(ngModel)]="requestObj.locationName">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'sublocationId' ">
+              <mat-form-field>
+                <input name="sublocationName" matInput placeholder="Sub Location"
+                  [(ngModel)]="requestObj.sublocationName">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'departmentId' ">
+              <mat-form-field>
+                <input name="departmentName" matInput placeholder="Department" [(ngModel)]="requestObj.departmentName">
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingFromDate' ">
+              <mat-form-field>
+                <input name="roomBookingFromDate" matInput placeholder="From Date"
+                  [(ngModel)]="requestObj.roomBookingFromDate">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingFromTime' ">
+              <mat-form-field>
+                <input name="roomBookingFromTime" matInput placeholder="From Time"
+                  [(ngModel)]="requestObj.roomBookingFromTime">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingToDate' ">
+              <mat-form-field>
+                <input name="roomBookingToDate" matInput placeholder="To Date"
+                  [(ngModel)]="requestObj.roomBookingToDate">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingToTime' ">
+              <mat-form-field>
+                <input name="roomBookingToTime" matInput placeholder="To Time"
+                  [(ngModel)]="requestObj.roomBookingToTime">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingPriority' ">
+              <mat-form-field>
+                <mat-select name="roomBookingPriority" placeholder="Priority"
+                  [(ngModel)]="requestObj.roomBookingPriority" required>
+                  <mat-option *ngFor="let requestPriority of requestPriority" [value]="requestPriority.value">
+                    {{requestPriority.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingCode' ">
+              <mat-form-field>
+                <input name="roomBookingCode" matInput placeholder="Room Booking Code"
+                  [(ngModel)]="requestObj.roomBookingCode">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomConfigName' ">
+              <mat-form-field>
+                <input name="roomConfigName" matInput placeholder="Room Configuration Name"
+                  [(ngModel)]="requestObj.roomConfigName">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingNoOfSeats' ">
+              <mat-form-field>
+                <input name="roomBookingNoOfSeats" matInput placeholder="No of Seats"
+                  [(ngModel)]="requestObj.roomBookingNoOfSeats">
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-3" *ngIf="userBaseFieldName | arrayFilter : 'Day' ">
+                <div *ngIf="requestObj.isRoomBookingRecursive === true">
+                  <span class="weekdays" *ngFor="let topic of checklist; let i=index">
+                    <mat-checkbox (ngModelChange)="onChange(topic, $event)"
+                      [checked]="requestObj.day.indexOf(topic.id) >= 0" [value]="topic.id" name="arrayOfDays{{i}}">
+                      {{topic.value}}
+                    </mat-checkbox>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!--<div class="col-md-3" [hidden] = "isRoomBookingRecursive !== true">
+
+        <span  *ngFor="let formitemselect of checklist ; let i = index">
+          <mat-checkbox disabled (change)="updateCheckedOptions(formitemselect, $event,formitem)"  [checked]="formitem.objectList.indexOf(formitemselect) >= 0" [value]="formitemselect" [name]="formitem.requestScreenDetailConfigurationFieldName" >{{formitemselect}} &nbsp;</mat-checkbox>
+
+        </span>
+        </div>-->
+          </div>
+        </div>
+
+
+
+        <!-- <h4 class="page-title">Personal Info</h4>
+
+       <div class="row mb-15">
+         <div class="col-md-12">
+          <div class="col-md-3">
+              <mat-form-field>
+                <mat-select name="requestPriority" placeholder="Priority" disabled [(ngModel)]="requestObj.requestPriority" required>
+                  <mat-option *ngFor="let requestPriority of requestPriority" [value]="requestPriority.value">
+                    {{requestPriority.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col-md-3">
+                <mat-form-field>
+                  <input name="requestSubject" matInput placeholder="Request Subject" disabled [(ngModel)]="requestObj.requestSubject">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                  <mat-form-field>
+                    <input readonly matInput  disabled [matDatepicker]="picker2" name="requestFromDate" placeholder="Required From"  [(ngModel)]="requestObj.requestFromDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker3" disabled name="requestToDate" placeholder="Required To"  [(ngModel)]="requestObj.requestToDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-12">
+              <div class="col-md-3">
+                  <mat-form-field>
+                    <input name="requestCode" matInput placeholder="Request Code" disabled  [(ngModel)]="requestObj.requestCode" >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                      <input readonly disabled  name="requestExtension" type="number" matInput placeholder="Extension"  [(ngModel)]="requestObj.requestExtension">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                      <mat-checkbox name="requestIsCancel" disabled [(ngModel)]="requestObj.requestIsCancel"> Cancel Request?</mat-checkbox>
+                    </div>
+                    </div>
+
+      </div>-->
+
+
+
+
+
+
+
+
+
+        <!--<div class="row">
+        <div class="col-md-12">
+          <h4 class="page-title">Sequence Type</h4>
+        </div>
+        <div >
+        <div >
+            <div  class="col-md-3 fourthDiv"
+              *ngFor="let item of requestObj.requestWorkFlowAuditVoList; let i = index"   >
+
+              <div >
+                  <mat-form-field  >
+
+                      <input matInput [placeholder]="item.requestScreenDetailConfigurationFieldName"  name="requestScreenDetailConfigurationFieldValue" [(ngModel)]="item.requestDetailFieldValue">
+                     <input type="hidden" name="requestScreenDetailConfigurationFieldType" [(ngModel)]="item.requestScreenDetailConfigurationFieldType">
+                      <input type="hidden" name="requestDetailId" [(ngModel)]="item.requestDetailId">
+                      <input type="hidden" name="requestId" [(ngModel)]="item.requestId">
+                      <input type="hidden" name="requestScreenConfigId" [(ngModel)]="item.requestScreenConfigId">
+                      <input type="hidden" name="requestScreenDetailConfigId" [(ngModel)]="item.requestScreenDetailConfigId">
+                      <input type="hidden" name="requestScreenDetailConfigurationIsActive" [(ngModel)]="item.requestScreenDetailConfigurationIsActive">
+
+                    </mat-form-field>
+                  <mat-form-field  *ngSwitchCase="'comboBox'">
+
+                      <mat-select [placeholder]="item.requestScreenDetailConfigurationFieldName" name="requestScreenDetailConfigurationFieldValue" [(ngModel)]="item.requestDetailFieldValue">
+                        <mat-option *ngFor="let list of item.list_value"
+                          [value]="list">
+                          {{list}}</mat-option>
+                      </mat-select>
+                      <input type="hidden" name="requestScreenDetailConfigurationFieldType" [(ngModel)]="item.requestScreenDetailConfigurationFieldType">
+                      <input type="hidden" name="requestDetailId" [(ngModel)]="item.requestDetailId">
+                      <input type="hidden" name="requestId" [(ngModel)]="item.requestId">
+                      <input type="hidden" name="requestScreenConfigId" [(ngModel)]="item.requestScreenConfigId">
+                      <input type="hidden" name="requestScreenDetailConfigId" [(ngModel)]="item.requestScreenDetailConfigId">
+                      <input type="hidden" name="requestScreenDetailConfigurationIsActive" [(ngModel)]="item.requestScreenDetailConfigurationIsActive">
+                    </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </div>-->
+
+        <!-- </div>-->
+        <!--<div class="row mb-15">
+          <div class="col-md-12">
+            <h4 class="page-title">Sequence Type</h4>
+          </div>
+          <div class="col-md-12">
+          <div  *ngFor = "let formitem of requestObj.requestDetailList" class="col-md-3 custom_clear"  >
+
+            <div [ngSwitch]="formitem.requestScreenDetailConfigurationFieldType">
+
+              <div *ngSwitchCase ="'S'">
+                <mat-form-field>
+                    <mat-select disabled placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}" [name]="formitem.requestScreenDetailConfigurationFieldName" [(ngModel)] ="formitem.requestScreenDetailConfigurationFieldValue" [(value)] ="formitem.requestScreenDetailConfigurationFieldValue" [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'" >
+                        <mat-option *ngFor = "let formitemselect of formitem.list_value | keyvalue" [value]="formitemselect.value">{{ formitemselect.value }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+               </div>
+               <div *ngSwitchCase ="'C'">
+
+                               <div style="color: rgba(0,0,0,.54);font-size: 9px"> {{formitem.requestScreenDetailConfigurationFieldName}}</div>
+
+                   <span  *ngFor="let formitemselect of formitem.list_value ; let i = index">
+                        <mat-checkbox disabled (change)="updateCheckedOptions(formitemselect, $event,formitem)"  [checked]="formitem.objectList.indexOf(formitemselect) >= 0" [value]="formitemselect" [name]="formitem.requestScreenDetailConfigurationFieldName" [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'">{{formitemselect}} &nbsp;</mat-checkbox>
+
+                      </span>
+
+              </div>
+
+                <div *ngSwitchCase ="'A'">
+
+                  <mat-form-field>
+                            <textarea disabled matInput placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}" [name]="formitem.requestScreenDetailConfigurationFieldName" [(ngModel)] ="formitem.requestScreenDetailConfigurationFieldValue" [(value)] ="formitem.requestScreenDetailConfigurationFieldValue" [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'"  ></textarea>
+                          </mat-form-field>
+
+                  </div>
+                  <div *ngSwitchCase ="'T'">
+                      <mat-form-field>
+
+                              <input disabled type="text" matInput placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}" [name]="formitem.requestScreenDetailConfigurationFieldName" [(ngModel)] ="formitem.requestScreenDetailConfigurationFieldValue" [(value)] ="formitem.requestScreenDetailConfigurationFieldValue" [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'"  />
+                            </mat-form-field>
+
+                    </div>
+
+                      <div *ngSwitchCase ="'R'">
+                          <div style="color: rgba(0,0,0,.54);font-size: 9px"> {{formitem.requestScreenDetailConfigurationFieldName}}</div>
+
+                          <mat-radio-group  disabled [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'" [(ngModel)] ="formitem.requestScreenDetailConfigurationFieldValue" [name]="formitem.requestScreenDetailConfigurationFieldName" >
+                                  <mat-radio-button *ngFor = "let formitemselect of formitem.list_value | keyvalue" [value]="formitemselect.value" >{{ formitemselect.value }} &nbsp; </mat-radio-button>
+
+                                </mat-radio-group>
+
+
+                        </div>
+                        <div *ngSwitchCase ="'D'">
+                            <mat-form-field>
+                                    <input disabled matInput [matDatepicker]="picker" placeholder="{{formitem.requestScreenDetailConfigurationFieldName}}" [name]="formitem.requestScreenDetailConfigurationFieldName" [(ngModel)] ="formitem.requestScreenDetailConfigurationFieldValue" [(value)] ="formitem.requestScreenDetailConfigurationFieldValue" [required] = "formitem.requestScreenDetailConfigurationValidationIsRequired === true ? 'true':'false'" >
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker  #picker></mat-datepicker>
+
+                                  </mat-form-field>
+                          </div>
+              </div>
+
+
+             </div>
+             </div>
+
+        </div>-->
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="page-title">Room Book Approval Status</h4>
+          </div>
+          <div class="col-md-12"><br></div>
+          <div class="col-md-12">
+            <!--<button mat-raised-button color="warn" class="btn-orange mr-10" (click)="approval(dataSource)" >Submit</button>-->
+            <!-- <button mat-raised-button color="warn" class="btn-orange mr-10" type="reset">Cancel</button>-->
+            <div class="col-md-2 readonly" *ngIf="userBaseFieldName | arrayFilter : 'userName' ">
+
+              <mat-form-field>
+
+                <input type="text" matInput placeholder="User" name="userName" [(ngModel)]="singleapproval.userName" />
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-5" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingWorkFlowAuditRemarks' ">
+              <mat-form-field>
+                <input matInput placeholder="Remarks" maxlength="250" name="vvv"
+                  [(ngModel)]="singleapproval.roomBookingWorkFlowAuditRemarks" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-5" *ngIf="userBaseFieldName | arrayFilter : 'roomBookingWorkFlowAuditDescisionType' ">
+
+              <button [disabled]="singleapproval.roomBookingWorkFlowAuditDescisionType===1 || buttonValidation == '0'"
+                *ngIf="singleapproval.roomBookingWorkFlowAuditDescisionType===1 || singleapproval.roomBookingWorkFlowAuditDescisionType===0"
+                mat-raised-button color="warn" class="btn-orange mr-10" (click)="approval(1)">Approved</button>
+              <button [disabled]="singleapproval.roomBookingWorkFlowAuditDescisionType===2 || buttonValidation == '0'"
+                *ngIf="singleapproval.roomBookingWorkFlowAuditDescisionType===2 || singleapproval.roomBookingWorkFlowAuditDescisionType===0"
+                mat-raised-button color="warn" class="btn-orange mr-10" (click)="approval(2)">Reject</button>
+              <button [disabled]="singleapproval.roomBookingWorkFlowAuditDescisionType===3 || buttonValidation == '0'"
+                *ngIf="singleapproval.roomBookingWorkFlowAuditDescisionType===3 || singleapproval.roomBookingWorkFlowAuditDescisionType===0"
+                mat-raised-button color="warn" class="btn-orange mr-10" (click)="approval(3)">Resubmit</button>
+              <button mat-raised-button color="warn" class="btn-orange" routerLink="/roombookapproval">Back</button>
+            </div>
+          </div>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Room Book Approval List
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row" style="text-align: center">
+              <div class="col-md-10"></div>
+              <div class="col-md-1">
+                <div style="border-radius: 5px;margin: 0px 27px;width: 20px;height: 20px;background-color: gainsboro">
+                </div> Initial
+              </div>
+              <!-- <div class="col-md-1"> <div style="border-radius: 5px;margin: 0px 27px;width: 20px;height: 20px;background-color: green"></div> De-Escalate</div>-->
+              <div class="col-md-1">
+                <div style="border-radius: 5px;margin: 0px 27px;width: 20px;height: 20px;background-color: red"></div>
+                Escalate
+              </div>
+
+            </div>
+            <div class="mat-elevation-z8 " style="margin-top:15px">
+
+              <div class="table-responsive">
+
+                <table mat-table [dataSource]="dataSource" matSort class="dTable">
+
+                  <!-- <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'" style="width:50px;">
+
+                        </th>
+                        <td mat-cell *matCellDef="let row" [ngClass]="'text-center'">
+                          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event  ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)" (change)="row.highlighted = !row.highlighted" (change)="editRecord($event,row)">
+                          </mat-checkbox>
+                        </td>
+                      </ng-container>  -->
+
+                  <!--<ng-container matColumnDef="sequance">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header disabled>Sequance </th>
+                        <td mat-cell *matCellDef="let row" disabled> {{row.seqId}} </td>
+                      </ng-container>-->
+
+                  <ng-container matColumnDef="userName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> User </th>
+                    <td mat-cell *matCellDef="let row" disabled>{{row.userName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="workFlowAuditApprovalExecuter">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> Approval/Executer/Requester </th>
+                    <td mat-cell *matCellDef="let row" disabled>
+                      <!--{{row.approvalExecuter}}-->
+                      <span *ngIf="row.workFlowAuditApprovalExecuter===1">Approval</span>
+                      <span *ngIf="row.workFlowAuditApprovalExecuter===2">Executer</span>
+                      <span *ngIf="row.workFlowAuditApprovalExecuter===3">Requester</span>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="roomBookingWorkFlowAuditDescisionType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> Descision Type </th>
+                    <!-- <td mat-cell *matCellDef="let row">{{row.descisionType}}</td> -->
+                    <td mat-cell *matCellDef="let row;let i = index">
+                      <!--  <button mat-raised-button color="warn" [disabled]="row.descisionType==1" *ngIf="row.descisionType==1 || row.descisionType==0" class="btn-orange mr-10" (click)="approval(row,1)" >Approved</button>
+                            <button mat-raised-button color="warn" [disabled]="row.descisionType==2" *ngIf="row.descisionType==2 || row.descisionType==0" class="btn-orange mr-10" (click)="approval(row,2)" >Reject</button>
+                            <button mat-raised-button color="warn" [disabled]="row.descisionType==3" *ngIf="row.descisionType==3 || row.descisionType==0" class="btn-orange mr-10" (click)="approval(row,3)" >Resubmit</button>
+                        -->
+                      <span *ngIf="row.roomBookingWorkFlowAuditDescisionType===0">Pending</span>
+                      <span *ngIf="row.roomBookingWorkFlowAuditDescisionType===1">Approved</span>
+                      <span *ngIf="row.roomBookingWorkFlowAuditDescisionType===2">Reject</span>
+                      <span *ngIf="row.roomBookingWorkFlowAuditDescisionType===3">Resubmit</span>
+                      <!-- <mat-select  name="row_{{i}}" [(ngModel)]="row.descisionType">
+                            <mat-option [value]="1">Approved</mat-option>
+                            <mat-option [value]="2">Reject</mat-option>
+                          </mat-select> -->
+                      <!--{{(row.descisionType)? 'Approved':'Reject'}}-->
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="roomBookingWorkFlowAuditRemarks">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> Remarks </th>
+                    <td mat-cell *matCellDef="let row ;let i = index">
+                      <!-- <mat-form-field>
+                          <textarea   name="remarks_{{i}}"  matInput   [(ngModel)]="row.remarks"></textarea>
+                         </mat-form-field>-->
+                      {{row.roomBookingWorkFlowAuditRemarks}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="approvedDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled> Approved Date </th>
+                    <td mat-cell *matCellDef="let row ;let i = index">
+                      <!-- <mat-form-field>
+                            <textarea   name="remarks_{{i}}"  matInput   [(ngModel)]="row.remarks"></textarea>
+                           </mat-form-field>-->
+                      {{row.approvedDate | date:'medium'}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="sla">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>SLA </th>
+                    <td mat-cell *matCellDef="let row">
+                      <div style="border-radius: 3px;width: 50px;height: 10px;background-color: gainsboro" *ngIf="row.status===0"></div>
+                      <!--<div style="border-radius: 3px;width: 50px;height: 10px;background-color: green" *ngIf="row.status===1"></div>-->
+                      <div style="border-radius: 3px;width: 50px;height: 10px;background-color: red" *ngIf="row.status===2"></div>
+                    </td>
+                  </ng-container>
+
+
+                  <tr mat-header-row *matHeaderRowDef="reqViewDetailsField"></tr>
+                  <!-- <tr mat-row *matRowDef="let row;  columns:reqViewDetailsField" (click)="row.highlighted = !row.highlighted"
+                          [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr> -->
+                  <tr mat-row *matRowDef="let row;  columns:reqViewDetailsField"></tr>
+
+                </table>
+              </div>
+
+              <!--  <mat-paginator [pageSizeOptions]="[5]" [hidePageSize]="true" showFirstLastButtons></mat-paginator>-->
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </article>
+
+    </div>
+  </div>
+</form>
